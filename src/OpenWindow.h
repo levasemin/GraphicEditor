@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GraphLib/GraphicLib.h"
+#include "GraphLib/Library/GraphicLib.h"
 
 #include "Canvas.h"
 

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "GraphLib/Image.h"
-#include "GraphLib/Command.h"
-#include "GraphLib/Widget.h"
-#include "GraphLib/Object.h"
+#include "GraphLib/Library/Image.h"
+#include "GraphLib/Library/Command.h"
+#include "GraphLib/Library/Widget.h"
+#include "GraphLib/Library/Object.h"
 
 using namespace SL;
 
