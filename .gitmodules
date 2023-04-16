@@ -1,6 +1,3 @@
-[submodule "src/src/Library"]
-	path = src/src/Library
-	url = https://github.com/levasemin/Graphic-Library.git
-[submodule "src/GraphLib"]
-	path = src/GraphLib
+[submodule "src/Graphic-Library"]
+	path = src/Graphic-Library
 	url = https://github.com/levasemin/Graphic-Library.git
