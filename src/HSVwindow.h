@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GraphLib/Library/GraphicLib.h"
+#include "Graphic-Library/GraphLib/GraphicLib.h"
 #include "HSVpalette.h"
 #include <string.h>
 

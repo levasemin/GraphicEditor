@@ -3,14 +3,14 @@
 #include "ToolManager.h"
 #include "ToolButton.h"
 #include "ToolCanvas.h"
-#include "GraphLib/Library/Label.h"
+#include "Graphic-Library/GraphLib/Label.h"
 #include "ToolHorizontalScrollBar.h"
 #include "ToolPalette.h"
 #include "Canvas.h"
 #include "stdint.h"
 #include "tools.h"
 #include "optionals.h"
-#include "GraphLib/Library/Image.h"
+#include "Graphic-Library/GraphLib/Image.h"
 
 booba::GUID booba::getGUID()
 {

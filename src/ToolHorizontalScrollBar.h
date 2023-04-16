@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GraphLib/Library/HorizontalScrollBar.h"
+#include "Graphic-Library/GraphLib/HorizontalScrollBar.h"
 #include "tools.h"
 #include "optionals.h"
 

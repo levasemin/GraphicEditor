@@ -4,7 +4,7 @@
 #include <vector>
 #include <math.h>
 
-#include "GraphLib/Library/GraphicLib.h"
+#include "Graphic-Library/GraphLib/GraphicLib.h"
 
 class Interpolator
 {

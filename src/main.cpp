@@ -1,4 +1,4 @@
-#include "GraphLib/Library/GraphicLib.h"
+#include "Graphic-Library/GraphLib/GraphicLib.h"
 #include "SaveWindow.h"
 #include "OpenWindow.h"
 #include "ColorPicker.h"

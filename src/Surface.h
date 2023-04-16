@@ -1,8 +1,8 @@
 #pragma once
 
-#include "GraphLib/Library/Image.h"
-#include "GraphLib/Library/Widget.h"
-#include "GraphLib/Library/Object.h"
+#include "Graphic-Library/GraphLib/Image.h"
+#include "Graphic-Library/GraphLib/Widget.h"
+#include "Graphic-Library/GraphLib/Object.h"
 
 using namespace SL;
 

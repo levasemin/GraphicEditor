@@ -1,9 +1,9 @@
 #pragma once
 
-#include "GraphLib/Library/Command.h"
+#include "Graphic-Library/GraphLib/Command.h"
 #include "tools.h"
 #include "optionals.h"
-#include "GraphLib/Library/Event.h"
+#include "Graphic-Library/GraphLib/Event.h"
 
 template <class Receiver>
 class ToolCommand : public Command<const booba::Event &>
