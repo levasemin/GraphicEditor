@@ -4,7 +4,7 @@
 #include <vector>
 #include <math.h>
 
-#include "Library/GraphicLib.h"
+#include "Library/GraphLib/GraphicLib.h"
 
 class Interpolator
 {
@@ -14,7 +14,6 @@ public:
     Interpolator(int type):
         type_(type)
     {
-
     }
     
     static const int CATMULL_ROM = 0;

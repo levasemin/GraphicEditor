@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Library/GraphicLib.h"
+#include "Library/GraphLib/GraphicLib.h"
 
 using namespace SL;
 

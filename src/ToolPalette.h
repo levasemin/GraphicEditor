@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "Library/CompositeObject.h"
+#include "Library/GraphLib/CompositeObject.h"
 
 class ToolPalette : public CompositeObject
 {

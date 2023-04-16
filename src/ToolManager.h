@@ -4,9 +4,9 @@
 
 #include "Tool.h"
 #include "ToolPalette.h"
-#include "Library/Container.h"
+#include "Library/GraphLib/Container.h"
 #include <vector>
-#include "Library/SimpleCommand.h"
+#include "Library/GraphLib/SimpleCommand.h"
 #include "Surface.h"
 #include <deque>
 #include <unordered_map>

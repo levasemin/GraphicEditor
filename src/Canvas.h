@@ -3,13 +3,13 @@
 
 #pragma once
 
-#include "Library/RenderTexture.h"
-#include "Library/CompositeObject.h"
+#include "Library/GraphLib/RenderTexture.h"
+#include "Library/GraphLib/CompositeObject.h"
 #include <vector>
 #include "Surface.h"
 #include "ToolManager.h"
 #include "ToolPalette.h"
-#include "Library/Vector2d.h"
+#include "Library/GraphLib/Vector2d.h"
 #include <filesystem>
 #include <dlfcn.h>
 

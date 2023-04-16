@@ -1,4 +1,4 @@
-#include "Library/GraphicLib.h"
+#include "Library/GraphLib/GraphicLib.h"
 #include "SaveWindow.h"
 #include "OpenWindow.h"
 #include "ColorPicker.h"
@@ -11,7 +11,7 @@
 #include <vector>
 #include <string>
 
-const std::string path_mountain = "/home/levce/projectsDED/event_handler2/Event_handler/source/british.png";
+const std::string path_mountain = "british.png";
 
 booba::ApplicationContext* booba::APPCONTEXT = nullptr;
 
@@ -132,7 +132,7 @@ ComboBox *create_file_combobox(Canvas *canvas)
 ColorPicker *create_color_picker()
 {
     TextureManager &texture_manager = TextureManager::getInstance();
-
+    ;
     Button *foreground_button = new Button(Vector2d(40, 40), Vector2d(140, 355), Texture(Color::White));
     Button *background_button = new Button(Vector2d(40, 40), Vector2d(180, 395), Texture(Color::Black));    
     Button *swap_button       = new Button(Vector2d(20, 20), Vector2d(170, 365), Texture(Color(button_color)));    

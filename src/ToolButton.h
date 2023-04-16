@@ -1,9 +1,9 @@
 #pragma once
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 
-#include "Library/Button.h"
-#include "Library/SimpleCommand.h"
-#include "Library/Vector2d.h"
+#include "Library/GraphLib/Button.h"
+#include "Library/GraphLib/SimpleCommand.h"
+#include "Library/GraphLib/Vector2d.h"
 #include "tools.h"
 #include "optionals.h"
 

@@ -1,7 +1,7 @@
 #pragma once
 #define ELPIDIFOR_HIDDEN_LAYER 
 
-#include "Library/GraphicLib.h"
+#include "Library/GraphLib/GraphicLib.h"
 #include "ToolCommand.h"
 #include "ToolButton.h"
 
