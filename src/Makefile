@@ -12,8 +12,8 @@ bucket:
 	$(CC) -shared -fPIC -Wextra ToolBucket.cpp Color.cpp functions.cpp -o Plugins/Bucket.so
 
 
-event_handler: clean Library/GraphLib/event_handler.o $(BuildF)main.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o
-	$(CC) 			 Library/GraphLib/event_handler.o $(BuildF)main.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o -o event_handler -lsfml-graphics -lsfml-window -lsfml-system -ldl -export-dynamic
+event_handler: clean GraphLib/event_handler.o $(BuildF)main.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o
+	$(CC) 			 GraphLib/event_handler.o $(BuildF)main.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o -o event_handler -lsfml-graphics -lsfml-window -lsfml-system -ldl -export-dynamic
 
 $(BuildF)main.o:
 	$(CC) -c main.cpp -o $(BuildF)main.o
