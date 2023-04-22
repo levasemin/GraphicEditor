@@ -1,11 +1,12 @@
-#include "Graphic-Library/GraphLib/GraphicLib.h"
-#include "SaveWindow.h"
-#include "OpenWindow.h"
-#include "ColorPicker.h"
+#include "Graphic-Library/GraphLib/GraphLib.h"
 
-#include "Canvas.h"
-#include "HSVpalette.h"
-#include "HSVwindow.h"
+#include "Custom_Widgets/SaveWindow.h"
+#include "Custom_Widgets/OpenWindow.h"
+#include "Custom_Widgets/ColorPicker.h"
+
+#include "Custom_Widgets/Canvas.h"
+#include "Custom_Widgets/HSVpalette.h"
+#include "Custom_Widgets/HSVwindow.h"
 
 #include <iostream>
 #include <vector>
@@ -23,16 +24,16 @@ const Color button_color     (uint8_t(44),  uint8_t(44),  uint8_t(44));
 
 SaveWindow *create_save_window()
 {
-    Editor *path_editor = new Editor(Vector2d(200, 40), Vector2d(150, 80));
+    Editor *path_editor = new Editor(Vector2d(200, 40), Vector2d(50, 60));
     path_editor->setTextColor(text_color);
     path_editor->set_texture(Texture(editor_color));
     path_editor->setAlignment(Label::Alignment::LeftCenter);
     
-    Button *save_button = new Button(Vector2d(70, 20), Vector2d(55, 165), Texture(button_color));
+    Button *save_button = new Button(Vector2d(70, 20), Vector2d(20, 155), Texture(button_color));
     save_button->setString("Save");
     save_button->setCharacterSize(20);
     
-    Button *cancel_button = new Button(Vector2d(70, 20), Vector2d(245, 165), Texture(button_color));
+    Button *cancel_button = new Button(Vector2d(70, 20), Vector2d(210, 155), Texture(button_color));
     cancel_button->setString("Cancel");
     cancel_button->setCharacterSize(20);
 
@@ -44,16 +45,16 @@ SaveWindow *create_save_window()
 OpenWindow *create_open_window()
 {
    
-    Editor *path_editor = new Editor(Vector2d(200, 40), Vector2d(150, 80));
+    Editor *path_editor = new Editor(Vector2d(200, 40), Vector2d(50, 60));
     path_editor->setTextColor(text_color);
     path_editor->set_texture(Texture(editor_color));
     path_editor->setAlignment(Label::Alignment::LeftCenter);
 
-    Button *open_button = new Button(Vector2d(70, 20), Vector2d(55, 165), Texture(button_color));
+    Button *open_button = new Button(Vector2d(70, 20), Vector2d(20, 155), Texture(button_color));
     open_button->setString("Open");
     open_button->setCharacterSize(20);
     
-    Button *cancel_button = new Button(Vector2d(70, 20), Vector2d(245, 165), Texture(button_color));
+    Button *cancel_button = new Button(Vector2d(70, 20), Vector2d(215, 155), Texture(button_color));
     cancel_button->setString("Cancel");
     cancel_button->setCharacterSize(20);
 
@@ -64,24 +65,22 @@ OpenWindow *create_open_window()
 
 HSVwindow *create_hsv_window()
 {
-    HSVpalette *hsv_palette = new HSVpalette(Vector2d(175, 315), Vector2d(120, 178));
-    Editor *r_editor        = new Editor(Vector2d(50, 30), Vector2d(270, 35));
-    Editor *g_editor        = new Editor(Vector2d(50, 30), Vector2d(270, 75));
-    Editor *b_editor        = new Editor(Vector2d(50, 30), Vector2d(270, 115));
-    Button *cancel_button   = new Button(Vector2d(70, 20), Vector2d(55, 370), Texture(button_color));
-    Button *ok_button       = new Button(Vector2d(70, 20), Vector2d(245, 370), Texture(button_color));
+    HSVpalette *hsv_palette = new HSVpalette(Vector2d(175, 315), Vector2d(30, 20));
+    
+    Editor *r_editor        = new Editor(Vector2d(50, 30), Vector2d(245, 20));
+    Editor *g_editor        = new Editor(Vector2d(50, 30), Vector2d(245, 60));
+    Editor *b_editor        = new Editor(Vector2d(50, 30), Vector2d(245, 100));
+    Button *cancel_button   = new Button(Vector2d(70, 20), Vector2d(20, 360), Texture(button_color));
+    Button *ok_button       = new Button(Vector2d(70, 20), Vector2d(210, 360), Texture(button_color));
 
     r_editor->set_texture  (editor_color);
     r_editor->setTextColor (text_color);
-    // r_editor->setCharacterSize(18);
 
     g_editor->set_texture  (editor_color);
     g_editor->setTextColor (text_color);
-    // r_editor->setCharacterSize(18);
     
     b_editor->set_texture  (editor_color);
     b_editor->setTextColor (text_color);
-    // r_editor->setCharacterSize(18);
 
     ok_button->setString("Ok");
     ok_button->setTextColor(text_color);
@@ -97,13 +96,13 @@ HSVwindow *create_hsv_window()
 
 ComboBox *create_file_combobox(Canvas *canvas)
 {
-    ComboBox *file_button = new ComboBox(Vector2d(60, 20), Vector2d(30, 10), Texture(button_color));
+    ComboBox *file_button = new ComboBox(Vector2d(60, 20), Vector2d(0, 0), Texture(button_color));
     file_button->setString("File");
     file_button->setCharacterSize(16);
     file_button->set_box_texture(Texture(button_color));
 
 
-    Button *file_save_button = new Button(Vector2d(50, 30), Vector2d(25, 15), Texture(button_color));
+    Button *file_save_button = new Button(Vector2d(50, 30), Vector2d(0, 0), Texture(button_color));
     file_save_button->setCharacterSize(16);
     file_save_button->setString("Save");
     file_save_button->setTextColor(text_color);
@@ -112,7 +111,7 @@ ComboBox *create_file_combobox(Canvas *canvas)
     save_window->set_canvas(canvas);
     file_save_button->set_left_click((Command<const Event &> *) new SimpleCommand<SaveWindow, const Event &>(save_window, &SaveWindow::exec));
 
-    Button *file_open_button = new  Button(Vector2d(50, 30), Vector2d(25, 45), Texture(button_color));
+    Button *file_open_button = new  Button(Vector2d(50, 30), Vector2d(0, 30), Texture(button_color));
     
     file_open_button->setCharacterSize(16);
     file_open_button->setString("Open");
@@ -121,7 +120,6 @@ ComboBox *create_file_combobox(Canvas *canvas)
     OpenWindow *open_window = create_open_window();
     open_window->set_canvas(canvas);
     file_open_button->set_left_click((Command<const Event &> *) new SimpleCommand<OpenWindow, const Event &>(open_window, &OpenWindow::exec));
-
 
     file_button->add(file_save_button);
     file_button->add(file_open_button);
@@ -133,9 +131,11 @@ ColorPicker *create_color_picker()
 {
     TextureManager &texture_manager = TextureManager::getInstance();
     ;
-    Button *foreground_button = new Button(Vector2d(40, 40), Vector2d(140, 355), Texture(Color::White));
-    Button *background_button = new Button(Vector2d(40, 40), Vector2d(180, 395), Texture(Color::Black));    
-    Button *swap_button       = new Button(Vector2d(20, 20), Vector2d(170, 365), Texture(Color(button_color)));    
+    Button *foreground_button = new Button(Vector2d(40, 40), Vector2d(120, 335), Texture(Color::White));
+    
+
+    Button *background_button = new Button(Vector2d(40, 40), Vector2d(160, 375), Texture(Color::Black));    
+    Button *swap_button       = new Button(Vector2d(20, 20), Vector2d(160, 355), Texture(Color(button_color)));    
     swap_button->set_texture(texture_manager[TextureManager::Icon::Swap]);
     booba::APPCONTEXT->fgColor = Color::convert_color_uint(Color::White);
     booba::APPCONTEXT->bgColor = Color::convert_color_uint(Color::Black);
@@ -143,6 +143,7 @@ ColorPicker *create_color_picker()
     HSVwindow *hsv_window = create_hsv_window();
 
     ColorPicker *color_picker = new ColorPicker(foreground_button, background_button, swap_button, hsv_window); 
+
     return color_picker;
 }
 
@@ -158,11 +159,11 @@ int main()
     texture_manager.load_textures("Textures");
 
     Image image(path_mountain);
-    ToolPalette tool_palette(Vector2d(300, 300), Vector2d(160, 173), Texture(tool_color));
-    Container setting_container(Vector2d(300, 568), Vector2d(160, 710));
+    ToolPalette tool_palette(Vector2d(300, 300), Vector2d(10, 23), Texture(tool_color));
+    Container setting_container(Vector2d(300, 568), Vector2d(10, 430));
     setting_container.set_texture(Texture(tool_color));
     
-    Canvas canvas(Vector2d(1400, 970), Vector2d(1020, 508), &tool_palette, &setting_container);
+    Canvas canvas(Vector2d(1400, 970), Vector2d(320, 20), &tool_palette, &setting_container);
 
     canvas.set_image(image);
     

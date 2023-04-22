@@ -3,35 +3,51 @@ CC = g+++
 BuildF = obj/
 
 paint:
-	$(CC) -shared -fPIC -Wextra ToolPaint.cpp Interpolator.cpp Color.cpp functions.cpp -o Plugins/Paint.so
+	$(CC) -shared -fPIC -Wextra Plugins/ToolPaint.cpp Plugins/Interpolator.cpp Graphic-Library/GraphLib/Color.cpp Graphic-Library/GraphLib/functions.cpp -o Plugins/Paint.so
 eraser: 
-	$(CC) -shared -fPIC -Wextra ToolEraser.cpp Interpolator.cpp Color.cpp functions.cpp -o Plugins/Eraser.so
+	$(CC) -shared -fPIC -Wextra Plugins/ToolEraser.cpp Plugins/Interpolator.cpp Graphic-Library/GraphLib/Color.cpp Graphic-Library/GraphLib/functions.cpp -o Plugins/Eraser.so
 eyedropper:
-	$(CC) -shared -fPIC -Wextra ToolEyeDropper.cpp Color.cpp functions.cpp Font.cpp -o Plugins/ToolEyeDropper.so 
+	$(CC) -shared -fPIC -Wextra Plugins/ToolEyeDropper.cpp Graphic-Library/GraphLib/Color.cpp Graphic-Library/GraphLib/functions.cpp Graphic-Library/GraphLib/Font.cpp -o Plugins/ToolEyeDropper.so 
 bucket:
-	$(CC) -shared -fPIC -Wextra ToolBucket.cpp Color.cpp functions.cpp -o Plugins/Bucket.so
+	$(CC) -shared -fPIC -Wextra Plugins/ToolBucket.cpp Graphic-Library/GraphLib/Color.cpp Graphic-Library/GraphLib/functions.cpp -o Plugins/Bucket.so
 
 
-event_handler: clean Graphic-Library/GraphLib/event_handler.o $(BuildF)main.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o
-	$(CC) 			 Graphic-Library/GraphLib/event_handler.o $(BuildF)main.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o -o event_handler -lsfml-graphics -lsfml-window -lsfml-system -ldl -export-dynamic
+event_handler: clean Graphic-Library/GraphLib/event_handler.o $(BuildF)main.o $(BuildF)Canvas.o $(BuildF)ColorPicker.o $(BuildF)HSVwindow.o $(BuildF)OpenWindow.o $(BuildF)SaveWindow.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o
+	$(CC) 			 Graphic-Library/GraphLib/event_handler.o $(BuildF)main.o $(BuildF)Canvas.o $(BuildF)ColorPicker.o $(BuildF)HSVwindow.o $(BuildF)OpenWindow.o $(BuildF)SaveWindow.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o -o event_handler -lsfml-graphics -lsfml-window -lsfml-system -ldl -export-dynamic
 
 $(BuildF)main.o:
 	$(CC) -c main.cpp -o $(BuildF)main.o
 
+$(BuildF)Canvas.o:
+	$(CC) -c Custom_Widgets/Canvas.cpp -o $(BuildF)Canvas.o
+
+$(BuildF)ColorPicker.o:
+	$(CC) -c Custom_Widgets/ColorPicker.cpp -o $(BuildF)ColorPicker.o
+
+$(BuildF)HSVpalette.o:
+	$(CC) -c Custom_Widgets/HSVpalette.cpp -o $(BuildF)HSVpalette.o
+
+$(BuildF)HSVwindow.o:
+	$(CC) -c Custom_Widgets/HSVwindow.cpp -o $(BuildF)HSVwindow.o
+
+$(BuildF)OpenWindow.o:
+	$(CC) -c Custom_Widgets/OpenWindow.cpp -o $(BuildF)OpenWindow.o
+
+$(BuildF)SaveWindow.o:
+	$(CC) -c Custom_Widgets/SaveWindow.cpp -o $(BuildF)SaveWindow.o
+
+
 $(BuildF)plugin_func.o:
-	$(CC) -c plugin_func.cpp -o $(BuildF)plugin_func.o
+	$(CC) -c Plugins/plugin_func.cpp -o $(BuildF)plugin_func.o
 
 $(BuildF)ToolButton.o:
-	$(CC) -c ToolButton.cpp -o $(BuildF)ToolButton.o
-
-$(BuildF)ToolEraser.o:
-	$(CC) -c ToolEraser.cpp -o $(BuildF)ToolEraser.o
+	$(CC) -c Tool/Widgets/ToolButton.cpp -o $(BuildF)ToolButton.o
 
 $(BuildF)ToolManager.o:
-	$(CC) -c ToolManager.cpp -o $(BuildF)ToolManager.o
+	$(CC) -c Tool/ToolManager.cpp -o $(BuildF)ToolManager.o
 
 $(BuildF)Interpolator.o:
-	$(CC) -c Interpolator.cpp -o $(Buildf)Interpolator.o
+	$(CC) -c Plugins/Interpolator.cpp -o $(Buildf)Interpolator.o
 
 clean:
 	rm -rf $(BuildF)/*.o
