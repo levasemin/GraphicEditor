@@ -32,7 +32,6 @@ Canvas::Canvas(Vector2d shape, Vector2d position, ToolPalette *tool_palette, Con
             continue;
         }
 
-        std::cout << curFile.path().c_str() << std::endl;
         void* dlHandler = dlopen(curFile.path().c_str(), RTLD_LAZY);
         
         if (dlHandler) 
