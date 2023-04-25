@@ -128,7 +128,7 @@ public:
         setting_palette->set_texture(setting_field_->get_texture());
         setting_palettes_.push_back(setting_palette);
         init_tool_ = new_tool;
-
+        std::cout << "buildSetupWidget\n";
         new_tool->buildSetupWidget();
     }
     

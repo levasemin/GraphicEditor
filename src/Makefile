@@ -3,13 +3,13 @@ CC = g+++
 BuildF = obj/
 
 paint:
-	$(CC) -shared -fPIC -Wextra Plugins/ToolPaint.cpp Plugins/Interpolator.cpp Graphic-Library/GraphLib/Color.cpp Graphic-Library/GraphLib/functions.cpp -o Plugins/Paint.so
+	$(CC) -shared -fPIC -Wextra Plugins/ToolPaint.cpp Plugins/Interpolator.cpp Graphic-Library/GraphLib/Classes/Color.cpp Graphic-Library/GraphLib/functions/functions.cpp -o Plugins_so/Paint.so
 eraser: 
-	$(CC) -shared -fPIC -Wextra Plugins/ToolEraser.cpp Plugins/Interpolator.cpp Graphic-Library/GraphLib/Color.cpp Graphic-Library/GraphLib/functions.cpp -o Plugins/Eraser.so
+	$(CC) -shared -fPIC -Wextra Plugins/ToolEraser.cpp Plugins/Interpolator.cpp Graphic-Library/GraphLib/Classes/Color.cpp Graphic-Library/GraphLib/functions/functions.cpp -o Plugins_so/Eraser.so
 eyedropper:
-	$(CC) -shared -fPIC -Wextra Plugins/ToolEyeDropper.cpp Graphic-Library/GraphLib/Color.cpp Graphic-Library/GraphLib/functions.cpp Graphic-Library/GraphLib/Font.cpp -o Plugins/ToolEyeDropper.so 
+	$(CC) -shared -fPIC -Wextra Plugins/ToolEyeDropper.cpp Graphic-Library/GraphLib/Classes/Color.cpp Graphic-Library/GraphLib/functions/functions.cpp Graphic-Library/GraphLib/Classes/Font.cpp -o Plugins_so/ToolEyeDropper.so 
 bucket:
-	$(CC) -shared -fPIC -Wextra Plugins/ToolBucket.cpp Graphic-Library/GraphLib/Color.cpp Graphic-Library/GraphLib/functions.cpp -o Plugins/Bucket.so
+	$(CC) -shared -fPIC -Wextra Plugins/ToolBucket.cpp Graphic-Library/GraphLib/Classes/Color.cpp Graphic-Library/GraphLib/functions/functions.cpp -o Plugins_so/Bucket.so
 
 
 event_handler: clean Graphic-Library/GraphLib/event_handler.o $(BuildF)main.o $(BuildF)Canvas.o $(BuildF)ColorPicker.o $(BuildF)HSVwindow.o $(BuildF)OpenWindow.o $(BuildF)SaveWindow.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o

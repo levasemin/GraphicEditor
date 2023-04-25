@@ -12,7 +12,7 @@ OpenWindow::OpenWindow(Vector2d shape, Button *open_button, Button *cancel_butto
 
     open_button_  ->set_left_click((Command<const Event &> *)  new SimpleCommand<OpenWindow, const Event &>(this, &OpenWindow::open_image));
     cancel_button_->set_left_click((Command<const Event &> *) new SimpleCommand<OpenWindow, const Event &>(this, &OpenWindow::close));
-    path_editor_  ->set_editor_command((Command<const std::string &> *) new SimpleCommand<OpenWindow, const std::string &>(this, &OpenWindow::change_path));
+    path_editor_  ->set_editor_command((Command<const Event &> *) new SimpleCommand<OpenWindow, const Event &>(this, &OpenWindow::change_path));
 
     add(path_editor_);
     add(open_button_);
@@ -47,9 +47,14 @@ void OpenWindow::set_canvas(Canvas *canvas)
     canvas_ = canvas;
 }
 
-void OpenWindow::change_path(const std::string &path)
+void OpenWindow::set_path(const std::string &path)
 {
     path_ = path;
+}
+
+void OpenWindow::change_path(const Event &event)
+{
+    path_ = path_editor_->get_text();
 }
 
 void OpenWindow::open_image(const Event &)

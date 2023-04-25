@@ -10,7 +10,7 @@ SaveWindow::SaveWindow(Vector2d shape, Button *save_button, Button *cancel_butto
 
     save_button_  ->set_left_click((Command<const Event &> *)  new SimpleCommand<SaveWindow, const Event &>(this, &SaveWindow::save_image));
     cancel_button_->set_left_click((Command<const Event &> *) new SimpleCommand<SaveWindow, const Event &>(this, &SaveWindow::close));
-    path_editor_  ->set_editor_command((Command<const std::string &> *) new SimpleCommand<SaveWindow, const std::string &>(this, &SaveWindow::change_path));
+    path_editor_  ->set_editor_command((Command<const Event &> *) new SimpleCommand<SaveWindow, const Event &>(this, &SaveWindow::change_path));
 
     add(path_editor_);
     add(save_button_);
@@ -45,7 +45,12 @@ void SaveWindow::set_canvas(Canvas *canvas)
     canvas_ = canvas;
 }
 
-void SaveWindow::change_path(const std::string &path)
+void SaveWindow::change_path(const Event &event)
+{
+    path_ = path_editor_->get_text();
+}
+
+void SaveWindow::set_path(const std::string &path)
 {
     path_ = path;
 }

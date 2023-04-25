@@ -25,7 +25,9 @@ public:
 
     void set_canvas(Canvas *canvas);
 
-    void change_path(const std::string &path);
+    void set_path(const std::string &path);
+
+    void change_path(const Event &event);
 
     void open_image(const Event &);
 

@@ -245,4 +245,4 @@ Image *Canvas::get_image()
 void Canvas::add_tool(Tool *new_tool)
 {
     tool_manager_.add(new_tool);
-}    
+    }    

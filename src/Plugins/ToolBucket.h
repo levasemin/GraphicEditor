@@ -6,10 +6,10 @@
 #include "../Graphic-Library/GraphLib/GraphLib.h"
 
 
-#include "Tool.h"
-#include "ToolCommand.h"
-#include "ToolManager.h"
-
+#include "optionals.h"
+#include "../Tool/Tool.h"
+#include "../Tool/ToolCommand.h"
+#include "../Tool/ToolManager.h"
 #include "Circle.h"
 
 class ToolBucket : public Tool
@@ -27,12 +27,17 @@ public:
         std::memcpy(icon_path_, icon_path, 128);
         booba::addTool(this);
 
-        dispersion_editor_.set_editor_command((Command<const std::string &> *) new SimpleCommand<ToolBucket, const std::string &>(this, &ToolBucket::set_dispersion));
+        dispersion_editor_.set_editor_command((Command<const Event &> *) new SimpleCommand<ToolBucket, const Event &>(this, &ToolBucket::change_dispersion));
     }
 
 
     ToolBucket(const ToolBucket &) = default;
     ToolBucket &operator=(const ToolBucket &) = default;
+
+    void change_dispersion(const Event &event)
+    {
+        set_dispersion(dispersion_editor_.get_text());
+    }
 
     void set_dispersion(const std::string &string)
     {

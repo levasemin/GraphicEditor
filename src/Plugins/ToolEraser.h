@@ -4,12 +4,12 @@
 #include <deque>
 
 #include "../Graphic-Library/GraphLib/GraphLib.h"
-
-
+#include "../Tool/Widgets/ToolEditor.h"
+#include "../Tool/Widgets/ToolHorizontalScrollBar.h"
 #include "optionals.h"
-#include "Tool.h"
-#include "ToolCommand.h"
-#include "ToolManager.h"
+#include "../Tool/Tool.h"
+#include "../Tool/ToolCommand.h"
+#include "../Tool/ToolManager.h"
 
 #include "Circle.h"
 #include "Interpolator.h"
@@ -23,15 +23,13 @@ public:
 
     ToolEraser() : Tool(),
         interpolator_(Interpolator::CATMULL_ROM),
-        width_scroll_bar_(Vector2d(200, 20), Vector2d(20, 20)),
-        width_editor_    (Vector2d(50, 30),  Vector2d(245, 15)),
         points_({}),
         drawing_object_(1.f)
     {
         drawing_object_.set_color(Color::convert_uint_color(Color::convert_color_uint(Color::White)));
 
-        width_scroll_bar_.set_scroll_command((Command<const Event &> *) new SimpleCommand<ToolEraser, const Event &>(this, &ToolEraser::set_width));
-        width_editor_.set_editor_command((Command<const std::string &> *) new SimpleCommand<ToolEraser, const std::string &>(this, &ToolEraser::set_width));
+        // width_scroll_bar_.set_scroll_command((Command<const booba::Event &> *) new SimpleCommand<ToolEraser, const booba::Event &>(this, &ToolEraser::set_width));
+        // width_editor_.set_editor_command((Command<const booba::Event &> *) new SimpleCommand<ToolEraser, const booba::Event &>(this, &ToolEraser::set_width_editor));
 
         char icon_path[128] = "source/Eraser.png";
         std::memcpy(icon_path_, icon_path, 128);
@@ -40,28 +38,34 @@ public:
 
     ToolEraser(const ToolEraser &) = default;
     ToolEraser &operator=(const ToolEraser &) = default;
-
-    void set_width(const std::string &string)
+    
+    void set_width_editor(const booba::Event &event)
     {
+        std::string string = event.Oleg.textdata.text;
+        
         float width = string.size() > 0 ? float(std::stoi(string)) : 0;
         width = width <= 30 ? width : 30;
 
-        Event event;
-        event.type_ = EventType::ScrollbarMoved;
-        event.Oleg_.smedata.value = width / 30;
-        event.Oleg_.smedata.id = (uint64_t)&width_scroll_bar_;
-
-        width_scroll_bar_.scroll_bar(event);
+        Event new_event;
+        new_event.type_ = EventType::ScrollbarMoved;
+        new_event.Oleg_.smedata.value = width / 30;
+        new_event.Oleg_.smedata.id = (uint64_t)&width_scroll_bar_;
+        
+        booba::setValueSlider(width_scroll_bar_, width / 30);
+        // width_scroll_bar_.scroll_bar(new_event);
 
         drawing_object_.set_radius(int(width / 2) == 0 ? 1 : int(width / 2));
     }
 
-    void set_width(const Event & event)
+    void set_width(const booba::Event & event)
     {
-        int width = int(event.Oleg_.smedata.value * 30.f);
+        int width = int(event.Oleg.smedata.value * 30.f);
         
-        width_editor_.setString(std::to_string(width));
-
+        if (width != 0)
+        {
+            booba::setTextEditor(width_editor_, std::to_string(width).c_str());
+        }
+        
         drawing_object_.set_radius(width / 2 == 0 ? 1 : width / 2);
     }
 
@@ -173,14 +177,13 @@ public:
     void buildSetupWidget() override
     {
         ToolManager &tool_manager = ToolManager::getInstance();
-
-        tool_manager.setting_palettes_.back()->add(&width_scroll_bar_);
-        tool_manager.setting_palettes_.back()->add(&width_editor_);
+        width_editor_     = booba::createEditor(50, 30,  245, 15);
+        width_scroll_bar_ = booba::createSlider(200, 20, 20, 20, 0, 0, 0);
     }
 
 private:
-    HorizontalScrollBar width_scroll_bar_;
-    Editor width_editor_; 
+    int64_t width_scroll_bar_ = 0;
+    int64_t width_editor_     = 0; 
     std::deque<Vector2d> points_;
 
     Circle drawing_object_;

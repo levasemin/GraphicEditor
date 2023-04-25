@@ -30,11 +30,13 @@ public:
     
     void set_command(Command<const Color &> *command);
     
-    void change_r(const std::string &string);
+    void change_r(const Event &string);
 
-    void change_g(const std::string &string);
+    void change_g(const Event &string);
 
-    void change_b(const std::string &string);
+    void change_b(const Event &string);
+
+    void set_color(const Color &color);
 
     void exec(const Event &event = Event());
 

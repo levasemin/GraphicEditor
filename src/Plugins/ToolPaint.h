@@ -6,9 +6,9 @@
 
 
 #include "optionals.h"
-#include "Tool.h"
-#include "ToolCommand.h"
-#include "ToolManager.h"
+#include "../Tool/Tool.h"
+#include "../Tool/ToolCommand.h"
+#include "../Tool/ToolManager.h"
 
 #include "Interpolator.h"
 #include "Circle.h"
@@ -28,7 +28,7 @@ public:
         drawing_object_(1.f)
     {
         width_scroll_bar_.set_scroll_command((Command<const Event &> *) new SimpleCommand<ToolPaint, const Event &>(this, &ToolPaint::set_width));
-        width_editor_.set_editor_command((Command<const std::string &> *) new SimpleCommand<ToolPaint, const std::string &>(this, &ToolPaint::set_width));
+        width_editor_.set_editor_command((Command<const Event &> *) new SimpleCommand<ToolPaint, const Event &>(this, &ToolPaint::set_width_editor));
 
         char icon_path[128] = "source/Brush.png";
         std::memcpy(icon_path_, icon_path, 128);
@@ -38,27 +38,32 @@ public:
     ToolPaint(const ToolPaint &) = default;
     ToolPaint &operator=(const ToolPaint &) = default;
 
-    void set_width(const std::string &string)
+    void set_width_editor(const Event &event)
     {
+        std::string string = width_editor_.get_text();
+
         float width = string.size() > 0 ? float(std::stoi(string)) : 0;
         width = width <= 30 ? width : 30;
 
-        Event event;
-        event.type_ = EventType::ScrollbarMoved;
-        event.Oleg_.smedata.value = width / 30;
-        event.Oleg_.smedata.id = (uint64_t)&width_scroll_bar_;
+        Event new_event;
+        new_event.type_ = EventType::ScrollbarMoved;
+        new_event.Oleg_.smedata.value = width / 30;
+        new_event.Oleg_.smedata.id = (uint64_t)&width_scroll_bar_;
 
-        width_scroll_bar_.scroll_bar(event);
+        width_scroll_bar_.scroll_bar(new_event);
 
         drawing_object_.set_radius(int(width / 2) == 0 ? 1 : int(width / 2));
     }
 
-    void set_width(const Event & event)
+    void set_width(const Event &event)
     {
         int width = int(event.Oleg_.smedata.value * 30.f);
         
-        width_editor_.setString(std::to_string(width));
-
+        if (width != 0)
+        {
+            width_editor_.setString(std::to_string(width));
+        }
+        
         drawing_object_.set_radius(width / 2 == 0 ? 1 : width / 2);
     }
 

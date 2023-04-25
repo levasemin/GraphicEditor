@@ -37,6 +37,11 @@ public:
         max_value_ = max_value;
     }
     
+    void set_value(int value)
+    {
+        
+    }
+
     void scroll_bar(const Event &event) override
     {
         Event new_event = event;

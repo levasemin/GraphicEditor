@@ -9,13 +9,13 @@ HSVwindow::HSVwindow(Vector2d shape, const Texture &texture, HSVpalette *hsv_pal
     cancel_button_(cancel_button),
     color_(0.f, 0.f, 0.f)
     {
-        hsv_palette_->set_command    ((Command <const Color&> *)  new SimpleCommand<HSVwindow, const Color&>(this, &HSVwindow::change_color));
-        r_editor_->set_editor_command((Command <const std::string &> *)   new SimpleCommand<HSVwindow, const std::string &> (this, &HSVwindow::change_r));
-        g_editor_->set_editor_command((Command <const std::string &> *)   new SimpleCommand<HSVwindow, const std::string &> (this, &HSVwindow::change_g));
-        b_editor_->set_editor_command((Command <const std::string &> *)   new SimpleCommand<HSVwindow, const std::string &> (this, &HSVwindow::change_b));
+        hsv_palette_->set_command    ((Command <const Color&> *)  new SimpleCommand<HSVwindow, const Color&>  (this, &HSVwindow::change_color));
+        r_editor_->set_editor_command((Command <const Event &> *) new SimpleCommand<HSVwindow, const Event &> (this, &HSVwindow::change_r));
+        g_editor_->set_editor_command((Command <const Event &> *) new SimpleCommand<HSVwindow, const Event &> (this, &HSVwindow::change_g));
+        b_editor_->set_editor_command((Command <const Event &> *) new SimpleCommand<HSVwindow, const Event &> (this, &HSVwindow::change_b));
 
-        cancel_button_->set_left_click((Command<const Event &> *) new SimpleCommand<HSVwindow, const Event &>(this, &HSVwindow::close));
-        ok_button_->set_left_click((Command<const Event &> *)     new SimpleCommand<HSVwindow, const Event &>(this, &HSVwindow::close));
+        cancel_button_->set_left_click((Command<const Event &> *) new SimpleCommand<HSVwindow, const Event &> (this, &HSVwindow::close));
+        ok_button_    ->set_left_click((Command<const Event &> *) new SimpleCommand<HSVwindow, const Event &> (this, &HSVwindow::close));
 
         add(hsv_palette_);
         add(r_editor_);
@@ -71,46 +71,48 @@ void HSVwindow::set_command(Command<const Color &> *command)
     hsv_window_command_ = command;
 }
 
-void HSVwindow::change_r(const std::string &string)
-{            
+void HSVwindow::set_color(const Color &color)
+{
+    color_ = color;
+    hsv_palette_->set_color(color_);
+
+    if (hsv_window_command_)
+    {
+        hsv_window_command_->Execute(color_);
+    }
+}
+
+void HSVwindow::change_r(const Event &event)
+{
+    std::string string = r_editor_->get_text();
+    
     int new_r = string.size() > 0 ? std::stoi(string) : 0;
     new_r = new_r < 255 ? new_r : 255;
 
     color_.set_r(uint8_t(new_r));
-    hsv_palette_->set_color(color_);
-
-    if (hsv_window_command_)
-    {
-        hsv_window_command_->Execute(color_);
-    }
+    set_color(color_);
 }
 
-void HSVwindow::change_g(const std::string &string)
+void HSVwindow::change_g(const Event &event)
 {
+    std::string string = g_editor_->get_text();
+
     int new_g = string.size() > 0 ? std::stoi(string) : 0;
     new_g = new_g < 255 ? new_g : 255;
 
     color_.set_g(uint8_t(new_g));
-    hsv_palette_->set_color(color_);
-
-    if (hsv_window_command_)
-    {
-        hsv_window_command_->Execute(color_);
-    }
+    set_color(color_);
 }
 
-void HSVwindow::change_b(const std::string &string)
+void HSVwindow::change_b(const Event &event)
 {
+    std::string string = b_editor_->get_text();
+
     int new_b = string.size() > 0 ? std::stoi(string) : 0;
     new_b = new_b < 255 ? new_b : 255;
 
     color_.set_b(uint8_t(new_b));
-    hsv_palette_->set_color(color_);  
-    
-    if (hsv_window_command_)
-    {
-        hsv_window_command_->Execute(color_);
-    }
+    set_color(color_);
 }
 
 void HSVwindow::exec(const Event &event)

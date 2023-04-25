@@ -3,6 +3,7 @@
 
 #include "../Tool/ToolManager.h"
 #include "../Tool/Widgets/ToolButton.h"
+#include "../Tool/Widgets/ToolEditor.h"
 #include "../Tool/Widgets/ToolCanvas.h"
 #include "../Tool/Widgets/ToolHorizontalScrollBar.h"
 #include "../Tool/ToolPalette.h"
@@ -30,6 +31,19 @@ uint64_t booba::createButton   (size_t x, size_t y, size_t w, size_t h, const ch
     tool_manager.setting_palettes_.back()->add(tool_button);
 
     return (int64_t)tool_button;
+}
+
+uint64_t booba::createEditor(size_t x, size_t y, size_t w, size_t h)
+{
+    ToolManager &tool_manager = ToolManager::getInstance();
+
+    ToolEditor *tool_editor = new ToolEditor(Vector2d((float)w, (float)h), Vector2d(float(x), float(y)), Texture(tool_manager.init_tool_->getTexture()));
+
+    tool_editor->set_editor_command((Command<const booba::Event &> *) new ToolCommand<booba::Tool>(tool_manager.init_tool_, &Tool::apply));
+    
+    tool_manager.setting_palettes_.back()->add(tool_editor);
+
+    return (int64_t)tool_editor;
 }
 
 uint64_t booba::createLabel    (size_t x, size_t y, size_t w, size_t h, const char* text)
@@ -70,14 +84,32 @@ uint64_t booba::createCanvas(size_t x, size_t y, size_t w, size_t h)
     return (int64_t)tool_canvas;
 }
 
+uint64_t booba::setValueSlider(uint64_t slider, int value)
+{
+    Event new_event;
+    new_event.type = EventType::SliderMoved;
+    new_event.Oleg.smedata.id = slider;
+    new_event.Oleg.smedata.value = value;
+    ((ToolHorizontalScrollBar*)slider)->scroll_bar(new_event);
+}
+
+uint64_t booba::setTextEditor(uint64_t editor, const char *text)
+{
+    ((ToolEditor *)editor)->setString(text);
+
+    return editor;
+}
+
 void booba::putPixel (uint64_t canvas, size_t x, size_t y, uint32_t color)
 {
-    if (canvas)
+    if (canvas) 
     {
         ToolCanvas *tool_canvas = (ToolCanvas *)canvas;
         tool_canvas->image_.setPixel(x, y, color);
     }
 }
+
+
 
 void booba::putSprite(uint64_t canvas, size_t x, size_t y, size_t w, size_t h, const char* texture)
 {
