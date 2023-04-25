@@ -22,14 +22,9 @@ public:
 
     ToolPaint() : Tool(),
         interpolator_(Interpolator::CATMULL_ROM),
-        width_scroll_bar_(Vector2d(200, 20), Vector2d(20, 20)),
-        width_editor_    (Vector2d(50, 30),  Vector2d(245, 15)),
         points_({}),
         drawing_object_(1.f)
     {
-        width_scroll_bar_.set_scroll_command((Command<const Event &> *) new SimpleCommand<ToolPaint, const Event &>(this, &ToolPaint::set_width));
-        width_editor_.set_editor_command((Command<const Event &> *) new SimpleCommand<ToolPaint, const Event &>(this, &ToolPaint::set_width_editor));
-
         char icon_path[128] = "source/Brush.png";
         std::memcpy(icon_path_, icon_path, 128);
         booba::addTool(this);
@@ -38,10 +33,23 @@ public:
     ToolPaint(const ToolPaint &) = default;
     ToolPaint &operator=(const ToolPaint &) = default;
 
-    void set_width_editor(const Event &event)
+    void set_width_editor(const booba::Event &event)
     {
-        std::string string = width_editor_.get_text();
+        std::string string = event.Oleg.textdata.text;
+        
+        if (string.size() == 0)
+        {
+            return ;
+        }
 
+        if ('0' > string[string.size() - 1] || string[string.size() - 1] > '9')
+        {
+            string.resize(string.size() - 1);
+            booba::setTextEditor(width_editor_, string.c_str());
+            
+            return;
+        }
+        
         float width = string.size() > 0 ? float(std::stoi(string)) : 0;
         width = width <= 30 ? width : 30;
 
@@ -50,18 +58,18 @@ public:
         new_event.Oleg_.smedata.value = width / 30;
         new_event.Oleg_.smedata.id = (uint64_t)&width_scroll_bar_;
 
-        width_scroll_bar_.scroll_bar(new_event);
+        booba::setValueSlider(width_scroll_bar_, width / 30);
 
         drawing_object_.set_radius(int(width / 2) == 0 ? 1 : int(width / 2));
     }
 
-    void set_width(const Event &event)
+    void set_width(const booba::Event &event)
     {
-        int width = int(event.Oleg_.smedata.value * 30.f);
+        int width = int(event.Oleg.smedata.value);
         
         if (width != 0)
         {
-            width_editor_.setString(std::to_string(width));
+            booba::setTextEditor(width_editor_, std::to_string(width).c_str());
         }
         
         drawing_object_.set_radius(width / 2 == 0 ? 1 : width / 2);
@@ -146,9 +154,22 @@ public:
 
                 break;
             }
-
-            case booba::EventType::ButtonClicked:
+            
             case booba::EventType::SliderMoved:
+            {
+               set_width(*event);
+
+                break;
+            }
+            
+            case booba::EventType::TextEvent:
+            {
+                set_width_editor(*event);
+
+                break;
+            }
+            
+            case booba::EventType::ButtonClicked:
             case booba::EventType::NoEvent:
             case booba::EventType::CanvasMMoved:
             case booba::EventType::CanvasMPressed:
@@ -177,15 +198,13 @@ public:
 
     void buildSetupWidget() override
     {
-        ToolManager &tool_manager = ToolManager::getInstance();
-
-        tool_manager.setting_palettes_.back()->add(&width_scroll_bar_);
-        tool_manager.setting_palettes_.back()->add(&width_editor_);
+        width_editor_     = booba::createEditor(245, 15, 50, 30);
+        width_scroll_bar_ = booba::createSlider(20, 20, 200, 20, 0, 30, 0);
     }
 
 private:
-    HorizontalScrollBar width_scroll_bar_;
-    Editor width_editor_; 
+    uint64_t width_scroll_bar_ = 0;
+    uint64_t width_editor_ = 0; 
     std::deque<Vector2d> points_;
 
     Circle drawing_object_;

@@ -37,7 +37,7 @@ uint64_t booba::createEditor(size_t x, size_t y, size_t w, size_t h)
 {
     ToolManager &tool_manager = ToolManager::getInstance();
 
-    ToolEditor *tool_editor = new ToolEditor(Vector2d((float)w, (float)h), Vector2d(float(x), float(y)), Texture(tool_manager.init_tool_->getTexture()));
+    ToolEditor *tool_editor = new ToolEditor(Vector2d((float)w, (float)h), Vector2d(float(x), float(y)));
 
     tool_editor->set_editor_command((Command<const booba::Event &> *) new ToolCommand<booba::Tool>(tool_manager.init_tool_, &Tool::apply));
     
@@ -62,7 +62,7 @@ uint64_t booba::createSlider(size_t x, size_t y, size_t w, size_t h, int64_t min
 {
     ToolManager &tool_manager = ToolManager::getInstance();
 
-    ToolHorizontalScrollBar *scroll_bar = new ToolHorizontalScrollBar(Vector2d(float(w), float(h)), Vector2d(float(x), float(y)));
+    ToolHorizontalScrollBar *scroll_bar = new ToolHorizontalScrollBar(Vector2d(float(w), float(h)), Vector2d(float(x), float(y)), minValue, maxValue);
 
     scroll_bar->set_scroll_command((Command <const booba::Event &> *) new ToolCommand<booba::Tool>(tool_manager.init_tool_, &Tool::apply));
 
@@ -84,13 +84,11 @@ uint64_t booba::createCanvas(size_t x, size_t y, size_t w, size_t h)
     return (int64_t)tool_canvas;
 }
 
-uint64_t booba::setValueSlider(uint64_t slider, int value)
+uint64_t booba::setValueSlider(uint64_t slider, float value)
 {
-    Event new_event;
-    new_event.type = EventType::SliderMoved;
-    new_event.Oleg.smedata.id = slider;
-    new_event.Oleg.smedata.value = value;
-    ((ToolHorizontalScrollBar*)slider)->scroll_bar(new_event);
+    ((ToolHorizontalScrollBar*)slider)->scroll_bar(value);
+
+    return slider;
 }
 
 uint64_t booba::setTextEditor(uint64_t editor, const char *text)

@@ -91,10 +91,8 @@ public:
     void set_color(const Color &color)
     {
         color_ = color;
-        Event new_event;
-        new_event.type_ = EventType::ScrollbarMoved;
-        new_event.Oleg_.smedata.value = 1.f - color_.get_h() / 360.f;
-        scroll_bar_.scroll_bar(new_event);
+        float value = 1.f - color_.get_h() / 360.f;
+        scroll_bar_.scroll_bar(value);
     }
 
     void change_H(const Event &event)

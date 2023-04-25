@@ -85,7 +85,20 @@ void HSVwindow::set_color(const Color &color)
 void HSVwindow::change_r(const Event &event)
 {
     std::string string = r_editor_->get_text();
-    
+            
+    if (string.size() == 0)
+    {
+        return ;
+    }
+
+    if ('0' > string[string.size() - 1] || string[string.size() - 1] > '9')
+    {
+        string.resize(string.size() - 1);
+        r_editor_->setString(string.c_str());
+        
+        return;
+    }
+
     int new_r = string.size() > 0 ? std::stoi(string) : 0;
     new_r = new_r < 255 ? new_r : 255;
 
@@ -97,6 +110,19 @@ void HSVwindow::change_g(const Event &event)
 {
     std::string string = g_editor_->get_text();
 
+    if (string.size() == 0)
+    {
+        return ;
+    }
+
+    if ('0' > string[string.size() - 1] || string[string.size() - 1] > '9')
+    {
+        string.resize(string.size() - 1);
+        g_editor_->setString(string.c_str());
+        
+        return;
+    }
+
     int new_g = string.size() > 0 ? std::stoi(string) : 0;
     new_g = new_g < 255 ? new_g : 255;
 
@@ -107,6 +133,19 @@ void HSVwindow::change_g(const Event &event)
 void HSVwindow::change_b(const Event &event)
 {
     std::string string = b_editor_->get_text();
+
+    if (string.size() == 0)
+    {
+        return ;
+    }
+
+    if ('0' > string[string.size() - 1] || string[string.size() - 1] > '9')
+    {
+        string.resize(string.size() - 1);
+        b_editor_->setString(string.c_str());
+        
+        return;
+    }
 
     int new_b = string.size() > 0 ? std::stoi(string) : 0;
     new_b = new_b < 255 ? new_b : 255;

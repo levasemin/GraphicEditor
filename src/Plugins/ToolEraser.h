@@ -28,9 +28,6 @@ public:
     {
         drawing_object_.set_color(Color::convert_uint_color(Color::convert_color_uint(Color::White)));
 
-        // width_scroll_bar_.set_scroll_command((Command<const booba::Event &> *) new SimpleCommand<ToolEraser, const booba::Event &>(this, &ToolEraser::set_width));
-        // width_editor_.set_editor_command((Command<const booba::Event &> *) new SimpleCommand<ToolEraser, const booba::Event &>(this, &ToolEraser::set_width_editor));
-
         char icon_path[128] = "source/Eraser.png";
         std::memcpy(icon_path_, icon_path, 128);
         booba::addTool(this);
@@ -43,6 +40,19 @@ public:
     {
         std::string string = event.Oleg.textdata.text;
         
+        if (string.size() == 0)
+        {
+            return ;
+        }
+
+        if ('0' > string[string.size() - 1] || string[string.size() - 1] > '9')
+        {
+            string.resize(string.size() - 1);
+            booba::setTextEditor(width_editor_, string.c_str());
+            
+            return;
+        }
+
         float width = string.size() > 0 ? float(std::stoi(string)) : 0;
         width = width <= 30 ? width : 30;
 
@@ -52,14 +62,13 @@ public:
         new_event.Oleg_.smedata.id = (uint64_t)&width_scroll_bar_;
         
         booba::setValueSlider(width_scroll_bar_, width / 30);
-        // width_scroll_bar_.scroll_bar(new_event);
 
         drawing_object_.set_radius(int(width / 2) == 0 ? 1 : int(width / 2));
     }
 
     void set_width(const booba::Event & event)
     {
-        int width = int(event.Oleg.smedata.value * 30.f);
+        int width = int(event.Oleg.smedata.value);
         
         if (width != 0)
         {
@@ -146,8 +155,19 @@ public:
                 break;
             }
 
-            case booba::EventType::ButtonClicked:
             case booba::EventType::SliderMoved:
+            {
+                set_width(*event);
+
+                break;
+            }
+            case booba::EventType::TextEvent:
+            {
+                set_width_editor(*event);
+                break;
+            }
+
+            case booba::EventType::ButtonClicked:
             case booba::EventType::NoEvent:
             case booba::EventType::CanvasMMoved:
             case booba::EventType::CanvasMPressed:
@@ -176,9 +196,8 @@ public:
 
     void buildSetupWidget() override
     {
-        ToolManager &tool_manager = ToolManager::getInstance();
-        width_editor_     = booba::createEditor(50, 30,  245, 15);
-        width_scroll_bar_ = booba::createSlider(200, 20, 20, 20, 0, 0, 0);
+        width_editor_     = booba::createEditor(245, 15, 50, 30);
+        width_scroll_bar_ = booba::createSlider(20, 20, 200, 20, 0, 30, 0);
     }
 
 private:

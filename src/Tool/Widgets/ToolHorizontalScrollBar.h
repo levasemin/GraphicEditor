@@ -10,7 +10,10 @@ public:
     int64_t max_value_ = 0;
 
     Command<const booba::Event &> *scroll_command_ = nullptr;
-    ToolHorizontalScrollBar(Vector2d shape, Vector2d position): HorizontalScrollBar(shape, position)
+    ToolHorizontalScrollBar(Vector2d shape, Vector2d position, int64_t min_value, int64_t max_value): 
+        HorizontalScrollBar(shape, position),
+        min_value_(min_value),
+        max_value_(max_value)
     {
 
     }
@@ -36,21 +39,17 @@ public:
     {
         max_value_ = max_value;
     }
-    
-    void set_value(int value)
-    {
-        
-    }
 
-    void scroll_bar(const Event &event) override
+    void scroll_bar(float value) override
     {
-        Event new_event = event;
+        Event new_event;
+        new_event.type_ = EventType::ScrollbarMoved;
         new_event.Oleg_.smedata.id    = uint64_t(this);
-        new_event.Oleg_.smedata.value = new_event.Oleg_.smedata.value < 0 ? 0 : new_event.Oleg_.smedata.value;
-        new_event.Oleg_.smedata.value = new_event.Oleg_.smedata.value > 1 ? 1 : new_event.Oleg_.smedata.value;
+        new_event.Oleg_.smedata.value = value < 0 ? 0 : value;
+        new_event.Oleg_.smedata.value = value > 1 ? 1 : value;
         
         Vector2d offset = Vector2d(scroll_field_shape.x_, 0);
-        offset *= event.Oleg_.smedata.value;
+        offset *= value;
 
         offset.x_ = offset.x_ >= 0 ? offset.x_ : 0;
         offset.y_ = offset.y_ >= 0 ? offset.y_ : 0;
