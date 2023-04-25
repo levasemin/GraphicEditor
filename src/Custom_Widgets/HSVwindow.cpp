@@ -14,9 +14,6 @@ HSVwindow::HSVwindow(Vector2d shape, const Texture &texture, HSVpalette *hsv_pal
         g_editor_->set_editor_command((Command <const Event &> *) new SimpleCommand<HSVwindow, const Event &> (this, &HSVwindow::change_g));
         b_editor_->set_editor_command((Command <const Event &> *) new SimpleCommand<HSVwindow, const Event &> (this, &HSVwindow::change_b));
 
-        cancel_button_->set_left_click((Command<const Event &> *) new SimpleCommand<HSVwindow, const Event &> (this, &HSVwindow::close));
-        ok_button_    ->set_left_click((Command<const Event &> *) new SimpleCommand<HSVwindow, const Event &> (this, &HSVwindow::close));
-
         add(hsv_palette_);
         add(r_editor_);
         add(g_editor_);
@@ -74,6 +71,11 @@ void HSVwindow::set_command(Command<const Color &> *command)
 void HSVwindow::set_color(const Color &color)
 {
     color_ = color;
+    
+    r_editor_->setString(std::to_string(color.get_r()));
+    g_editor_->setString(std::to_string(color.get_g()));
+    b_editor_->setString(std::to_string(color.get_b()));
+
     hsv_palette_->set_color(color_);
 
     if (hsv_window_command_)
@@ -84,21 +86,19 @@ void HSVwindow::set_color(const Color &color)
 
 void HSVwindow::change_r(const Event &event)
 {
-    std::string string = r_editor_->get_text();
+    std::string string = event.Oleg_.textedata.text;
             
-    if (string.size() == 0)
+    if (string.size() != 0)
     {
-        return ;
-    }
-
-    if ('0' > string[string.size() - 1] || string[string.size() - 1] > '9')
-    {
-        string.resize(string.size() - 1);
-        r_editor_->setString(string.c_str());
+        if ('0' > string[string.size() - 1] || string[string.size() - 1] > '9')
+        {
+            string.resize(string.size() - 1);
+            r_editor_->setString(string.c_str());
         
-        return;
+            return;
+        }
     }
-
+    
     int new_r = string.size() > 0 ? std::stoi(string) : 0;
     new_r = new_r < 255 ? new_r : 255;
 
@@ -108,19 +108,17 @@ void HSVwindow::change_r(const Event &event)
 
 void HSVwindow::change_g(const Event &event)
 {
-    std::string string = g_editor_->get_text();
+    std::string string = event.Oleg_.textedata.text;
 
-    if (string.size() == 0)
+    if (string.size() != 0)
     {
-        return ;
-    }
-
-    if ('0' > string[string.size() - 1] || string[string.size() - 1] > '9')
-    {
-        string.resize(string.size() - 1);
-        g_editor_->setString(string.c_str());
-        
-        return;
+        if ('0' > string[string.size() - 1] || string[string.size() - 1] > '9')
+        {
+            string.resize(string.size() - 1);
+            g_editor_->setString(string.c_str());
+            
+            return;
+        }
     }
 
     int new_g = string.size() > 0 ? std::stoi(string) : 0;
@@ -132,19 +130,17 @@ void HSVwindow::change_g(const Event &event)
 
 void HSVwindow::change_b(const Event &event)
 {
-    std::string string = b_editor_->get_text();
+    std::string string = event.Oleg_.textedata.text;
 
-    if (string.size() == 0)
+    if (string.size() != 0)
     {
-        return ;
-    }
-
-    if ('0' > string[string.size() - 1] || string[string.size() - 1] > '9')
-    {
-        string.resize(string.size() - 1);
-        b_editor_->setString(string.c_str());
-        
-        return;
+        if ('0' > string[string.size() - 1] || string[string.size() - 1] > '9')
+        {
+            string.resize(string.size() - 1);
+            b_editor_->setString(string.c_str());
+            std::cout << "HUI\n";
+            return;
+        }
     }
 
     int new_b = string.size() > 0 ? std::stoi(string) : 0;

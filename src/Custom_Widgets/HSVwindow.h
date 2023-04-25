@@ -18,7 +18,8 @@ public:
     Button *cancel_button_   = nullptr;
 
     Color color_;
-
+    Color prev_color_;
+    
     Command<const Color &> *hsv_window_command_ = nullptr; 
 
     HSVwindow(Vector2d shape, const Texture &texture, HSVpalette *hsv_palette, Editor *r_editor, Editor *g_editor, Editor *b_editor, Button *ok_button, Button *cancel_button);

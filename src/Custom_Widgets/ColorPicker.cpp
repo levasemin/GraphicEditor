@@ -13,6 +13,8 @@ ColorPicker::ColorPicker(Button *foreground_button, Button *background_button, B
     swap_button_->set_left_click((Command<const Event &> *) new SimpleCommand<ColorPicker, const Event &>(this, &ColorPicker::swap_colors));
     hsv_window_->set_command((Command<const Color &> *) new SimpleCommand<ColorPicker, const Color&>(this, &ColorPicker::change_color));
     hsv_window_->ok_button_->set_left_click((Command<const Event &> *) new SimpleCommand<ColorPicker, const Event&>(this, &ColorPicker::set_color));
+    hsv_window_->cancel_button_->set_left_click((Command<const Event &> *) new SimpleCommand<ColorPicker, const Event &> (this, &ColorPicker::return_color));
+
 }
 
 ColorPicker::ColorPicker(const ColorPicker &source) : CompositeObject(*(const CompositeObject *) &source),
@@ -79,15 +81,35 @@ void ColorPicker::set_color(const Event &)
     hsv_window_->close();
 }
 
+void ColorPicker::return_color(const Event &)
+{
+    if (color_type_ == FOREGROUND_COLOR)
+    {
+        fg_color_ = Color::convert_uint_color(booba::APPCONTEXT->fgColor);
+        hsv_window_->set_color(fg_color_);
+    }
+
+    else if (color_type_ == BACKGROUND_COLOR)
+    {
+        bg_color_ = Color::convert_uint_color(booba::APPCONTEXT->bgColor);
+        hsv_window_->set_color(bg_color_);
+    }
+
+    color_type_ = -1;
+    hsv_window_->close();
+}
+
 void ColorPicker::open_foreground_hsv_window(const Event &event)
 {
     color_type_ = FOREGROUND_COLOR;
+    hsv_window_->set_color(fg_color_);
     hsv_window_->exec(event);
 }
 
 void ColorPicker::open_background_hsv_window(const Event &event)
 {
     color_type_ = BACKGROUND_COLOR;
+    hsv_window_->set_color(bg_color_);
     hsv_window_->exec(event);
 }
 

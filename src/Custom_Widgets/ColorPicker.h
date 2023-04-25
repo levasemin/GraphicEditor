@@ -37,6 +37,8 @@ public:
 
     void set_color(const Event &);
 
+    void return_color(const Event &);
+    
     void open_foreground_hsv_window(const Event &event);
     
     void open_background_hsv_window(const Event &event);

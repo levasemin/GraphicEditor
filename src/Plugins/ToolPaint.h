@@ -39,6 +39,7 @@ public:
         
         if (string.size() == 0)
         {
+            booba::setValueSlider(width_scroll_bar_, 0);
             return ;
         }
 
