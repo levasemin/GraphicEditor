@@ -1,4 +1,4 @@
-CC = g+++
+CC = g+++ -Wpedantic -Wall -Wextra -Wformat=2 -fsanitize=address,undefined -g
 
 BuildF = obj/
 
@@ -10,7 +10,8 @@ eyedropper:
 	$(CC) -shared -fPIC -Wextra Plugins/ToolEyeDropper.cpp Graphic-Library/GraphLib/Classes/Color.cpp Graphic-Library/GraphLib/functions/functions.cpp Graphic-Library/GraphLib/Classes/Font.cpp -o Plugins_so/ToolEyeDropper.so 
 bucket:
 	$(CC) -shared -fPIC -Wextra Plugins/ToolBucket.cpp Graphic-Library/GraphLib/Classes/Color.cpp Graphic-Library/GraphLib/functions/functions.cpp -o Plugins_so/Bucket.so
-
+style:
+	$(CC) -shared -fPIC -Wextra Plugins/ToolStyle.cpp Graphic-Library/GraphLib/Classes/Color.cpp Graphic-Library/GraphLib/functions/functions.cpp -o Plugins_so/Style.so
 
 event_handler: clean Graphic-Library/GraphLib/event_handler.o $(BuildF)main.o $(BuildF)Canvas.o $(BuildF)ColorPicker.o $(BuildF)HSVwindow.o $(BuildF)OpenWindow.o $(BuildF)SaveWindow.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o
 	$(CC) 			 Graphic-Library/GraphLib/event_handler.o $(BuildF)main.o $(BuildF)Canvas.o $(BuildF)ColorPicker.o $(BuildF)HSVwindow.o $(BuildF)OpenWindow.o $(BuildF)SaveWindow.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o -o event_handler -lsfml-graphics -lsfml-window -lsfml-system -ldl -export-dynamic

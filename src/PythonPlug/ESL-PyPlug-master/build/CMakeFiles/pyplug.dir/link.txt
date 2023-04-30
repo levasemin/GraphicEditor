@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -g -shared -Wl,-soname,libpyplug.so -o libpyplug.so CMakeFiles/pyplug.dir/pyplug.cpp.o  -lpython3.8 
