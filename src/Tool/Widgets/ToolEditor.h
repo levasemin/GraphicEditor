@@ -30,7 +30,7 @@ public:
         Event new_event;
         new_event.type_ = EventType::TextEvent;
         new_event.Oleg_.textedata.id = (uint64_t)this;
-        new_event.Oleg_.textedata.text = get_text().c_str();
+        new_event.Oleg_.textedata.text = event.Oleg_.textedata.text;
         tool_editor_command_->Execute(convert_event(new_event));
     }
 

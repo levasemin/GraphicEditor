@@ -114,12 +114,12 @@ public:
 
     void add(booba::Tool *new_tool)
     {
+        std::cout << "hui\n";
         tools_.push_back(new_tool);
         
         Button *tool_button_ = new Button(Vector2d(50, 50), Vector2d(25, 25));
         
         tool_button_->set_texture(tool_palette_->get_texture());
-        std::cout << new_tool->getTexture() << std::endl;
         tool_button_->set_texture(Texture(new_tool->getTexture()));
         tool_button_->set_left_click((Command<const Event &> *) new SimpleCommand<ToolManager, const Event &>(this, &ToolManager::tool_choose));
         tool_button_->set_pressed(true);
@@ -132,7 +132,6 @@ public:
         init_tool_ = new_tool;
         std::cout << "buildSetupWidget\n";
         new_tool->buildSetupWidget();
-        std::cout << "hoh\n";
     }
     
     void tool_choose(const Event &event)

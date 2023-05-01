@@ -59,10 +59,10 @@ public:
 
         Event new_event;
         new_event.type_ = EventType::ScrollbarMoved;
-        new_event.Oleg_.smedata.value = width / 30;
+        new_event.Oleg_.smedata.value = width;
         new_event.Oleg_.smedata.id = (uint64_t)&width_scroll_bar_;
         
-        booba::setValueSlider(width_scroll_bar_, width / 30);
+        booba::setValueSlider(width_scroll_bar_, width);
 
         drawing_object_.set_radius(int(width / 2) == 0 ? 1 : int(width / 2));
     }

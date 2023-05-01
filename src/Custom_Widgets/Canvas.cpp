@@ -41,11 +41,11 @@ Canvas::Canvas(Vector2d shape, Vector2d position, ToolPalette *tool_palette, Con
 
             (*init_func)();
 
-            booba::GUID (*guid_func)()   = nullptr;
-            *((void**)&guid_func) = dlsym(dlHandler, "getGUID");
+            // booba::GUID (*guid_func)()   = nullptr;
+            // *((void**)&guid_func) = dlsym(dlHandler, "getGUID");
 
-            (*guid_func)();
-            tool_manager_.add_guid(guid_func(), dlHandler);
+            // (*guid_func)();
+            // tool_manager_.add_guid(guid_func(), dlHandler);
         }
 
         else 

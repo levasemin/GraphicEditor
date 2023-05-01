@@ -1,5 +1,4 @@
-CC = g+++ -Wpedantic -Wall -Wextra -Wformat=2 -fsanitize=address,undefined -g
-
+CC = g+++ 
 BuildF = obj/
 
 paint:

@@ -53,27 +53,22 @@ public:
         
         float width = string.size() > 0 ? float(std::stoi(string)) : 0;
         width = width <= 30 ? width : 30;
-
-        Event new_event;
-        new_event.type_ = EventType::ScrollbarMoved;
-        new_event.Oleg_.smedata.value = width / 30;
-        new_event.Oleg_.smedata.id = (uint64_t)&width_scroll_bar_;
-
-        booba::setValueSlider(width_scroll_bar_, width / 30);
+        
+        booba::setValueSlider(width_scroll_bar_, width);
 
         drawing_object_.set_radius(int(width / 2) == 0 ? 1 : int(width / 2));
     }
 
     void set_width(const booba::Event &event)
     {
-        int width = int(event.Oleg.smedata.value);
+        // int width = int(event.Oleg.smedata.value);
+        // std::cout << width << std::endl;
+        // if (width != 0)
+        // {
+        //     // booba::setTextEditor(width_editor_, std::to_string(width).c_str());
+        // }
         
-        if (width != 0)
-        {
-            booba::setTextEditor(width_editor_, std::to_string(width).c_str());
-        }
-        
-        drawing_object_.set_radius(width / 2 == 0 ? 1 : width / 2);
+        // drawing_object_.set_radius(width / 2 == 0 ? 1 : width / 2);
     }
 
     void paint(booba::Image *image)
@@ -160,7 +155,7 @@ public:
             {
                set_width(*event);
 
-                break;
+               break;
             }
             
             case booba::EventType::TextEvent:

@@ -84,18 +84,14 @@ uint64_t booba::createCanvas(size_t x, size_t y, size_t w, size_t h)
     return (int64_t)tool_canvas;
 }
 
-uint64_t booba::setValueSlider(uint64_t slider, float value)
+void booba::setValueSlider(uint64_t slider, int64_t value)
 {
     ((ToolHorizontalScrollBar*)slider)->scroll_bar(value);
-
-    return slider;
 }
 
-uint64_t booba::setTextEditor(uint64_t editor, const char *text)
+void booba::setTextEditor(uint64_t editorId, const char *text)
 {
-    ((ToolEditor *)editor)->setString(text);
-
-    return editor;
+    ((ToolEditor *)editorId)->setString(text);
 }
 
 void booba::putPixel (uint64_t canvas, size_t x, size_t y, uint32_t color)

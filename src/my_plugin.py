@@ -26,6 +26,5 @@ class mytool:
         print("build_setup_widget called!")
 
 def init_module():
-    # setToolbarSize(300, 300)
-    # addTool(mytool())
-    return
+    setToolbarSize(300, 300)
+    addTool(mytool())

@@ -38,7 +38,6 @@ void ToolEyeDropper::apply(booba::Image* image, const booba::Event* event)
         case booba::EventType::CanvasMPressed:
         case booba::EventType::ButtonClicked:
         case booba::EventType::SliderMoved:
-        case booba::EventType::CanvasMLeft:
         case booba::EventType::TimerEvent:
     default:
         break;

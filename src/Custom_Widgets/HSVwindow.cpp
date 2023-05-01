@@ -138,7 +138,6 @@ void HSVwindow::change_b(const Event &event)
         {
             string.resize(string.size() - 1);
             b_editor_->setString(string.c_str());
-            std::cout << "HUI\n";
             return;
         }
     }

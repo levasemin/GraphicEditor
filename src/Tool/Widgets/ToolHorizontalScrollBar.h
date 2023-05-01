@@ -40,8 +40,16 @@ public:
         max_value_ = max_value;
     }
 
-    void scroll_bar(float value) override
+    void scroll_bar(float value_) override
     {
+        std::cout << value_ << std::endl;
+        float value = value_;
+        
+        if (value > 1)
+        {
+            value = float(value_ - min_value_) / float(max_value_ - min_value_);
+        }
+
         Event new_event;
         new_event.type_ = EventType::ScrollbarMoved;
         new_event.Oleg_.smedata.id    = uint64_t(this);
