@@ -61,14 +61,14 @@ public:
 
     void set_width(const booba::Event &event)
     {
-        // int width = int(event.Oleg.smedata.value);
-        // std::cout << width << std::endl;
-        // if (width != 0)
-        // {
-        //     // booba::setTextEditor(width_editor_, std::to_string(width).c_str());
-        // }
+        int width = int(event.Oleg.smedata.value);
         
-        // drawing_object_.set_radius(width / 2 == 0 ? 1 : width / 2);
+        if (width != 0)
+        {
+            booba::setTextEditor(width_editor_, std::to_string(width).c_str());
+        }
+        
+        drawing_object_.set_radius(width / 2 == 0 ? 1 : width / 2);
     }
 
     void paint(booba::Image *image)

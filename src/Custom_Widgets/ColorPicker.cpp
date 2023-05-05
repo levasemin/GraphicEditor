@@ -1,5 +1,7 @@
 #include "ColorPicker.h"
 
+using namespace SL;
+
 ColorPicker::ColorPicker(Button *foreground_button, Button *background_button, Button *swap_button, HSVwindow *hsv_window): CompositeObject(Vector2d(0, 0), Vector2d(0, 0)),
     fg_color_(Color::convert_uint_color(booba::APPCONTEXT->fgColor)),
     bg_color_(Color::convert_uint_color(booba::APPCONTEXT->bgColor)),

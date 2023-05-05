@@ -5,8 +5,6 @@
 
 using namespace SL;
 
-class ToolCanvas;
-
 class ToolCanvas : public Object 
 {
 public:

@@ -2,6 +2,7 @@
 
 #include "../Graphic-Library/GraphLib/GraphLib.h"
 
+using namespace SL;
 
 #include "Canvas.h"
 

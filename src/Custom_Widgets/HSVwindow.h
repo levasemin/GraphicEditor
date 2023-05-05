@@ -5,6 +5,8 @@
 #include "HSVpalette.h"
 #include <string.h>
 
+using namespace SL;
+
 class HSVwindow : public MainWindow
 {
 public:

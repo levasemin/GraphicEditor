@@ -18,7 +18,7 @@ public:
     HSVpalette(Vector2d shape, Vector2d position) : Object(shape, position),
         color_(360.f, 0.f, 0.f),
         palette_(shape),
-        scroll_bar_(Vector2d(20, shape.y_), Vector2d(position_.x_ + shape.x_ + 10, position_.y_))
+        scroll_bar_(Vector2d(20, shape.y_), Vector2d(position_.x_ + shape.x_ + 10, position_.y_), 0.f, 360.f)
     {   
         scroll_bar_.set_scroll_command((Command<const Event &> *) new SimpleCommand<HSVpalette, const Event&>(this, &HSVpalette::change_H));
         scroll_bar_.set_scroll_button_size(Vector2d(20, 4));
@@ -91,13 +91,13 @@ public:
     void set_color(const Color &color)
     {
         color_ = color;
-        float value = 1.f - color_.get_h() / 360.f;
+        float value = 360.f - color_.get_h();
         scroll_bar_.scroll_bar(value);
     }
 
     void change_H(const Event &event)
     {
-        color_.set_h((1.f - event.Oleg_.smedata.value) * 360.f);
+        color_.set_h((360.f - event.Oleg_.smedata.value));
 
         if (palette_command_)
         {

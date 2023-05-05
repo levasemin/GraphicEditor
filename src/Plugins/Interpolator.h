@@ -6,6 +6,7 @@
 
 #include "../Graphic-Library/GraphLib/GraphLib.h"
 
+using namespace SL;
 
 class Interpolator
 {

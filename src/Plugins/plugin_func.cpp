@@ -8,6 +8,7 @@
 #include "../Tool/Widgets/ToolHorizontalScrollBar.h"
 #include "../Tool/ToolPalette.h"
 #include "../Custom_Widgets/Canvas.h"
+#include "../Tool/ToolCommand.h"
 #include "stdint.h"
 #include "../Graphic-Library/GraphLib/GraphLib.h"
 

@@ -1,5 +1,7 @@
 #include "ToolButton.h"
 
+using namespace SL;
+
 void ToolButton::ToolClickLeftEvent (const Event &event)
 {
     if (tool_left_click_command_ != nullptr)

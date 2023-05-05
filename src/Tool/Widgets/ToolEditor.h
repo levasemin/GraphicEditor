@@ -3,6 +3,8 @@
 
 #include "../../Graphic-Library/GraphLib/GraphLib.h"
 
+using namespace SL;
+
 class ToolEditor : public Editor
 {
     Command<const booba::Event &> *tool_editor_command_ = nullptr;

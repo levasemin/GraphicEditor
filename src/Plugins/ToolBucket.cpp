@@ -148,6 +148,9 @@ void ToolBucket::apply(booba::Image* image, const booba::Event* event)
 
         case booba::EventType::MouseMoved:
         case booba::EventType::ButtonClicked:
+        {
+            std::cout << "hui\n";
+        }
         case booba::EventType::SliderMoved:
         case booba::EventType::NoEvent:
         case booba::EventType::CanvasMMoved:

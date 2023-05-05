@@ -2,6 +2,9 @@
 
 #include "../Graphic-Library/GraphLib/GraphLib.h"
 
+#include "/home/levce/projectsDED/GraphicEditor/src/Custom_Widgets/Canvas.h"
+
+using namespace SL;
 
 template <class Receiver>
 class ToolCommand : public Command<const booba::Event &>
@@ -32,7 +35,7 @@ public:
 
     void Execute(const booba::Event &event) override
     {
-        (receiver_->*action_)(nullptr, &event);
+        (receiver_->*action_)(Canvas::getInstance()->get_surface()->get_image(), &event);
     }
 
 private:

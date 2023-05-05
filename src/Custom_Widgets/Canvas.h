@@ -1,3 +1,6 @@
+#pragma once
+
+#include <memory>
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #pragma GCC diagnostic ignored "-Wswitch-enum"
 
@@ -19,9 +22,14 @@ using namespace SL;
 
 class Canvas : public CompositeObject
 {
+    Canvas() : CompositeObject(Vector2d(0, 0), Vector2d(0, 0)), tool_manager_(ToolManager::getInstance()) {}
+    Canvas (const Canvas &source) = delete;
+
+    Canvas &operator= (const Canvas &source) = delete;
+
 public:
-    Surface *surface_ = nullptr;    
-    Surface *second_surface_ = nullptr;
+    Surface *surface_;    
+    Surface *second_surface_;
 
     ToolManager &tool_manager_;
 
@@ -30,11 +38,14 @@ public:
 
     float zoom_ = 1;
 
-    Canvas(Vector2d shape, Vector2d position, ToolPalette *tool_palette = nullptr, Container * setting_palette = nullptr);
-    
-    Canvas (const Canvas &source);
 
-    Canvas &operator= (const Canvas &source);
+    static Canvas *getInstance()
+    {
+        static Canvas canvas;
+        return &canvas;
+    }
+
+    static Canvas *Create(Vector2d shape, Vector2d position, ToolPalette *tool_palette = nullptr, Container * setting_palette = nullptr);
 
     void MoveMouseEvent (const Event &event) override;
 
@@ -57,4 +68,6 @@ public:
     Image *get_image();
     
     void add_tool(Tool *new_tool);
+
+    Surface *get_surface();
 };

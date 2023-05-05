@@ -3,6 +3,8 @@
 #include "../Graphic-Library/GraphLib/GraphLib.h"
 #include "Canvas.h"
 
+using namespace SL;
+
 class SaveWindow : public MainWindow
 {
 

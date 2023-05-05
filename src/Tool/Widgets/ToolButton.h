@@ -3,6 +3,7 @@
 
 #include "../../Graphic-Library/GraphLib/GraphLib.h"
 
+using namespace SL;
 
 class ToolButton : public Button
 {

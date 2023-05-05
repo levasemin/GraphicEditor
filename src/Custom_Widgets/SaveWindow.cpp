@@ -1,5 +1,7 @@
 #include "SaveWindow.h"
 
+using namespace SL;
+
 SaveWindow::SaveWindow(Vector2d shape, Button *save_button, Button *cancel_button, Editor *path_editor): MainWindow(shape, Texture(Color::Grey)),
     path_(""),
     save_button_(save_button),

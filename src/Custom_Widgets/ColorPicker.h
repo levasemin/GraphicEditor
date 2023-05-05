@@ -5,6 +5,8 @@
 
 #include "HSVwindow.h"
 
+using namespace SL;
+
 enum
 {
     FOREGROUND_COLOR,

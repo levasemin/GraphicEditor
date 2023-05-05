@@ -19,6 +19,7 @@ public:
     int dispersion_ = 0;
     Editor dispersion_editor_;
     uint32_t current_color_ = 0;
+    uint32_t button_;
 
     ToolBucket() : Tool(),
         dispersion_editor_(Vector2d(50, 30), Vector2d(40, 20))
@@ -59,7 +60,7 @@ public:
     void buildSetupWidget() override
     {
         ToolManager &tool_manager = ToolManager::getInstance();
-
+        button_ = booba::createButton(100, 400, 100, 100, "hui\n");
         tool_manager.setting_palettes_.back()->add(&dispersion_editor_);
     }
 

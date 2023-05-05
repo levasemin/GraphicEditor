@@ -1,5 +1,7 @@
 #include "HSVwindow.h"
 
+using namespace SL;
+
 HSVwindow::HSVwindow(Vector2d shape, const Texture &texture, HSVpalette *hsv_palette, Editor *r_editor, Editor *g_editor, Editor *b_editor, Button *ok_button, Button *cancel_button): MainWindow(shape, texture),
     hsv_palette_(hsv_palette),
     r_editor_(r_editor),

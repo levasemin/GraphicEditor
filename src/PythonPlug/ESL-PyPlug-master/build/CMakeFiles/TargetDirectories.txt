@@ -1,6 +1,0 @@
-/home/levce/projectsDED/GraphicEditor/src/PythonPlug/ESL-PyPlug-master/build/CMakeFiles/standalone-pyplug.dir
-/home/levce/projectsDED/GraphicEditor/src/PythonPlug/ESL-PyPlug-master/build/CMakeFiles/pyplug.dir
-/home/levce/projectsDED/GraphicEditor/src/PythonPlug/ESL-PyPlug-master/build/CMakeFiles/edit_cache.dir
-/home/levce/projectsDED/GraphicEditor/src/PythonPlug/ESL-PyPlug-master/build/CMakeFiles/rebuild_cache.dir
-/home/levce/projectsDED/GraphicEditor/src/PythonPlug/ESL-PyPlug-master/build/build/_deps/pybind11-src/CMakeFiles/edit_cache.dir
-/home/levce/projectsDED/GraphicEditor/src/PythonPlug/ESL-PyPlug-master/build/build/_deps/pybind11-src/CMakeFiles/rebuild_cache.dir

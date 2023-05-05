@@ -3,12 +3,6 @@
 #include "../Graphic-Library/GraphLib/GraphLib.h"
 
 
-#include "ToolCommand.h"
-#include "Widgets/ToolButton.h"
-
-
-
-
 class Tool : public booba::Tool
 {
     

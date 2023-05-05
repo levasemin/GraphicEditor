@@ -1,26 +1,30 @@
 #include "Canvas.h"
 
+using namespace SL;
 
-Canvas::Canvas(Vector2d shape, Vector2d position, ToolPalette *tool_palette, Container *setting_palette) : 
-        CompositeObject(shape, position, Texture(Color::Grey)),
-        tool_manager_(ToolManager::getInstance())
-{   
-    surface_        = new Surface(Vector2d(1, 1), Vector2d(0, 0), Image(Texture(Color::Grey)));
-    second_surface_ = new Surface(Vector2d(1, 1), Vector2d(0, 0), Image());
+Canvas *Canvas::Create(Vector2d shape, Vector2d position, ToolPalette *tool_palette, Container *setting_palette)
+{
+    getInstance()->set_shape(shape);
+    getInstance()->set_position(position);
+    getInstance()->set_texture(Texture(Color::Grey));
+
+     getInstance()->tool_manager_ = ToolManager::getInstance();
+    getInstance()->surface_        = new Surface(Vector2d(1, 1), Vector2d(0, 0), Image(Texture(Color::Grey)));
+    getInstance()->second_surface_ = new Surface(Vector2d(1, 1), Vector2d(0, 0), Image());
     
-    add(surface_);
-    add(second_surface_);
+    getInstance()->add( getInstance()->surface_);
+    getInstance()->add( getInstance()->second_surface_);
     
-    tool_manager_.set_surface(surface_);
-    tool_manager_.set_second_surface(second_surface_);
+    getInstance()->tool_manager_.set_surface( getInstance()->surface_);
+    getInstance()->tool_manager_.set_second_surface( getInstance()->second_surface_);
 
     if (tool_palette)
     {
-        tool_manager_.set_tool_palette(tool_palette);
+        getInstance()->tool_manager_.set_tool_palette(tool_palette);
     }
     if (setting_palette)
     {
-        tool_manager_.set_setting_field(setting_palette);
+        getInstance()->tool_manager_.set_setting_field(setting_palette);
     }
             
     std::string dlPath = "./Plugins_so";
@@ -32,7 +36,7 @@ Canvas::Canvas(Vector2d shape, Vector2d position, ToolPalette *tool_palette, Con
             continue;
         }
 
-        void* dlHandler = dlopen(curFile.path().c_str(), RTLD_LAZY);
+        void* dlHandler = dlopen(curFile.path().c_str(), RTLD_LAZY | RTLD_GLOBAL);
         
         if (dlHandler) 
         {
@@ -53,21 +57,10 @@ Canvas::Canvas(Vector2d shape, Vector2d position, ToolPalette *tool_palette, Con
             fprintf(stderr, "Unable to open lib: %s\n", dlerror());
         }
     }
+
+    return getInstance();
 }
 
-Canvas::Canvas (const Canvas &source): CompositeObject(*(const CompositeObject *)&source),
-    surface_(source.surface_),
-    tool_manager_(source.tool_manager_)
-{} 
-
-Canvas &Canvas::operator= (const Canvas &source)
-{ 
-    CompositeObject::operator=(*(const CompositeObject *)&source);
-    surface_         = source.surface_;
-    second_surface_    = source.second_surface_;
-
-    return *this;
-}
 
 void Canvas::MoveMouseEvent (const Event &event)
 {
@@ -245,4 +238,9 @@ Image *Canvas::get_image()
 void Canvas::add_tool(Tool *new_tool)
 {
     tool_manager_.add(new_tool);
-    }    
+}       
+
+Surface *Canvas::get_surface()
+{
+    return surface_;
+}

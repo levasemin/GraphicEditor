@@ -12,6 +12,8 @@
 #include <vector>
 #include <string>
 
+using namespace SL;
+
 const std::string path_mountain = "british.png";
 
 booba::ApplicationContext* booba::APPCONTEXT = nullptr;
@@ -163,13 +165,13 @@ int main()
     Container setting_container(Vector2d(300, 568), Vector2d(10, 430));
     setting_container.set_texture(Texture(tool_color));
     
-    Canvas canvas(Vector2d(1400, 970), Vector2d(320, 20), &tool_palette, &setting_container);
+    Canvas *canvas = Canvas::Create(Vector2d(1400, 970), Vector2d(320, 20), &tool_palette, &setting_container);
 
-    canvas.set_image(image);
+    canvas->set_image(image);
     
-    DecoratorScrollBar scroll_bar_canvas(&canvas);
+    DecoratorScrollBar scroll_bar_canvas(canvas);
     
-    ComboBox *file_button = create_file_combobox(&canvas);
+    ComboBox *file_button = create_file_combobox(canvas);
 
     ColorPicker *color_picker = create_color_picker();
 

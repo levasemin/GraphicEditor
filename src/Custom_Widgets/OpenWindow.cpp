@@ -2,6 +2,8 @@
 
 #include "Canvas.h"
 
+using namespace SL;
+
 OpenWindow::OpenWindow(Vector2d shape, Button *open_button, Button *cancel_button, Editor *path_editor): MainWindow(shape, Texture(Color::Grey)),
     path_(""),
     open_button_(open_button),
