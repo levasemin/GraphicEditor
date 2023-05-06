@@ -15,10 +15,10 @@ class ToolEyeDropper : booba::Tool
 private:
     Color color_;
 
-    Label color_box_label_;
-    Label label_r_;
-    Label label_g_;
-    Label label_b_;
+    SL::Label color_box_label_;
+    SL::Label label_r_;
+    SL::Label label_g_;
+    SL::Label label_b_;
 
     uint64_t color_box_canvas_ = (uint64_t)nullptr;
     uint64_t canvas_r_         = (uint64_t)nullptr;
@@ -32,14 +32,14 @@ private:
 public:
     ToolEyeDropper():
         color_(uint8_t(0), uint8_t(0), uint8_t(0)),
-        color_box_label_(Vector2d(100, 100), Vector2d()),
-        label_r_  (Vector2d(50, 30), Vector2d()),
-        label_g_  (Vector2d(50, 30), Vector2d()),
-        label_b_  (Vector2d(50, 30), Vector2d())
+        color_box_label_(SL::Vector2d(100, 100), SL::Vector2d()),
+        label_r_  (SL::Vector2d(50, 30), SL::Vector2d()),
+        label_g_  (SL::Vector2d(50, 30), SL::Vector2d()),
+        label_b_  (SL::Vector2d(50, 30), SL::Vector2d())
     {
-        label_r_.set_texture(Texture(Color(uint8_t(48), uint8_t(48), uint8_t(48))));
-        label_g_.set_texture(Texture(Color(uint8_t(48), uint8_t(48), uint8_t(48))));
-        label_b_.set_texture(Texture(Color(uint8_t(48), uint8_t(48), uint8_t(48))));
+        label_r_.set_texture(SL::Texture(Color(uint8_t(48), uint8_t(48), uint8_t(48))));
+        label_g_.set_texture(SL::Texture(Color(uint8_t(48), uint8_t(48), uint8_t(48))));
+        label_b_.set_texture(SL::Texture(Color(uint8_t(48), uint8_t(48), uint8_t(48))));
         
         label_r_.setTextColor(Color(uint8_t(190), uint8_t(190), uint8_t(190)));
         label_g_.setTextColor(Color(uint8_t(190), uint8_t(190), uint8_t(190)));
@@ -68,7 +68,7 @@ public:
         fill_canvas(canvas_g_, label_g_);
         fill_canvas(canvas_b_, label_b_);
 
-        color_box_label_.set_texture(Texture(color));
+        color_box_label_.set_texture(SL::Texture(color));
 
         fill_canvas(color_box_canvas_, color_box_label_);
         fill_canvas(canvas_r_, label_r_);
@@ -76,7 +76,7 @@ public:
         fill_canvas(canvas_b_, label_b_);
     }
     
-    void fill_canvas(uint64_t canvas, Label &label)
+    void fill_canvas(uint64_t canvas, SL::Label &label)
     {        
         Image image(label.get_render_texture()->getTexture());   
 

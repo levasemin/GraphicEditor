@@ -12,8 +12,8 @@ bucket:
 style:
 	$(CC) -shared -fPIC -Wextra Plugins/ToolStyle.cpp Graphic-Library/GraphLib/Classes/Color.cpp Graphic-Library/GraphLib/functions/functions.cpp -o Plugins_so/Style.so
 
-event_handler: clean Graphic-Library/GraphLib/event_handler.o $(BuildF)main.o $(BuildF)Canvas.o $(BuildF)ColorPicker.o $(BuildF)HSVwindow.o $(BuildF)OpenWindow.o $(BuildF)SaveWindow.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o
-	$(CC) 			 Graphic-Library/GraphLib/event_handler.o $(BuildF)main.o $(BuildF)Canvas.o $(BuildF)ColorPicker.o $(BuildF)HSVwindow.o $(BuildF)OpenWindow.o $(BuildF)SaveWindow.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o -o event_handler -lsfml-graphics -lsfml-window -lsfml-system -ldl -export-dynamic
+event_handler: clean Graphic-Library/GraphLib/event_handler.o $(BuildF)main.o $(BuildF)Canvas.o $(BuildF)ColorPicker.o $(BuildF)HSVwindow.o $(BuildF)OpenWindow.o $(BuildF)SaveWindow.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o $(BuildF)Event.o
+	$(CC) 			 Graphic-Library/GraphLib/event_handler.o $(BuildF)main.o $(BuildF)Canvas.o $(BuildF)ColorPicker.o $(BuildF)HSVwindow.o $(BuildF)OpenWindow.o $(BuildF)SaveWindow.o $(BuildF)plugin_func.o $(BuildF)ToolButton.o $(BuildF)ToolManager.o $(BuildF)Event.o -o event_handler -lsfml-graphics -lsfml-window -lsfml-system -ldl -export-dynamic
 
 $(BuildF)main.o:
 	$(CC) -c main.cpp -o $(BuildF)main.o
@@ -48,6 +48,9 @@ $(BuildF)ToolManager.o:
 
 $(BuildF)Interpolator.o:
 	$(CC) -c Plugins/Interpolator.cpp -o $(Buildf)Interpolator.o
+
+$(BuildF)Event.o:
+	$(CC) -c Custom_Widgets/Event.cpp -o $(BuildF)Event.o
 
 clean:
 	rm -rf $(BuildF)/*.o

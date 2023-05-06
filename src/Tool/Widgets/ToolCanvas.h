@@ -1,30 +1,30 @@
 #pragma once
 
 #include "../../Graphic-Library/GraphLib/GraphLib.h"
+#include "../../Custom_Widgets/Custom_Widgets.h"
 
 
-using namespace SL;
 
-class ToolCanvas : public Object 
+class ToolCanvas : public SL::Object 
 {
 public:
 
     Image image_;
 
-    Command<const booba::Event &> *command_ = nullptr;
+    SL::Command<const booba::Event &> *command_ = nullptr;
 
-    ToolCanvas(Vector2d shape, Vector2d position, const Image &image = Image()) : Object(shape, position, image.getTexture()),
+    ToolCanvas(SL::Vector2d shape, SL::Vector2d position, const Image &image = Image()) : SL::Object(shape, position, image.getTexture()),
         image_(image)
     {}
     
-    ToolCanvas(const ToolCanvas &source) : Object(*(const Object *)&source),
+    ToolCanvas(const ToolCanvas &source) : SL::Object(*(const SL::Object *)&source),
         image_(source.image_),
         command_(source.command_)
     {}
 
     ToolCanvas &operator=(const ToolCanvas &source)
     {
-        Object::operator=(source);
+        SL::Object::operator=(source);
         image_ = source.image_;
         command_ = source.command_;
 
@@ -33,29 +33,29 @@ public:
 
     void draw() override
     {   
-        Sprite sprite(shape_, image_.getTexture());
+        SL::Sprite sprite(shape_, image_.getTexture());
         render_texture_->clear();
         render_texture_->draw(sprite);
         
-        Object::draw();
+        SL::Object::draw();
     }
 
-    void set_command(Command<const booba::Event &> *command)
+    void set_command(SL::Command<const booba::Event &> *command)
     {
         command_ = command;
     }
 
-    Command<const booba::Event &> *get_command()
+    SL::Command<const booba::Event &> *get_command()
     {
         return command_;
     }
 
-    void ClickLeftEvent(const Event &event) override
+    void ClickLeftEvent(const SL::Event &event) override
     {
         if (point_belonging(event.Oleg_.mbedata.pos))
         {
-            Event new_event = event;
-            new_event.type_ = EventType::CanvasMPressed;
+            SL::Event new_event = event;
+            new_event.type_ = SL::EventType::CanvasMPressed;
             new_event.Oleg_.cedata.id  = uint64_t(this); 
             new_event.Oleg_.cedata.pos = event.Oleg_.mbedata.pos - get_start_field();
         
@@ -66,12 +66,12 @@ public:
         }
     }
 
-    void MoveMouseEvent(const Event &event) override
+    void MoveMouseEvent(const SL::Event &event) override
     {
         if (point_belonging(event.Oleg_.motion.pos))
         {
-            Event new_event = event;
-            new_event.type_ = EventType::CanvasMMoved;
+            SL::Event new_event = event;
+            new_event.type_ = SL::EventType::CanvasMMoved;
             new_event.Oleg_.cedata.id  = uint64_t(this); 
             new_event.Oleg_.cedata.pos = event.Oleg_.motion.pos - get_start_field();
             
@@ -82,12 +82,12 @@ public:
         }
     }
 
-    void ReleasedLeftEvent(const Event &event) override
+    void ReleasedLeftEvent(const SL::Event &event) override
     {
         if (point_belonging(event.Oleg_.mredata.pos))
         {
-            Event new_event = event;
-            new_event.type_ = EventType::CanvasMReleased;
+            SL::Event new_event = event;
+            new_event.type_ = SL::EventType::CanvasMReleased;
             new_event.Oleg_.cedata.id  = uint64_t(this); 
             new_event.Oleg_.cedata.pos = event.Oleg_.mredata.pos - get_start_field();
         

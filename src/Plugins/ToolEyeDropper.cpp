@@ -7,7 +7,7 @@ void ToolEyeDropper::apply(booba::Image* image, const booba::Event* event)
         case booba::EventType::MousePressed:
         {
             clicked_ = true;
-            Color color = Color::convert_uint_color(image->getPixel(event->Oleg.mbedata.x, event->Oleg.mbedata.y));
+            Color color = image->getPixel(event->Oleg.mbedata.x, event->Oleg.mbedata.y);
             
             set_color(color);
 
@@ -18,7 +18,7 @@ void ToolEyeDropper::apply(booba::Image* image, const booba::Event* event)
         {
             if (clicked_)
             {
-                Color color = Color::convert_uint_color(image->getPixel(event->Oleg.mbedata.x, event->Oleg.mbedata.y));
+                Color color = image->getPixel(event->Oleg.mbedata.x, event->Oleg.mbedata.y);
             
                 set_color(color);
             }

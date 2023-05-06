@@ -6,7 +6,7 @@
 
 #include "../Graphic-Library/GraphLib/GraphLib.h"
 
-using namespace SL;
+
 
 class Interpolator
 {
@@ -20,5 +20,5 @@ public:
     
     static const int CATMULL_ROM = 0;
 
-    Vector2d operator()(float t, Vector2d point_0, Vector2d point_1, Vector2d point_2, Vector2d point_3);
+    virtual SL::Vector2d operator()(float t, SL::Vector2d point_0, SL::Vector2d point_1, SL::Vector2d point_2, SL::Vector2d point_3);
 };

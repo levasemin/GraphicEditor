@@ -2,10 +2,12 @@
 
 #include "../Graphic-Library/GraphLib/GraphLib.h"
 
+#include "Image.h"
+#include "Color.h"
 
 #include "HSVwindow.h"
 
-using namespace SL;
+
 
 enum
 {
@@ -13,21 +15,21 @@ enum
     BACKGROUND_COLOR
 };
 
-using namespace SL;
 
-class ColorPicker : public CompositeObject
+
+class ColorPicker : public SL::CompositeObject
 {
 public:
     int color_type_ = -1;
     Color fg_color_;
     Color bg_color_;
 
-    Button *foreground_button_ = nullptr;
-    Button *background_button_ = nullptr;
-    Button *swap_button_       = nullptr;
+    SL::Button *foreground_button_ = nullptr;
+    SL::Button *background_button_ = nullptr;
+    SL::Button *swap_button_       = nullptr;
     HSVwindow *hsv_window_     = nullptr;
 
-    ColorPicker(Button *foreground_button, Button *background_button, Button *swap_button, HSVwindow *hsv_window);
+    ColorPicker(SL::Button *foreground_button, SL::Button *background_button, SL::Button *swap_button, HSVwindow *hsv_window);
 
     ColorPicker(const ColorPicker &source);
 
@@ -35,17 +37,17 @@ public:
 
     void change_color(const Color &color);
 
-    void swap_colors(const Event &);
+    void swap_colors(const SL::Event &);
 
-    void set_color(const Event &);
+    void set_color(const SL::Event &);
 
-    void return_color(const Event &);
+    void return_color(const SL::Event &);
     
-    void open_foreground_hsv_window(const Event &event);
+    void open_foreground_hsv_window(const SL::Event &event);
     
-    void open_background_hsv_window(const Event &event);
+    void open_background_hsv_window(const SL::Event &event);
 
-    void MoveMouseEvent(const Event &event) override;
+    void MoveMouseEvent(const SL::Event &event) override;
 
-    void set_parent(Widget *parent) override;
+    void set_parent(SL::Widget *parent) override;
 };

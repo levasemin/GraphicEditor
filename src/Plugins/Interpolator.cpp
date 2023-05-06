@@ -1,8 +1,8 @@
 #include "Interpolator.h"
 
-Vector2d Interpolator::operator()(float t, Vector2d point_0, Vector2d point_1, Vector2d point_2, Vector2d point_3)
+SL::Vector2d Interpolator::operator()(float t, SL::Vector2d point_0, SL::Vector2d point_1, SL::Vector2d point_2, SL::Vector2d point_3)
 {
-    Vector2d new_point(0.f, 0.f);
+    SL::Vector2d new_point(0.f, 0.f);
 
     if (type_ == CATMULL_ROM)
     {

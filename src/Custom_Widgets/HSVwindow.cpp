@@ -1,20 +1,19 @@
 #include "HSVwindow.h"
 
-using namespace SL;
-
-HSVwindow::HSVwindow(Vector2d shape, const Texture &texture, HSVpalette *hsv_palette, Editor *r_editor, Editor *g_editor, Editor *b_editor, Button *ok_button, Button *cancel_button): MainWindow(shape, texture),
+HSVwindow::HSVwindow(SL::Vector2d shape, const SL::Texture &texture, HSVpalette *hsv_palette, SL::Editor *r_editor, SL::Editor *g_editor, SL::Editor *b_editor, SL::Button *ok_button, SL::Button *cancel_button): MainWindow(shape, texture),
     hsv_palette_(hsv_palette),
     r_editor_(r_editor),
     g_editor_(g_editor),
     b_editor_(b_editor),
     ok_button_(ok_button),
     cancel_button_(cancel_button),
-    color_(0.f, 0.f, 0.f)
+    color_(),
+    prev_color_()
     {
-        hsv_palette_->set_command    ((Command <const Color&> *)  new SimpleCommand<HSVwindow, const Color&>  (this, &HSVwindow::change_color));
-        r_editor_->set_editor_command((Command <const Event &> *) new SimpleCommand<HSVwindow, const Event &> (this, &HSVwindow::change_r));
-        g_editor_->set_editor_command((Command <const Event &> *) new SimpleCommand<HSVwindow, const Event &> (this, &HSVwindow::change_g));
-        b_editor_->set_editor_command((Command <const Event &> *) new SimpleCommand<HSVwindow, const Event &> (this, &HSVwindow::change_b));
+        hsv_palette_->set_command    ((SL::Command <const Color&> *)      new SL::SimpleCommand<HSVwindow, const Color&>  (this, &HSVwindow::change_color));
+        r_editor_->set_editor_command((SL::Command <const SL::Event &> *) new SL::SimpleCommand<HSVwindow, const SL::Event &> (this, &HSVwindow::change_r));
+        g_editor_->set_editor_command((SL::Command <const SL::Event &> *) new SL::SimpleCommand<HSVwindow, const SL::Event &> (this, &HSVwindow::change_g));
+        b_editor_->set_editor_command((SL::Command <const SL::Event &> *) new SL::SimpleCommand<HSVwindow, const SL::Event &> (this, &HSVwindow::change_b));
 
         add(hsv_palette_);
         add(r_editor_);
@@ -30,6 +29,7 @@ HSVwindow::HSVwindow(const HSVwindow &source): MainWindow(*(const MainWindow *)&
     g_editor_(source.g_editor_),
     b_editor_(source.b_editor_),
     color_(source.color_),
+    prev_color_(source.prev_color_),
     hsv_window_command_(source.hsv_window_command_)
 {}
 
@@ -65,7 +65,7 @@ void HSVwindow::change_color(const Color &color)
     }
 }
 
-void HSVwindow::set_command(Command<const Color &> *command)
+void HSVwindow::set_command(SL::Command<const Color &> *command)
 {
     hsv_window_command_ = command;
 }
@@ -74,9 +74,9 @@ void HSVwindow::set_color(const Color &color)
 {
     color_ = color;
     
-    r_editor_->setString(std::to_string(color.get_r()));
-    g_editor_->setString(std::to_string(color.get_g()));
-    b_editor_->setString(std::to_string(color.get_b()));
+    r_editor_->setString(std::to_string(int(color.get_r())));
+    g_editor_->setString(std::to_string(int(color.get_g())));
+    b_editor_->setString(std::to_string(int(color.get_b())));
 
     hsv_palette_->set_color(color_);
 
@@ -86,7 +86,7 @@ void HSVwindow::set_color(const Color &color)
     }
 }
 
-void HSVwindow::change_r(const Event &event)
+void HSVwindow::change_r(const SL::Event &event)
 {
     std::string string = event.Oleg_.textedata.text;
             
@@ -108,7 +108,7 @@ void HSVwindow::change_r(const Event &event)
     set_color(color_);
 }
 
-void HSVwindow::change_g(const Event &event)
+void HSVwindow::change_g(const SL::Event &event)
 {
     std::string string = event.Oleg_.textedata.text;
 
@@ -130,7 +130,7 @@ void HSVwindow::change_g(const Event &event)
     set_color(color_);
 }
 
-void HSVwindow::change_b(const Event &event)
+void HSVwindow::change_b(const SL::Event &event)
 {
     std::string string = event.Oleg_.textedata.text;
 
@@ -151,13 +151,13 @@ void HSVwindow::change_b(const Event &event)
     set_color(color_);
 }
 
-void HSVwindow::exec(const Event &event)
+void HSVwindow::exec(const SL::Event &event)
 {
-    app_ = new Application(this);
+    app_ = new SL::Application(this);
     app_->exec();
 }
 
-void HSVwindow::close(const Event &event)
+void HSVwindow::close(const SL::Event &event)
 {
     if (app_)
     {

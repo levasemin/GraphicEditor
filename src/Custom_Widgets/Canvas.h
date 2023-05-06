@@ -17,19 +17,20 @@
 #include "../Tool/ToolManager.h"
 #include "../Tool/ToolPalette.h"
 
+#include "Image.h"
+#include "Color.h"
 
-using namespace SL;
 
-class Canvas : public CompositeObject
+class Canvas : public SL::CompositeObject
 {
-    Canvas() : CompositeObject(Vector2d(0, 0), Vector2d(0, 0)), tool_manager_(ToolManager::getInstance()) {}
+    Canvas() : SL::CompositeObject(SL::Vector2d(0, 0), SL::Vector2d(0, 0)), tool_manager_(ToolManager::getInstance()) {}
     Canvas (const Canvas &source) = delete;
 
     Canvas &operator= (const Canvas &source) = delete;
 
 public:
-    Surface *surface_;    
-    Surface *second_surface_;
+    Surface *surface_        = nullptr;    
+    Surface *second_surface_ = nullptr;
 
     ToolManager &tool_manager_;
 
@@ -45,19 +46,19 @@ public:
         return &canvas;
     }
 
-    static Canvas *Create(Vector2d shape, Vector2d position, ToolPalette *tool_palette = nullptr, Container * setting_palette = nullptr);
+    static Canvas *Create(SL::Vector2d shape, SL::Vector2d position, ToolPalette *tool_palette = nullptr, SL::Container * setting_palette = nullptr);
 
-    void MoveMouseEvent (const Event &event) override;
+    void MoveMouseEvent (const SL::Event &event) override;
 
-    void ClickLeftEvent(const Event &event) override;
+    void ClickLeftEvent(const SL::Event &event) override;
 
-    void ClickRightEvent(const Event &event) override;
+    void ClickRightEvent(const SL::Event &event) override;
     
-    void ReleasedLeftEvent (const Event &event) override;
+    void ReleasedLeftEvent (const SL::Event &event) override;
 
-    void ReleasedRightEvent (const Event &event) override;
+    void ReleasedRightEvent (const SL::Event &event) override;
 
-    void PressKeyEvent(const Event &event) override;
+    void PressKeyEvent(const SL::Event &event) override;
 
     void set_zoom(float value);
 

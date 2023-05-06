@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../Graphic-Library/GraphLib/GraphLib.h"
+#include "../Custom_Widgets/Custom_Widgets.h"
 
 
-using namespace SL;
 
 class Circle : public Image
 {
@@ -13,19 +13,15 @@ protected:
      
 public:
 
-    Circle(int radius, Color color = Color::Black): Image(Vector2d(float(radius * 2), float(radius * 2))),
+    Circle(int radius, Color color = Color::Black): Image(SL::Vector2d(float(radius * 2), float(radius * 2))),
         radius_(radius),
         color_(color)
     {
     }
-
-    Circle(int radius, uint32_t color): Circle(radius, Color::convert_uint_color(color))
-    {}
-
     void set_radius(int radius)
     {
         radius_ = radius;
-        setSize(Vector2d(float(radius * 2), float(radius * 2)));
+        setSize(SL::Vector2d(float(radius * 2), float(radius * 2)));
     }
 
     int get_radius()
@@ -38,7 +34,7 @@ public:
         color_ = color;
     }
 
-    void draw_fill(booba::Image *image, Vector2d center)
+    void draw_fill(booba::Image *image, SL::Vector2d center)
     {        
         for (int y = 0; y < radius_ * 2; y++)
         {
@@ -46,7 +42,7 @@ public:
             {
                 float value = float(pow(radius_, 2) - (pow(x - radius_, 2) + pow(y - radius_, 2)));
                 
-                if (doublecmp(value, 0) >= 0)
+                if (SL::doublecmp(value, 0) >= 0)
                 {
                     image->setPixel(uint32_t((int)center.x_ + x - radius_), (uint32_t)((int)center.y_ + y - radius_), Color::convert_color_uint(color_));
                 }
@@ -54,7 +50,7 @@ public:
         }
     }
 
-    void draw_frame(booba::Image *image, Vector2d center, float width)
+    void draw_frame(booba::Image *image, SL::Vector2d center, float width)
     {        
         for (int y = 0; y < radius_ * 2 + 1; y++)
         {
@@ -62,7 +58,7 @@ public:
             {
                 float value = float(pow(radius_, 2) - (pow(x - radius_, 2) + pow(y - radius_, 2)));
 
-                if (doublecmp(abs(value), float(pow(width, 2))) <= 0)
+                if (SL::doublecmp(abs(value), float(pow(width, 2))) <= 0)
                 {
                     image->setPixel(uint32_t((int)center.x_ + x - radius_), (uint32_t)((int)center.y_ + y - radius_), Color::convert_color_uint(color_));
                 }

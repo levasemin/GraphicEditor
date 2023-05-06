@@ -2,26 +2,27 @@
 
 #include "../Graphic-Library/GraphLib/GraphLib.h"
 
-using namespace SL;
+#include "Image.h"
+#include "Color.h"
 
-class HSVpalette : public Object
+class HSVpalette : public SL::Object
 {   
 public:
     Color color_;
     Image palette_;
-    VerticalScrollBar scroll_bar_;
+    SL::VerticalScrollBar scroll_bar_;
     
     bool clicked_ = false;
 
-    Command<const Color&> *palette_command_ = nullptr;
+    SL::Command<const Color&> *palette_command_ = nullptr;
 
-    HSVpalette(Vector2d shape, Vector2d position) : Object(shape, position),
+    HSVpalette(SL::Vector2d shape, SL::Vector2d position) : SL::Object(shape, position),
         color_(360.f, 0.f, 0.f),
         palette_(shape),
-        scroll_bar_(Vector2d(20, shape.y_), Vector2d(position_.x_ + shape.x_ + 10, position_.y_), 0.f, 360.f)
+        scroll_bar_(SL::Vector2d(20.f, shape.y_), SL::Vector2d(position_.x_ + shape.x_ + 10, position_.y_), 0.f, 360.f)
     {   
-        scroll_bar_.set_scroll_command((Command<const Event &> *) new SimpleCommand<HSVpalette, const Event&>(this, &HSVpalette::change_H));
-        scroll_bar_.set_scroll_button_size(Vector2d(20, 4));
+        scroll_bar_.set_scroll_command((SL::Command<const SL::Event &> *) new SL::SimpleCommand<HSVpalette, const SL::Event&>(this, &HSVpalette::change_H));
+        scroll_bar_.set_scroll_button_size(SL::Vector2d(20, 4));
         scroll_bar_.set_button(false);
         Image scroll_bar_image(scroll_bar_.get_shape());
         
@@ -29,14 +30,15 @@ public:
         {
             for (float x = 0; x < scroll_bar_image.getSize().x_; x++)
             {
-                scroll_bar_image.setPixel(Vector2d(x, y), Color((1.f - y / scroll_bar_.get_shape().y_) * 360.f, 1.f, 1.f));
+                Color color = Color((1.f - y / scroll_bar_.get_shape().y_) * 360.f, 1.f, 1.f);
+                scroll_bar_image.setPixel(SL::Vector2d(x, y), color);
             }
         }
 
         scroll_bar_.set_texture(scroll_bar_image.getTexture());
     }
 
-    HSVpalette(const HSVpalette &source) : Object(*(const Object *)&source),
+    HSVpalette(const HSVpalette &source) : SL::Object(*(const SL::Object *)&source),
         color_(source.color_),
         palette_(source.palette_),
         scroll_bar_(source.scroll_bar_),
@@ -45,7 +47,7 @@ public:
 
     HSVpalette &operator=(const HSVpalette &source)
     {
-        Object::operator=(*(const Object *)&source);
+        SL::Object::operator=(*(const SL::Object *)&source);
         color_           = source.color_;
         palette_         = source.palette_;
         scroll_bar_      = source.scroll_bar_;
@@ -54,7 +56,7 @@ public:
         return *this;
     }
 
-    void set_command(Command<const Color&> *command)
+    void set_command(SL::Command<const Color&> *command)
     {
         palette_command_ = command;
     }
@@ -69,23 +71,23 @@ public:
             {
                 if ((int)(color_.get_s() * shape_.x_) == (int)x || (int)((1 - color_.get_v()) * shape_.y_) == (int)y)
                 {
-                    palette_.setPixel(Vector2d(x, y), Color::White);
+                    palette_.setPixel(SL::Vector2d(x, y), Color::White);
                 }
 
                 else
                 {
-                    palette_.setPixel(Vector2d(x, y), Color(color_.get_h(), x / shape_.x_, 1.f - y / shape_.y_));
+                    palette_.setPixel(SL::Vector2d(x, y), Color(color_.get_h(), x / shape_.x_, 1.f - y / shape_.y_));
                 }
             }
         }
 
-        Sprite sprite(shape_, palette_.getTexture());
+        SL::Sprite sprite(shape_, palette_.getTexture());
         render_texture_->clear();
         render_texture_->draw(sprite);
         render_texture_->display();
         
         scroll_bar_.draw();
-        Object::draw();
+        SL::Object::draw();
     }
 
     void set_color(const Color &color)
@@ -95,7 +97,7 @@ public:
         scroll_bar_.scroll_bar(value);
     }
 
-    void change_H(const Event &event)
+    void change_H(const SL::Event &event)
     {
         color_.set_h((360.f - event.Oleg_.smedata.value));
 
@@ -105,7 +107,7 @@ public:
         }
     }
 
-    void ClickLeftEvent (const Event &event) override
+    void ClickLeftEvent (const SL::Event &event) override
     {
         scroll_bar_.ClickLeftEvent(event);
         
@@ -128,7 +130,7 @@ public:
         }
     }
 
-    void MoveMouseEvent(const Event &event) override
+    void MoveMouseEvent(const SL::Event &event) override
     {
         scroll_bar_.MoveMouseEvent(event);
         
@@ -147,54 +149,54 @@ public:
         }
     }
 
-    void ReleasedLeftEvent (const Event &event) override
+    void ReleasedLeftEvent (const SL::Event &event) override
     {
         clicked_ = false;
         
         scroll_bar_.ReleasedLeftEvent(event);
-        Object::ReleasedLeftEvent(event);
+        SL::Object::ReleasedLeftEvent(event);
     }              
 
-    virtual void ClickRightEvent (const Event &event) override
+    virtual void ClickRightEvent (const SL::Event &event) override
     {
         scroll_bar_.ClickRightEvent(event);
-        Object::ClickRightEvent(event);
+        SL::Object::ClickRightEvent(event);
     }           
     
-    void ReleasedRightEvent (const Event &event) override
+    void ReleasedRightEvent (const SL::Event &event) override
     {   
         scroll_bar_.ReleasedRightEvent(event);
-        Object::ReleasedRightEvent(event);
+        SL::Object::ReleasedRightEvent(event);
     }              
 
-    void PressKeyEvent (const Event &event) override
+    void PressKeyEvent (const SL::Event &event) override
     {
         scroll_bar_.MoveMouseEvent(event);
-        Object::PressKeyEvent(event);
+        SL::Object::PressKeyEvent(event);
     }
 
-    void set_global_offset(Vector2d offset) override
+    void set_global_offset(SL::Vector2d offset) override
     {
         scroll_bar_.set_global_offset(offset);
-        Object::set_global_offset(offset);
+        SL::Object::set_global_offset(offset);
     }
 
-    void display(Window *window) override
+    void display(SL::Window *window) override
     {
         scroll_bar_.display(window);
-        Object::display(window);
+        SL::Object::display(window);
     }
 
-    void set_parent(Widget *parent_widget) override
+    void set_parent(SL::Widget *parent_widget) override
     {
         scroll_bar_.set_parent(parent_widget);
-        Object::set_parent(parent_widget);
+        SL::Object::set_parent(parent_widget);
     }
 
-    void ScrollEvent (const Event &event) override
+    void ScrollEvent (const SL::Event &event) override
     {
         scroll_bar_.ScrollEvent(event);
-        Object::ScrollEvent(event);    
+        SL::Object::ScrollEvent(event);    
     }
 
 };

@@ -9,7 +9,7 @@
 #include "../Tool/Tool.h"
 #include "../Tool/ToolCommand.h"
 #include "../Tool/ToolManager.h"
-
+#include "../Custom_Widgets/Custom_Widgets.h"
 #include "Interpolator.h"
 #include "Circle.h"
 
@@ -73,14 +73,14 @@ public:
 
     void paint(booba::Image *image)
     {
-        drawing_object_.set_color(Color::convert_uint_color(booba::APPCONTEXT->fgColor));
+        drawing_object_.set_color(booba::APPCONTEXT->fgColor);
         drawing_object_.draw_fill(image, points_.back());
 
         if (points_.size() == 4)
         {
             for (float t = 0; t <= 1.f; t += 0.1f)
             {
-                Vector2d new_point = interpolator_(t, points_[0], points_[1], points_[2], points_[3]);
+                SL::Vector2d new_point = interpolator_(t, points_[0], points_[1], points_[2], points_[3]);
                 
                 drawing_object_.draw_fill(image, new_point);
             }
@@ -100,7 +100,7 @@ public:
             {
                 clicked_ = true;
 
-                Vector2d new_point((float)event->Oleg.mbedata.x, (float)event->Oleg.mbedata.y);
+                SL::Vector2d new_point((float)event->Oleg.mbedata.x, (float)event->Oleg.mbedata.y);
 
                 points_.push_back(new_point);
                 paint(image);
@@ -119,7 +119,7 @@ public:
             {
                 booba::Image *second_layer = booba::getHiddenLayerID();
 
-                Vector2d new_point((float)event->Oleg.motion.x, (float)event->Oleg.motion.y);
+                SL::Vector2d new_point((float)event->Oleg.motion.x, (float)event->Oleg.motion.y);
 
                 if (clicked_)
                 {
@@ -143,7 +143,7 @@ public:
                 
                 ToolManager::getInstance().recovery_second_layer();
 
-                drawing_object_.set_color(Color::convert_uint_color(booba::APPCONTEXT->fgColor));
+                drawing_object_.set_color(booba::APPCONTEXT->fgColor);
                 
                 float border_width = float(drawing_object_.get_radius() / 3 != 0 ? drawing_object_.get_radius() / 3 : 1); 
                 drawing_object_.draw_frame(second_layer, new_point, border_width);
@@ -201,7 +201,7 @@ public:
 private:
     uint64_t width_scroll_bar_ = 0;
     uint64_t width_editor_ = 0; 
-    std::deque<Vector2d> points_;
+    std::deque<SL::Vector2d> points_;
 
     Circle drawing_object_;
 };

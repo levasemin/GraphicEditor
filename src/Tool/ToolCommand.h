@@ -4,16 +4,16 @@
 
 #include "/home/levce/projectsDED/GraphicEditor/src/Custom_Widgets/Canvas.h"
 
-using namespace SL;
+
 
 template <class Receiver>
-class ToolCommand : public Command<const booba::Event &>
+class ToolCommand : public SL::Command<const booba::Event &>
 {
 
 public:
     using Action = void (Receiver:: *)(booba::Image *, const booba::Event *);
 
-    ToolCommand(Receiver *receiver, Action action) : Command<const booba::Event &>(),
+    ToolCommand(Receiver *receiver, Action action) : SL::Command<const booba::Event &>(),
         receiver_(receiver),
         action_(action) 
     {

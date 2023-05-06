@@ -7,7 +7,7 @@
 #include <unordered_map>
 
 #include "../Graphic-Library/GraphLib/GraphLib.h"
-
+#include "../Custom_Widgets/Event.h"
 
 #include "Tool.h"
 #include "ToolPalette.h"
@@ -79,9 +79,9 @@ public:
     booba::Tool *init_tool_ = nullptr;
 
     ToolPalette *tool_palette_ = nullptr;
-    Container *setting_field_ = nullptr;
+    SL::Container *setting_field_ = nullptr;
     
-    std::vector<Container *> setting_palettes_;
+    std::vector<SL::Container *> setting_palettes_;
     
     Surface *surface_ = nullptr;
     Surface *second_surface_ = nullptr;
@@ -102,12 +102,12 @@ public:
         return tool_palette_;
     }
 
-    void set_setting_field(Container *setting_palette)
+    void set_setting_field(SL::Container *setting_palette)
     {
         setting_field_ = setting_palette;
     }
 
-    Container *get_setting_field()
+    SL::Container *get_setting_field()
     {
         return setting_field_;
     }
@@ -117,15 +117,15 @@ public:
         std::cout << "hui\n";
         tools_.push_back(new_tool);
         
-        Button *tool_button_ = new Button(Vector2d(50, 50), Vector2d(25, 25));
+        SL::Button *tool_button_ = new SL::Button(SL::Vector2d(50, 50), SL::Vector2d(25, 25));
         
         tool_button_->set_texture(tool_palette_->get_texture());
-        tool_button_->set_texture(Texture(new_tool->getTexture()));
-        tool_button_->set_left_click((Command<const Event &> *) new SimpleCommand<ToolManager, const Event &>(this, &ToolManager::tool_choose));
+        tool_button_->set_texture(SL::Texture(new_tool->getTexture()));
+        tool_button_->set_left_click((SL::Command<const SL::Event &> *) new SL::SimpleCommand<ToolManager, const SL::Event &>(this, &ToolManager::tool_choose));
         tool_button_->set_pressed(true);
         tool_palette_->add(tool_button_);
         
-        Container *setting_palette = new Container(Vector2d(setting_field_->get_shape()), Vector2d(0, 0));
+        SL::Container *setting_palette = new SL::Container(SL::Vector2d(setting_field_->get_shape()), SL::Vector2d(0, 0));
         
         setting_palette->set_texture(setting_field_->get_texture());
         setting_palettes_.push_back(setting_palette);
@@ -134,11 +134,11 @@ public:
         new_tool->buildSetupWidget();
     }
     
-    void tool_choose(const Event &event)
+    void tool_choose(const SL::Event &event)
     {        
         recovery_second_layer();
 
-        std::vector<Widget *> tool_palette_children = tool_palette_->get_children();
+        std::vector<SL::Widget *> tool_palette_children = tool_palette_->get_children();
         
         for (size_t i = 0; i < tool_palette_children.size(); i++)
         {
@@ -157,7 +157,7 @@ public:
 
             else
             {
-                ((Button *)(tool_palette_children[i]))->is_pressed_ = false;
+                ((SL::Button *)(tool_palette_children[i]))->is_pressed_ = false;
             }
         }
     }
@@ -177,11 +177,11 @@ public:
         max_forward_ = numCommands_;
     }
     
-    void apply(Surface *surface, const Event *event)
+    void apply(Surface *surface, const SL::Event *event)
     {
         if (active_tool_)
         {
-            if ((event->type_ == EventType::MouseReleased || event->type_ == EventType::CanvasMPressed) && surface->image_.image_changed)
+            if ((event->type_ == SL::EventType::MouseReleased || event->type_ == SL::EventType::CanvasMPressed) && surface->image_.image_changed)
             {
                 create_memento(surface);
 
@@ -220,7 +220,7 @@ public:
 
     void remove_active_tool()
     {
-        // setting_field_->remove((Container *) active_tool_->get_setting_widget());
+        // setting_field_->remove((SL::Container *) active_tool_->get_setting_widget());
         active_tool_ = nullptr;
     }
 
@@ -259,7 +259,7 @@ public:
 
         active_tool_    = tool;
 
-        std::vector<Widget *> setting_field_children = setting_field_->get_children();
+        std::vector<SL::Widget *> setting_field_children = setting_field_->get_children();
 
         for (size_t i = 0; i < setting_field_children.size(); i++)
         {

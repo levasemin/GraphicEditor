@@ -3,21 +3,21 @@
 #include "../Graphic-Library/GraphLib/GraphLib.h"
 #include "Canvas.h"
 
-using namespace SL;
+#include "Image.h"
+#include "Color.h"
 
-class SaveWindow : public MainWindow
+class SaveWindow : public SL::MainWindow
 {
-
 public:
-    Application *app_ = nullptr;
+    SL::Application *app_ = nullptr;
     Canvas *canvas_ = nullptr;
     std::string path_;
 
-    Button *save_button_;
-    Button *cancel_button_;
-    Editor *path_editor_;
+    SL::Button *save_button_;
+    SL::Button *cancel_button_;
+    SL::Editor *path_editor_;
 
-    SaveWindow(Vector2d shape, Button *save_button, Button *cancel_button, Editor *path_editor);
+    SaveWindow(SL::Vector2d shape, SL::Button *save_button, SL::Button *cancel_button, SL::Editor *path_editor);
     
     SaveWindow (const SaveWindow &source);
     
@@ -25,15 +25,15 @@ public:
 
     void set_canvas(Canvas *canvas);
 
-    void change_path(const Event &event);
+    void change_path(const SL::Event &event);
 
     void set_path(const std::string &path);
     
-    void save_image(const Event &);
+    void save_image(const SL::Event &);
 
-    void exec(const Event &);
+    void exec(const SL::Event &);
 
-    void close(const Event &);
+    void close(const SL::Event &);
 
     ~SaveWindow();
 };

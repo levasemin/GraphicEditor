@@ -1,14 +1,14 @@
 // #include "HSVpalette.h"
 
-// using namespace SL;
+// 
 
-// HSVpalette::HSVpalette(Vector2d shape, Vector2d position) : Object(shape, position),
+// HSVpalette::HSVpalette(SL::Vector2d shape, SL::Vector2d position) : SL::Object(shape, position),
 //     color_(360.f, 0.f, 0.f),
 //     palette_(shape),
-//     scroll_bar_(Vector2d(20, shape.y_), Vector2d(position_.x_ + shape.x_ + 10, position_.y_), 0, 360)
+//     scroll_bar_(SL::Vector2d(20, shape.y_), SL::Vector2d(position_.x_ + shape.x_ + 10, position_.y_), 0, 360)
 // {   
-//     scroll_bar_.set_scroll_command((Command<const Event &> *) new SimpleCommand<HSVpalette, const Event&>(this, &HSVpalette::change_H));
-//     scroll_bar_.set_scroll_button_size(Vector2d(20, 4));
+//     scroll_bar_.set_scroll_command((Command<const Event &> *) new SL::SimpleCommand<HSVpalette, const Event&>(this, &HSVpalette::change_H));
+//     scroll_bar_.set_scroll_button_size(SL::Vector2d(20, 4));
 //     scroll_bar_.set_button(false);
 //     Image scroll_bar_image(scroll_bar_.get_shape());
     
@@ -16,14 +16,14 @@
 //     {
 //         for (float x = 0; x < scroll_bar_image.getSize().x_; x++)
 //         {
-//             scroll_bar_image.setPixel(Vector2d(x, y), Color((1.f - y / scroll_bar_.get_shape().y_) * 360.f, 1.f, 1.f));
+//             scroll_bar_image.setPixel(SL::Vector2d(x, y), Color((1.f - y / scroll_bar_.get_shape().y_) * 360.f, 1.f, 1.f));
 //         }
 //     }
 
 //     scroll_bar_.set_texture(scroll_bar_image.getTexture());
 // }
 
-// HSVpalette::HSVpalette(const HSVpalette &source) : Object(*(const Object *)&source),
+// HSVpalette::HSVpalette(const HSVpalette &source) : SL::Object(*(const SL::Object *)&source),
 //     color_(source.color_),
 //     palette_(source.palette_),
 //     scroll_bar_(source.scroll_bar_),
@@ -32,7 +32,7 @@
 
 // HSVpalette &HSVpalette::operator=(const HSVpalette &source)
 // {
-//     Object::operator=(*(const Object *)&source);
+//     SL::Object::operator=(*(const SL::Object *)&source);
 //     color_           = source.color_;
 //     palette_         = source.palette_;
 //     scroll_bar_      = source.scroll_bar_;
@@ -56,12 +56,12 @@
 //         {
 //             if ((int)(color_.get_s() * shape_.x_) == (int)x || (int)((1 - color_.get_v()) * shape_.y_) == (int)y)
 //             {
-//                 palette_.setPixel(Vector2d(x, y), Color::White);
+//                 palette_.setPixel(SL::Vector2d(x, y), Color::White);
 //             }
 
 //             else
 //             {
-//                 palette_.setPixel(Vector2d(x, y), Color(color_.get_h(), x / shape_.x_, 1.f - y / shape_.y_));
+//                 palette_.setPixel(SL::Vector2d(x, y), Color(color_.get_h(), x / shape_.x_, 1.f - y / shape_.y_));
 //             }
 //         }
 //     }
@@ -72,7 +72,7 @@
 //     render_texture_->display();
     
 //     scroll_bar_.draw();
-//     Object::draw();
+//     SL::Object::draw();
 // }
 
 // void HSVpalette::set_color(const Color &color)
@@ -141,47 +141,47 @@
 //     clicked_ = false;
     
 //     scroll_bar_.ReleasedLeftEvent(event);
-//     Object::ReleasedLeftEvent(event);
+//     SL::Object::ReleasedLeftEvent(event);
 // }              
 
 //  void HSVpalette::ClickRightEvent (const Event &event) 
 // {
 //     scroll_bar_.ClickRightEvent(event);
-//     Object::ClickRightEvent(event);
+//     SL::Object::ClickRightEvent(event);
 // }           
 
 // void HSVpalette::ReleasedRightEvent (const Event &event) 
 // {   
 //     scroll_bar_.ReleasedRightEvent(event);
-//     Object::ReleasedRightEvent(event);
+//     SL::Object::ReleasedRightEvent(event);
 // }              
 
 // void HSVpalette::PressKeyEvent (const Event &event) 
 // {
 //     scroll_bar_.MoveMouseEvent(event);
-//     Object::PressKeyEvent(event);
+//     SL::Object::PressKeyEvent(event);
 // }
 
-// void HSVpalette::set_global_offset(Vector2d offset) 
+// void HSVpalette::set_global_offset(SL::Vector2d offset) 
 // {
 //     scroll_bar_.set_global_offset(offset);
-//     Object::set_global_offset(offset);
+//     SL::Object::set_global_offset(offset);
 // }
 
 // void HSVpalette::display(Window *window) 
 // {
 //     scroll_bar_.display(window);
-//     Object::display(window);
+//     SL::Object::display(window);
 // }
 
-// void HSVpalette::set_parent(Widget *parent_widget) 
+// void HSVpalette::set_parent(SL::Widget *parent_widget) 
 // {
 //     scroll_bar_.set_parent(parent_widget);
-//     Object::set_parent(parent_widget);
+//     SL::Object::set_parent(parent_widget);
 // }
 
 // void HSVpalette::ScrollEvent (const Event &event)
 // {
 //     scroll_bar_.ScrollEvent(event);
-//     Object::ScrollEvent(event);    
+//     SL::Object::ScrollEvent(event);    
 // }

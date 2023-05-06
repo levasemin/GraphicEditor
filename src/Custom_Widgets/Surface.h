@@ -2,8 +2,9 @@
 
 #include "../Graphic-Library/GraphLib/GraphLib.h"
 
+#include "Image.h"
+#include "Color.h"
 
-using namespace SL;
 
 class Surface;
 
@@ -20,23 +21,23 @@ class Memento
     SL::Image state_;
 };
 
-class Surface : public Object 
+class Surface : public SL::Object 
 {
 public:
 
     Image image_;
 
-    Surface(Vector2d shape, Vector2d position, const Image &image = Image()) : Object(shape, position, image.getTexture()),
+    Surface(SL::Vector2d shape, SL::Vector2d position, const Image &image = Image()) : SL::Object(shape, position, image.getTexture()),
         image_(image)
     {}
         
     void draw() override
     {   
-        Sprite sprite(shape_, image_.getTexture());
+        SL::Sprite sprite(shape_, image_.getTexture());
         render_texture_->clear(Color(0, 0, 0, 0));
         render_texture_->draw(sprite);
         
-        Object::draw();
+        SL::Object::draw();
     }
 
     Memento *createMemento()

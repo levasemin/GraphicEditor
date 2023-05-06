@@ -1,18 +1,18 @@
 #include "SaveWindow.h"
 
-using namespace SL;
 
-SaveWindow::SaveWindow(Vector2d shape, Button *save_button, Button *cancel_button, Editor *path_editor): MainWindow(shape, Texture(Color::Grey)),
+
+SaveWindow::SaveWindow(SL::Vector2d shape, SL::Button *save_button, SL::Button *cancel_button, SL::Editor *path_editor): MainWindow(shape, SL::Texture(Color::Grey)),
     path_(""),
     save_button_(save_button),
     cancel_button_(cancel_button),
     path_editor_(path_editor)
 {
-    app_ = new Application(this);
+    app_ = new SL::Application(this);
 
-    save_button_  ->set_left_click((Command<const Event &> *)  new SimpleCommand<SaveWindow, const Event &>(this, &SaveWindow::save_image));
-    cancel_button_->set_left_click((Command<const Event &> *) new SimpleCommand<SaveWindow, const Event &>(this, &SaveWindow::close));
-    path_editor_  ->set_editor_command((Command<const Event &> *) new SimpleCommand<SaveWindow, const Event &>(this, &SaveWindow::change_path));
+    save_button_  ->set_left_click((SL::Command<const SL::Event &> *)     new SL::SimpleCommand<SaveWindow, const SL::Event &>(this, &SaveWindow::save_image));
+    cancel_button_->set_left_click((SL::Command<const SL::Event &> *)     new SL::SimpleCommand<SaveWindow, const SL::Event &>(this, &SaveWindow::close));
+    path_editor_  ->set_editor_command((SL::Command<const SL::Event &> *) new SL::SimpleCommand<SaveWindow, const SL::Event &>(this, &SaveWindow::change_path));
 
     add(path_editor_);
     add(save_button_);
@@ -47,7 +47,7 @@ void SaveWindow::set_canvas(Canvas *canvas)
     canvas_ = canvas;
 }
 
-void SaveWindow::change_path(const Event &event)
+void SaveWindow::change_path(const SL::Event &event)
 {
     path_ = path_editor_->get_text();
 }
@@ -57,18 +57,18 @@ void SaveWindow::set_path(const std::string &path)
     path_ = path;
 }
 
-void SaveWindow::save_image(const Event &)
+void SaveWindow::save_image(const SL::Event &)
 {
     canvas_->get_image()->saveToFile(path_);
-    close(Event());
+    close(SL::Event());
 }
 
-void SaveWindow::exec(const Event &)
+void SaveWindow::exec(const SL::Event &)
 {
     app_->exec();
 }
 
-void SaveWindow::close(const Event &)
+void SaveWindow::close(const SL::Event &)
 {
     app_->close();        
 }

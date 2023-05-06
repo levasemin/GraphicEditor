@@ -2,46 +2,48 @@
 
 #include "../Graphic-Library/GraphLib/GraphLib.h"
 
+#include "Image.h"
+#include "Color.h"
+
 #include "HSVpalette.h"
 #include <string.h>
 
-using namespace SL;
 
-class HSVwindow : public MainWindow
+class HSVwindow : public SL::MainWindow
 {
 public:
-    Application *app_ = nullptr;
+    SL::Application *app_ = nullptr;
 
     HSVpalette *hsv_palette_ = nullptr;
-    Editor *r_editor_        = nullptr;
-    Editor *g_editor_        = nullptr;
-    Editor *b_editor_        = nullptr;
-    Button *ok_button_       = nullptr;
-    Button *cancel_button_   = nullptr;
+    SL::Editor *r_editor_        = nullptr;
+    SL::Editor *g_editor_        = nullptr;
+    SL::Editor *b_editor_        = nullptr;
+    SL::Button *ok_button_       = nullptr;
+    SL::Button *cancel_button_   = nullptr;
 
     Color color_;
     Color prev_color_;
     
-    Command<const Color &> *hsv_window_command_ = nullptr; 
+    SL::Command<const Color &> *hsv_window_command_ = nullptr; 
 
-    HSVwindow(Vector2d shape, const Texture &texture, HSVpalette *hsv_palette, Editor *r_editor, Editor *g_editor, Editor *b_editor, Button *ok_button, Button *cancel_button);
+    HSVwindow(SL::Vector2d shape, const SL::Texture &texture, HSVpalette *hsv_palette, SL::Editor *r_editor, SL::Editor *g_editor, SL::Editor *b_editor, SL::Button *ok_button, SL::Button *cancel_button);
 
     HSVwindow(const HSVwindow &source);
     
     HSVwindow &operator=(const HSVwindow &source);
     void change_color(const Color &color);
     
-    void set_command(Command<const Color &> *command);
+    void set_command(SL::Command<const Color &> *command);
     
-    void change_r(const Event &string);
+    void change_r(const SL::Event &string);
 
-    void change_g(const Event &string);
+    void change_g(const SL::Event &string);
 
-    void change_b(const Event &string);
+    void change_b(const SL::Event &string);
 
     void set_color(const Color &color);
 
-    void exec(const Event &event = Event());
+    void exec(const SL::Event &event = SL::Event());
 
-    void close(const Event &event = Event());
+    void close(const SL::Event &event = SL::Event());
 };

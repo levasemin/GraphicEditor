@@ -17,25 +17,24 @@ class ToolBucket : public Tool
 public:
     bool clicked_ = false;
     int dispersion_ = 0;
-    Editor dispersion_editor_;
-    uint32_t current_color_ = 0;
-    uint32_t button_;
+    SL::Editor dispersion_editor_;
+    Color current_color_;
 
     ToolBucket() : Tool(),
-        dispersion_editor_(Vector2d(50, 30), Vector2d(40, 20))
+        dispersion_editor_(SL::Vector2d(50, 30), SL::Vector2d(40, 20))
     {                
         char icon_path[128] = "source/Bucket.png";
         std::memcpy(icon_path_, icon_path, 128);
         booba::addTool(this);
 
-        dispersion_editor_.set_editor_command((Command<const Event &> *) new SimpleCommand<ToolBucket, const Event &>(this, &ToolBucket::change_dispersion));
+        dispersion_editor_.set_editor_command((SL::Command<const SL::Event &> *) new SL::SimpleCommand<ToolBucket, const SL::Event &>(this, &ToolBucket::change_dispersion));
     }
 
 
     ToolBucket(const ToolBucket &) = default;
     ToolBucket &operator=(const ToolBucket &) = default;
 
-    void change_dispersion(const Event &event)
+    void change_dispersion(const SL::Event &event)
     {
         set_dispersion(dispersion_editor_.get_text());
     }
@@ -48,9 +47,9 @@ public:
 
     void apply(booba::Image* image, const booba::Event* event) override;
     bool color_eq(const Color &color1, const Color &color2, int dispersion);
-    void fill_field(booba::Image *image, Vector2d position);
-    void fill_part(booba::Image *image, Vector2d position);
-    std::pair<Vector2d, Vector2d> fill_ray(booba::Image *image, Vector2d position);
+    void fill_field(booba::Image *image, SL::Vector2d position);
+    void fill_part(booba::Image *image, SL::Vector2d position);
+    std::pair<SL::Vector2d, SL::Vector2d> fill_ray(booba::Image *image, SL::Vector2d position);
 
     const char* getTexture() override
     {
@@ -60,7 +59,6 @@ public:
     void buildSetupWidget() override
     {
         ToolManager &tool_manager = ToolManager::getInstance();
-        button_ = booba::createButton(100, 400, 100, 100, "hui\n");
         tool_manager.setting_palettes_.back()->add(&dispersion_editor_);
     }
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Graphic-Library/GraphLib/GraphLib.h"
-
+#include "tools.h"
 
 class Tool : public booba::Tool
 {

@@ -37,7 +37,7 @@ public:
                 {
                     for (int j = 0; j < 100; j++)
                     {
-                        pic.getData()[i * 100 + j] = Color::convert_color_uint(Color(255, 255, 0, 0));
+                        pic.getData()[i * 100 + j] = Color::convert_color_uint(Color(255, 255, 0, 255));
                     }
                 }
                 

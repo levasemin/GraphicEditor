@@ -2,23 +2,23 @@
 
 #include "../Graphic-Library/GraphLib/GraphLib.h"
 
-using namespace SL;
+#include "Image.h"
+#include "Color.h"
 
 #include "Canvas.h"
 
-class OpenWindow : public MainWindow
+class OpenWindow : public SL::MainWindow
 {
-
 public:
-    Application *app_ = nullptr;
+    SL::Application *app_ = nullptr;
     Canvas *canvas_ = nullptr;
     std::string path_;
 
-    Button *open_button_;
-    Button *cancel_button_;
-    Editor *path_editor_;
+    SL::Button *open_button_;
+    SL::Button *cancel_button_;
+    SL::Editor *path_editor_;
 
-    OpenWindow(Vector2d shape, Button *open_button, Button *cancel_button, Editor *path_editor);
+    OpenWindow(SL::Vector2d shape, SL::Button *open_button, SL::Button *cancel_button, SL::Editor *path_editor);
 
     OpenWindow (const OpenWindow &source);
     
@@ -28,13 +28,13 @@ public:
 
     void set_path(const std::string &path);
 
-    void change_path(const Event &event);
+    void change_path(const SL::Event &event);
 
-    void open_image(const Event &);
+    void open_image(const SL::Event &);
 
-    void exec(const Event &);
+    void exec(const SL::Event &);
 
-    void close(const Event &);
+    void close(const SL::Event &);
 
     ~OpenWindow();
 };

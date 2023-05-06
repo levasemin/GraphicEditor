@@ -2,19 +2,19 @@
 
 #include "Canvas.h"
 
-using namespace SL;
 
-OpenWindow::OpenWindow(Vector2d shape, Button *open_button, Button *cancel_button, Editor *path_editor): MainWindow(shape, Texture(Color::Grey)),
+
+OpenWindow::OpenWindow(SL::Vector2d shape, SL::Button *open_button, SL::Button *cancel_button, SL::Editor *path_editor): MainWindow(shape, SL::Texture(Color::Grey)),
     path_(""),
     open_button_(open_button),
     cancel_button_(cancel_button),
     path_editor_(path_editor)
 {
-    app_ = new Application(this);
+    app_ = new SL::Application(this);
 
-    open_button_  ->set_left_click((Command<const Event &> *)  new SimpleCommand<OpenWindow, const Event &>(this, &OpenWindow::open_image));
-    cancel_button_->set_left_click((Command<const Event &> *) new SimpleCommand<OpenWindow, const Event &>(this, &OpenWindow::close));
-    path_editor_  ->set_editor_command((Command<const Event &> *) new SimpleCommand<OpenWindow, const Event &>(this, &OpenWindow::change_path));
+    open_button_  ->set_left_click((SL::Command<const SL::Event &> *)     new SL::SimpleCommand<OpenWindow, const SL::Event &>(this, &OpenWindow::open_image));
+    cancel_button_->set_left_click((SL::Command<const SL::Event &> *)     new SL::SimpleCommand<OpenWindow, const SL::Event &>(this, &OpenWindow::close));
+    path_editor_  ->set_editor_command((SL::Command<const SL::Event &> *) new SL::SimpleCommand<OpenWindow, const SL::Event &>(this, &OpenWindow::change_path));
 
     add(path_editor_);
     add(open_button_);
@@ -54,24 +54,24 @@ void OpenWindow::set_path(const std::string &path)
     path_ = path;
 }
 
-void OpenWindow::change_path(const Event &event)
+void OpenWindow::change_path(const SL::Event &event)
 {
     path_ = path_editor_->get_text();
 }
 
-void OpenWindow::open_image(const Event &)
+void OpenWindow::open_image(const SL::Event &)
 {
     Image image(path_);
     canvas_->set_image(image);
-    close(Event());
+    close(SL::Event());
 }
 
-void OpenWindow::exec(const Event &)
+void OpenWindow::exec(const SL::Event &)
 {
     app_->exec();
 }
 
-void OpenWindow::close(const Event &)
+void OpenWindow::close(const SL::Event &)
 {
     app_->close();
 }
