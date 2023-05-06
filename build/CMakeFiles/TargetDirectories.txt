@@ -1,0 +1,2 @@
+/home/levce/projectsDED/GraphicEditor/build/CMakeFiles/edit_cache.dir
+/home/levce/projectsDED/GraphicEditor/build/CMakeFiles/rebuild_cache.dir

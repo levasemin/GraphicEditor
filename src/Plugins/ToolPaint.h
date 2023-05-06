@@ -117,7 +117,7 @@ public:
 
             case booba::EventType::MouseMoved:
             {
-                booba::Image *second_layer = booba::getHiddenLayerID();
+                booba::Image *second_layer =    ;
 
                 SL::Vector2d new_point((float)event->Oleg.motion.x, (float)event->Oleg.motion.y);
 
