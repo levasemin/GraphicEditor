@@ -6,12 +6,12 @@
 #include <deque>
 #include <unordered_map>
 
-#include "../Graphic-Library/GraphLib/GraphLib.h"
-#include "../Custom_Widgets/Event.h"
+#include "GraphLib.h"
+#include "Event.h"
 
 #include "Tool.h"
 #include "ToolPalette.h"
-#include "../Custom_Widgets/Surface.h"
+#include "Surface.h"
 
 const int MAX_BACKUP = 32;
 
@@ -46,8 +46,8 @@ private:
     std::unordered_map<booba::GUID, void *> plugins_;
 
     booba::Tool* active_tool_ = nullptr;
-    
-    ToolManager(): 
+
+    ToolManager():
         tools_({}),
         plugins_({}),
         setting_palettes_({})
@@ -73,25 +73,25 @@ private:
 
         return *this;
     }
-    
+
 public:
 
     booba::Tool *init_tool_ = nullptr;
 
     ToolPalette *tool_palette_ = nullptr;
     SL::Container *setting_field_ = nullptr;
-    
+
     std::vector<SL::Container *> setting_palettes_;
-    
+
     Surface *surface_ = nullptr;
     Surface *second_surface_ = nullptr;
-    
+
     static ToolManager& getInstance()
     {
         static ToolManager instance;
         return instance;
-    }    
-    
+    }
+
     void set_tool_palette(ToolPalette *tool_palette)
     {
         tool_palette_ = tool_palette;
@@ -115,30 +115,30 @@ public:
     void add(booba::Tool *new_tool)
     {
         tools_.push_back(new_tool);
-        
+
         SL::Button *tool_button_ = new SL::Button(SL::Vector2d(50, 50), SL::Vector2d(25, 25));
-        
+
         tool_button_->set_texture(tool_palette_->get_texture());
         tool_button_->set_texture(SL::Texture(new_tool->getTexture()));
         tool_button_->set_left_click((SL::Command<const SL::Event &> *) new SL::SimpleCommand<ToolManager, const SL::Event &>(this, &ToolManager::tool_choose));
         tool_button_->set_pressed(true);
         tool_palette_->add(tool_button_);
-        
+
         SL::Container *setting_palette = new SL::Container(SL::Vector2d(setting_field_->get_shape()), SL::Vector2d(0, 0));
-        
+
         setting_palette->set_texture(setting_field_->get_texture());
         setting_palettes_.push_back(setting_palette);
         init_tool_ = new_tool;
         std::cout << "buildSetupWidget\n";
         new_tool->buildSetupWidget();
     }
-    
+
     void tool_choose(const SL::Event &event)
-    {        
+    {
         recovery_second_layer();
 
         std::vector<SL::Widget *> tool_palette_children = tool_palette_->get_children();
-        
+
         for (size_t i = 0; i < tool_palette_children.size(); i++)
         {
             if ((uint64_t)tool_palette_children[i] == event.Oleg_.bcedata.id)
@@ -147,10 +147,10 @@ public:
                 {
                     set_active_tool(tools_[i]);
                 }
-                
+
                 else
                 {
-                    remove_active_tool(); 
+                    remove_active_tool();
                 }
             }
 
@@ -162,7 +162,7 @@ public:
     }
 
     void create_memento(Surface *surface)
-    {                
+    {
         if (numCommands_ == max_backup_ - 1)
         {
             mementoList_->pop_front();
@@ -175,7 +175,7 @@ public:
         (*mementoList_)[numCommands_] = surface->createMemento();
         max_forward_ = numCommands_;
     }
-    
+
     void apply(const SL::Event *event)
     {
         if (active_tool_)
@@ -203,7 +203,7 @@ public:
         surface->reinstateMemento((*mementoList_)[numCommands_ - 1]);
         numCommands_--;
     }
-    
+
     static void redo(Surface *surface)
     {
         if (numCommands_ >= max_forward_)
@@ -232,7 +232,7 @@ public:
     {
         second_surface_ = second_surface;
     }
-    
+
     void recovery_second_layer()
     {
         second_surface_->image_.create(second_surface_->image_.getSize(), CUST_SL::Color(0, 0, 0, 0));
@@ -247,7 +247,7 @@ public:
             if (tools_[i] == tool)
             {
                 current_tool = i;
-                break;   
+                break;
             }
         }
 
@@ -259,7 +259,7 @@ public:
         {
             setting_field_->remove(setting_field_children[i]);
         }
-    
+
         setting_field_->add(setting_palettes_[current_tool]);
     }
 
@@ -270,21 +270,21 @@ public:
 
     void add_guid(const booba::GUID &guid, void *handler)
     {
-        if (plugins_.find(guid) == plugins_.end()) 
+        if (plugins_.find(guid) == plugins_.end())
         {
             plugins_[guid] = handler;
         }
     }
 
-    void* get_guid_handler(const booba::GUID& guid) 
+    void* get_guid_handler(const booba::GUID& guid)
     {
         if (plugins_.find(guid) != plugins_.end()) {
             return plugins_[guid];
         }
-        
+
         return nullptr;
     }
-    
+
     void set_mementoList(std::deque<Memento *> *mementoList)
     {
         mementoList_ = mementoList;

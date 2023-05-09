@@ -10,13 +10,13 @@
 #include <dlfcn.h>
 #include <vector>
 
-#include "../Graphic-Library/GraphLib/GraphLib.h"
+#include "GraphLib.h"
 
 
 #include "Surface.h"
-#include "../Tool/ToolManager.h"
-#include "../Tool/ToolPalette.h"
-#include "../Tool/tools.h"
+#include "ToolManager.h"
+#include "ToolPalette.h"
+#include "tools.hpp"
 
 #include "Image.h"
 #include "Color.h"
@@ -59,7 +59,7 @@ public:
     void ClickLeftEvent(const SL::Event &event) override;
 
     void ClickRightEvent(const SL::Event &event) override;
-    
+
     void ReleasedLeftEvent (const SL::Event &event) override;
 
     void ReleasedRightEvent (const SL::Event &event) override;
@@ -75,7 +75,7 @@ public:
     void set_image(const Image &new_image);
 
     Image *get_image();
-    
+
     void add_tool(Tool *new_tool);
 
     Surface *get_surface();
@@ -137,5 +137,5 @@ public:
         visible_layers_.push_back(&main_layers_[index]);
         add(&main_layers_[index]);
     }
-    
+
 };

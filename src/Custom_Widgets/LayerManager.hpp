@@ -1,4 +1,4 @@
-#include "../Graphic-Library/GraphLib/GraphLib.h"
+#include "GraphLib.h"
 #include "Canvas.h"
 
 class LayerManager
@@ -26,11 +26,11 @@ public:
             auto surface = canvas->getLayer(i);
             SL::Button *button_layer = new SL::Button(button_shape_, SL::Vector2d(0.f, button_shape_.y_ * i), SL::Texture(surface->get_image()->getTexture()));
             button_layer->set_left_click ((SL::Command<const SL::Event &> *) new SL::SimpleCommand<LayerManager, const SL::Event &>(this, &LayerManager::set_current_layer));
-            button_layer->set_right_click((SL::Command<const SL::Event &> *) new SL::SimpleCommand<LayerManager, const SL::Event &>(this, &LayerManager::set_visible_layer));            
+            button_layer->set_right_click((SL::Command<const SL::Event &> *) new SL::SimpleCommand<LayerManager, const SL::Event &>(this, &LayerManager::set_visible_layer));
             layers_field_->add(button_layer);
         }
     }
-    
+
     void set_current_layer(const SL::Event &event)
     {
         std::vector<SL::Widget *> buttons = layer_palette_->get_children();
@@ -67,7 +67,7 @@ public:
         // std::cout << (surface == nullptr) << std::endl;
         // SL::Button *button_layer = new SL::Button(button_shape_, SL::Vector2d(0.f, button_shape_.y_ * canvas_->getCountMainlayer()), );
         // button_layer->set_left_click ((SL::Command<const SL::Event &> *) new SL::SimpleCommand<LayerManager, const SL::Event &>(this, &LayerManager::set_current_layer));
-        // button_layer->set_right_click((SL::Command<const SL::Event &> *) new SL::SimpleCommand<LayerManager, const SL::Event &>(this, &LayerManager::set_visible_layer));            
+        // button_layer->set_right_click((SL::Command<const SL::Event &> *) new SL::SimpleCommand<LayerManager, const SL::Event &>(this, &LayerManager::set_visible_layer));
         // layers_field_->add(button_layer);
     }
 };

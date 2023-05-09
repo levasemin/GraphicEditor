@@ -1,19 +1,19 @@
 #pragma once
 
-#include "../Graphic-Library/GraphLib/GraphLib.h"
-#include "../Tool/tools.h"
+#include "GraphLib.h"
+#include "tools.hpp"
 
 namespace CUST_SL
 {
     class Color : public SL::Color
-    { 
+    {
     public:
-        Color(float h, float s, float v) : SL::Color(h, s, v) 
+        Color(float h, float s, float v) : SL::Color(h, s, v)
         {
-            
+
         };
 
-        Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255) : SL::Color(r, g, b, a) {} 
+        Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255) : SL::Color(r, g, b, a) {}
         Color(sf::Color color) : SL::Color(color) {}
         Color() : SL::Color(){};
 

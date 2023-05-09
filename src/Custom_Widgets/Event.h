@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Tool/tools.h"
+#include "tools.hpp"
 #include "Image.h"
 #include "Color.h"
 

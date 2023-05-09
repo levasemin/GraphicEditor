@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Graphic-Library/GraphLib/GraphLib.h"
+#include "GraphLib.h"
 
 #include "Image.h"
 #include "Color.h"
@@ -42,9 +42,9 @@ public:
     void set_color(const SL::Event &);
 
     void return_color(const SL::Event &);
-    
+
     void open_foreground_hsv_window(const SL::Event &event);
-    
+
     void open_background_hsv_window(const SL::Event &event);
 
     void MoveMouseEvent(const SL::Event &event) override;

@@ -1,2 +1,0 @@
-void make_filter_intrinsic(float *array, int *kernel, int picture_h, int picture_w, int kernel_h, int kernel_w);
-void make_filter(float *array, int *kernel, int picture_h, int picture_w, int kernel_h, int kernel_w);

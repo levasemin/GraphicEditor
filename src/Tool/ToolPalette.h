@@ -1,6 +1,6 @@
-#pragma once 
+#pragma once
 
-#include "../Graphic-Library/GraphLib/GraphLib.h"
+#include "GraphLib.h"
 
 
 
@@ -14,7 +14,7 @@ public:
     ToolPalette(SL::Vector2d shape, SL::Vector2d position, const SL::Texture &texture) : SL::CompositeObject(shape, position, texture),
         curr_pos_(0.f, 0.f)
     {
-        
+
     }
 
     void add(SL::Widget *widget) override

@@ -1,15 +1,15 @@
 #pragma once
 
-#include "../Graphic-Library/GraphLib/GraphLib.h"
-#include "../Tool/tools.h"
+#include "GraphLib.h"
+#include "tools.hpp"
 
 #include "Color.h"
 
 class Image : public booba::Image, public SL::Image
 {
-public:    
+public:
     Image () : SL::Image() {}
-    
+
     virtual ~Image() {};
 
     Image(const std::string &path): SL::Image()
@@ -36,7 +36,7 @@ public:
     {
         return size_t(getSize().x_);
     }
-    
+
     booba::Color getPixel(size_t x, size_t y) override
     {
         CUST_SL::Color color(image_.getPixel(uint32_t(x), uint32_t(y)));
@@ -47,12 +47,12 @@ public:
     {
         return CUST_SL::Color(image_.getPixel(uint32_t(pos.x_), uint32_t(pos.y_)));
     }
-    
+
     void setPixel(size_t x, size_t y, booba::Color color) override
-    {        
+    {
         image_changed = true;
         setPixel(SL::Vector2d(float(x), float(y)), color);
-    }   
+    }
 
     void setPixel(SL::Vector2d pos, const CUST_SL::Color &color)
     {
@@ -70,20 +70,25 @@ public:
         image.create(uint32_t(pic.getW()), uint32_t(pic.getH()), (sf::Uint8*)pic.getData());
         SL::RenderTexture render_texture(SL::Vector2d(image_.getSize().x, image_.getSize().y));
         SL::Sprite main_sprite(SL::Vector2d(image_.getSize().x, image_.getSize().y), getTexture());
-        
+
         SL::Texture texture;
         texture.texture_.loadFromImage(image);
 
         SL::Sprite pic_sprite(SL::Vector2d(pic.getW(), pic.getH()), texture);
         pic_sprite.setPosition(SL::Vector2d(pic.getX(), pic.getY()));
-        
+
         render_texture.clear(CUST_SL::Color(0, 0, 0, 0));
         render_texture.draw(main_sprite);
         render_texture.draw(pic_sprite);
         render_texture.display();
-        
+
         image_ = render_texture.render_texture_.getTexture().copyToImage();
         image_.saveToFile("KIIIIt.png");
+    }
+
+    void clean(const booba::Color &color = booba::Color::WHITE) override
+    {
+        image_.create(getW(), getH(), sf::Color(0, 0, 0, 0));
     }
 
     void create(SL::Vector2d shape, const CUST_SL::Color &color = CUST_SL::Color(0, 0, 0, 255))
