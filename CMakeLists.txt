@@ -8,16 +8,22 @@ set(CMAKE_CXX_FLAGS_SANITIZER "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wformat=2 -fsan
 
 include(FetchContent)
 
-FetchContent_Declare(
-  commonTools
-  GIT_REPOSITORY https://github.com/mishaglik/Elpidifor-s-legacy.git
-  GIT_TAG        main
-)
+if(CMAKE_BUILD_TYPE STREQUAL "Example")
+  include_directories(../)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wformat=2 -fsanitize=address,undefined -g" CACHE STRING "Comment" FORCE)
+  message("Example mode on!")
+else()
+  FetchContent_Declare(
+    commonTools
+    GIT_REPOSITORY https://github.com/mishaglik/Elpidifor-s-legacy.git
+    GIT_TAG        main
+  )
 
-FetchContent_GetProperties(commonTools)
-if(NOT commonTools_POPULATED)
-  FetchContent_Populate(commonTools)
-  include_directories(./build/_deps/commontools-src)
+  FetchContent_GetProperties(commonTools)
+  if(NOT commonTools_POPULATED)
+    FetchContent_Populate(commonTools)
+    include_directories(./build/_deps/commontools-src)
+  endif()
 endif()
 
 FetchContent_Declare(
