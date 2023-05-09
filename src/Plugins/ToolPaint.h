@@ -117,8 +117,7 @@ public:
 
             case booba::EventType::MouseMoved:
             {
-                booba::Image *second_layer =    ;
-
+                booba::Image *second_layer = image->getHiddenLayer();
                 SL::Vector2d new_point((float)event->Oleg.motion.x, (float)event->Oleg.motion.y);
 
                 if (clicked_)

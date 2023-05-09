@@ -2,7 +2,7 @@
 
 
 
-SaveWindow::SaveWindow(SL::Vector2d shape, SL::Button *save_button, SL::Button *cancel_button, SL::Editor *path_editor): MainWindow(shape, SL::Texture(Color::Grey)),
+SaveWindow::SaveWindow(SL::Vector2d shape, SL::Button *save_button, SL::Button *cancel_button, SL::Editor *path_editor): MainWindow(shape, SL::Texture(CUST_SL::Color::Grey)),
     path_(""),
     save_button_(save_button),
     cancel_button_(cancel_button),

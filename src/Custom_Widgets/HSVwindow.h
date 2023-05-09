@@ -21,19 +21,19 @@ public:
     SL::Button *ok_button_       = nullptr;
     SL::Button *cancel_button_   = nullptr;
 
-    Color color_;
-    Color prev_color_;
+    CUST_SL::Color color_;
+    CUST_SL::Color prev_color_;
     
-    SL::Command<const Color &> *hsv_window_command_ = nullptr; 
+    SL::Command<const CUST_SL::Color &> *hsv_window_command_ = nullptr; 
 
     HSVwindow(SL::Vector2d shape, const SL::Texture &texture, HSVpalette *hsv_palette, SL::Editor *r_editor, SL::Editor *g_editor, SL::Editor *b_editor, SL::Button *ok_button, SL::Button *cancel_button);
 
     HSVwindow(const HSVwindow &source);
     
     HSVwindow &operator=(const HSVwindow &source);
-    void change_color(const Color &color);
+    void change_color(const CUST_SL::Color &color);
     
-    void set_command(SL::Command<const Color &> *command);
+    void set_command(SL::Command<const CUST_SL::Color &> *command);
     
     void change_r(const SL::Event &string);
 
@@ -41,7 +41,7 @@ public:
 
     void change_b(const SL::Event &string);
 
-    void set_color(const Color &color);
+    void set_color(const CUST_SL::Color &color);
 
     void exec(const SL::Event &event = SL::Event());
 

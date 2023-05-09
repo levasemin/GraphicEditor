@@ -18,7 +18,7 @@ public:
     bool clicked_ = false;
     int dispersion_ = 0;
     SL::Editor dispersion_editor_;
-    Color current_color_;
+    CUST_SL::Color current_color_;
 
     ToolBucket() : Tool(),
         dispersion_editor_(SL::Vector2d(50, 30), SL::Vector2d(40, 20))
@@ -46,7 +46,7 @@ public:
     }
 
     void apply(booba::Image* image, const booba::Event* event) override;
-    bool color_eq(const Color &color1, const Color &color2, int dispersion);
+    bool color_eq(const CUST_SL::Color &color1, const CUST_SL::Color &color2, int dispersion);
     void fill_field(booba::Image *image, SL::Vector2d position);
     void fill_part(booba::Image *image, SL::Vector2d position);
     std::pair<SL::Vector2d, SL::Vector2d> fill_ray(booba::Image *image, SL::Vector2d position);

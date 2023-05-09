@@ -4,7 +4,7 @@
 
 
 
-OpenWindow::OpenWindow(SL::Vector2d shape, SL::Button *open_button, SL::Button *cancel_button, SL::Editor *path_editor): MainWindow(shape, SL::Texture(Color::Grey)),
+OpenWindow::OpenWindow(SL::Vector2d shape, SL::Button *open_button, SL::Button *cancel_button, SL::Editor *path_editor): MainWindow(shape, SL::Texture(CUST_SL::Color::Grey)),
     path_(""),
     open_button_(open_button),
     cancel_button_(cancel_button),

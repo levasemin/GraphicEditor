@@ -114,7 +114,6 @@ public:
 
     void add(booba::Tool *new_tool)
     {
-        std::cout << "hui\n";
         tools_.push_back(new_tool);
         
         SL::Button *tool_button_ = new SL::Button(SL::Vector2d(50, 50), SL::Vector2d(25, 25));
@@ -166,30 +165,30 @@ public:
     {                
         if (numCommands_ == max_backup_ - 1)
         {
-            mementoList_.pop_front();
-            mementoList_.push_back(nullptr);
+            mementoList_->pop_front();
+            mementoList_->push_back(nullptr);
             numCommands_--;
         }
 
         numCommands_++;
 
-        mementoList_[numCommands_] = surface->createMemento();
+        (*mementoList_)[numCommands_] = surface->createMemento();
         max_forward_ = numCommands_;
     }
     
-    void apply(Surface *surface, const SL::Event *event)
+    void apply(const SL::Event *event)
     {
         if (active_tool_)
         {
-            if ((event->type_ == SL::EventType::MouseReleased || event->type_ == SL::EventType::CanvasMPressed) && surface->image_.image_changed)
+            if ((event->type_ == SL::EventType::MouseReleased || event->type_ == SL::EventType::CanvasMPressed) && surface_->image_.image_changed)
             {
-                create_memento(surface);
+                create_memento(surface_);
 
-                surface->image_.image_changed = false;
+                surface_->image_.image_changed = false;
             }
 
             booba::Event booba_event   = convert_event(*event);
-            active_tool_->apply(&surface->image_, &booba_event);
+            active_tool_->apply(&surface_->image_, &booba_event);
         }
     }
 
@@ -201,7 +200,7 @@ public:
             return ;
         }
 
-        surface->reinstateMemento(mementoList_[numCommands_ - 1]);
+        surface->reinstateMemento((*mementoList_)[numCommands_ - 1]);
         numCommands_--;
     }
     
@@ -213,7 +212,7 @@ public:
             return ;
         }
 
-        surface->reinstateMemento(mementoList_[numCommands_ + 1]);
+        surface->reinstateMemento((*mementoList_)[numCommands_ + 1]);
 
         numCommands_++;
     }
@@ -233,15 +232,10 @@ public:
     {
         second_surface_ = second_surface;
     }
-
-    Surface *get_second_layer()
-    {
-        return second_surface_;
-    }
     
     void recovery_second_layer()
     {
-        second_surface_->image_.create(second_surface_->image_.getSize(), Color(0, 0, 0, 0));
+        second_surface_->image_.create(second_surface_->image_.getSize(), CUST_SL::Color(0, 0, 0, 0));
     }
 
     void set_active_tool(booba::Tool *tool)
@@ -291,10 +285,15 @@ public:
         return nullptr;
     }
     
+    void set_mementoList(std::deque<Memento *> *mementoList)
+    {
+        mementoList_ = mementoList;
+    }
+
     ~ToolManager() {};
 
 protected:
-    static std::deque<Memento *> mementoList_;
+    static std::deque<Memento *> *mementoList_;
     static int numCommands_;
     static int max_forward_;
     static const int max_backup_ = MAX_BACKUP;

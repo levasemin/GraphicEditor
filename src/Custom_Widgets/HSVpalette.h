@@ -8,13 +8,13 @@
 class HSVpalette : public SL::Object
 {   
 public:
-    Color color_;
+    CUST_SL::Color color_;
     Image palette_;
     SL::VerticalScrollBar scroll_bar_;
     
     bool clicked_ = false;
 
-    SL::Command<const Color&> *palette_command_ = nullptr;
+    SL::Command<const CUST_SL::Color&> *palette_command_ = nullptr;
 
     HSVpalette(SL::Vector2d shape, SL::Vector2d position) : SL::Object(shape, position),
         color_(360.f, 0.f, 0.f),
@@ -30,7 +30,7 @@ public:
         {
             for (float x = 0; x < scroll_bar_image.getSize().x_; x++)
             {
-                Color color = Color((1.f - y / scroll_bar_.get_shape().y_) * 360.f, 1.f, 1.f);
+                CUST_SL::Color color = CUST_SL::Color((1.f - y / scroll_bar_.get_shape().y_) * 360.f, 1.f, 1.f);
                 scroll_bar_image.setPixel(SL::Vector2d(x, y), color);
             }
         }
@@ -56,7 +56,7 @@ public:
         return *this;
     }
 
-    void set_command(SL::Command<const Color&> *command)
+    void set_command(SL::Command<const CUST_SL::Color&> *command)
     {
         palette_command_ = command;
     }
@@ -71,12 +71,12 @@ public:
             {
                 if ((int)(color_.get_s() * shape_.x_) == (int)x || (int)((1 - color_.get_v()) * shape_.y_) == (int)y)
                 {
-                    palette_.setPixel(SL::Vector2d(x, y), Color::White);
+                    palette_.setPixel(SL::Vector2d(x, y), CUST_SL::Color::White);
                 }
 
                 else
                 {
-                    palette_.setPixel(SL::Vector2d(x, y), Color(color_.get_h(), x / shape_.x_, 1.f - y / shape_.y_));
+                    palette_.setPixel(SL::Vector2d(x, y), CUST_SL::Color(color_.get_h(), x / shape_.x_, 1.f - y / shape_.y_));
                 }
             }
         }
@@ -90,7 +90,7 @@ public:
         SL::Object::draw();
     }
 
-    void set_color(const Color &color)
+    void set_color(const CUST_SL::Color &color)
     {
         color_ = color;
         float value = 360.f - color_.get_h();

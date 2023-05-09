@@ -8,7 +8,7 @@ class ToolButton : public SL::Button
 {
 public:
     
-    ToolButton(SL::Vector2d shape, SL::Vector2d position, const SL::Texture &texture = SL::Texture(Color::White)) : SL::Button(shape, position, texture)
+    ToolButton(SL::Vector2d shape, SL::Vector2d position, const SL::Texture &texture = SL::Texture(CUST_SL::Color::White)) : SL::Button(shape, position, texture)
     {
         left_click_command_    = (SL::Command<const SL::Event &> *) new SL::SimpleCommand<ToolButton, const SL::Event &>(this, &ToolButton::ToolClickLeftEvent);
         left_release_command_  = (SL::Command<const SL::Event &> *) new SL::SimpleCommand<ToolButton, const SL::Event &>(this, &ToolButton::ToolReleasedLeftEvent);

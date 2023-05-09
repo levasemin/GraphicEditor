@@ -1,5 +1,3 @@
-#pragma GCC diagnostic ignored "-Wshadow"
-
 #ifndef TOOLS_HPP
 #define TOOLS_HPP
 /**
@@ -244,6 +242,13 @@ namespace booba { // boot of outstanding best api
          */
         virtual void setPicture(Picture &&pic) = 0;
 
+        /**
+         * @brief Get the Hidden Layer image, that allows to add some not persistant changes to the picture
+         *
+         * @return Image*, pointer can not be nullptr
+         */
+        virtual Image *getHiddenLayer() = 0;
+
     protected:
         ~Image() {}
     };
@@ -299,7 +304,7 @@ namespace booba { // boot of outstanding best api
 
         void operator=(const Picture &other) = delete;
 
-        Picture &operator=(Picture &&other)
+        void operator=(Picture &&other)
         {
             if (data != nullptr and owning)
                 delete[] data;
@@ -313,8 +318,6 @@ namespace booba { // boot of outstanding best api
             other.x = other.y = -1;
             other.w = other.h = -1;
             other.data = nullptr;
-            
-            return *this;
         }
 
         ~Picture()
@@ -341,13 +344,13 @@ namespace booba { // boot of outstanding best api
 
         void reshape(size_t new_x, size_t new_y, size_t new_w, size_t new_h)
         {
-            if (new_x == size_t(-1))
+            if (new_x == -1)
                 new_x = x;
-            if (new_y == size_t(-1))
+            if (new_y == -1)
                 new_y = y;
-            if (new_w == size_t(-1))
+            if (new_w == -1)
                 new_w = w;
-            if (new_h == size_t(-1))
+            if (new_h == -1)
                 new_h = h;
 
             assert(new_w * new_h == w * h);
@@ -524,6 +527,16 @@ namespace booba { // boot of outstanding best api
      * @brief Get text from editor with id editorId.
      */
     extern "C" char* getTextEditor(uint64_t editorId);
+
+    /**
+     * @brief set text to label wtih id labelID
+     */
+    extern "C" void setTextLabel(uint64_t labelId, const char *text);
+    
+    /**
+     * @brief get text from label with id labelId
+     */
+    extern "C" char* getTextLabel(uint64_t labelId);
 
     /**
      * @brief Creates canvas on some given toolbar.

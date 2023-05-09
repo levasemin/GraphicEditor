@@ -10,7 +10,7 @@ HSVwindow::HSVwindow(SL::Vector2d shape, const SL::Texture &texture, HSVpalette 
     color_(),
     prev_color_()
     {
-        hsv_palette_->set_command    ((SL::Command <const Color&> *)      new SL::SimpleCommand<HSVwindow, const Color&>  (this, &HSVwindow::change_color));
+        hsv_palette_->set_command    ((SL::Command <const CUST_SL::Color&> *)      new SL::SimpleCommand<HSVwindow, const CUST_SL::Color&>  (this, &HSVwindow::change_color));
         r_editor_->set_editor_command((SL::Command <const SL::Event &> *) new SL::SimpleCommand<HSVwindow, const SL::Event &> (this, &HSVwindow::change_r));
         g_editor_->set_editor_command((SL::Command <const SL::Event &> *) new SL::SimpleCommand<HSVwindow, const SL::Event &> (this, &HSVwindow::change_g));
         b_editor_->set_editor_command((SL::Command <const SL::Event &> *) new SL::SimpleCommand<HSVwindow, const SL::Event &> (this, &HSVwindow::change_b));
@@ -48,7 +48,7 @@ HSVwindow &HSVwindow::operator=(const HSVwindow &source)
     return *this;
 }
 
-void HSVwindow::change_color(const Color &color)
+void HSVwindow::change_color(const CUST_SL::Color &color)
 {            
     color_ = color;
 
@@ -65,12 +65,12 @@ void HSVwindow::change_color(const Color &color)
     }
 }
 
-void HSVwindow::set_command(SL::Command<const Color &> *command)
+void HSVwindow::set_command(SL::Command<const CUST_SL::Color &> *command)
 {
     hsv_window_command_ = command;
 }
 
-void HSVwindow::set_color(const Color &color)
+void HSVwindow::set_color(const CUST_SL::Color &color)
 {
     color_ = color;
     

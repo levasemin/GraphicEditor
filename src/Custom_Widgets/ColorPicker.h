@@ -21,8 +21,8 @@ class ColorPicker : public SL::CompositeObject
 {
 public:
     int color_type_ = -1;
-    Color fg_color_;
-    Color bg_color_;
+    CUST_SL::Color fg_color_;
+    CUST_SL::Color bg_color_;
 
     SL::Button *foreground_button_ = nullptr;
     SL::Button *background_button_ = nullptr;
@@ -35,7 +35,7 @@ public:
 
     ColorPicker &operator=(const ColorPicker &source);
 
-    void change_color(const Color &color);
+    void change_color(const CUST_SL::Color &color);
 
     void swap_colors(const SL::Event &);
 

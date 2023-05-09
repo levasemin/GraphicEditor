@@ -7,7 +7,7 @@
 #include "Custom_Widgets/Canvas.h"
 #include "Custom_Widgets/HSVpalette.h"
 #include "Custom_Widgets/HSVwindow.h"
-
+#include "Custom_Widgets/LayerManager.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -18,24 +18,21 @@ const std::string path_mountain = "british.png";
 
 booba::ApplicationContext* booba::APPCONTEXT = nullptr;
 
-const Color back_ground_color(uint8_t(69),  uint8_t(69),  uint8_t(69));
-const Color tool_color       (uint8_t(48),  uint8_t(48),  uint8_t(48));
-const Color text_color       (uint8_t(190), uint8_t(190), uint8_t(190));
-const Color editor_color     (uint8_t(31),  uint8_t(31),  uint8_t(31));
-const Color button_color     (uint8_t(44),  uint8_t(44),  uint8_t(44));
+const CUST_SL::Color back_ground_color(uint8_t(69),  uint8_t(69),  uint8_t(69));
+const CUST_SL::Color tool_color       (uint8_t(48),  uint8_t(48),  uint8_t(48));
 
 SaveWindow *create_save_window()
 {
     SL::Editor *path_editor = new SL::Editor(SL::Vector2d(200, 40), SL::Vector2d(50, 60));
-    path_editor->setTextColor(text_color);
-    path_editor->set_texture(SL::Texture(editor_color));
+    path_editor->setTextColor(CUST_SL::Color::TEXT);
+    path_editor->set_texture(SL::Texture(CUST_SL::Color::EDITOR));
     path_editor->setAlignment(SL::Label::Alignment::LeftCenter);
     
-    SL::Button *save_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(20, 155), SL::Texture(button_color));
+    SL::Button *save_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(20, 155), SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
     save_button->setString("Save");
     save_button->setCharacterSize(20);
     
-    SL::Button *cancel_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(210, 155), SL::Texture(button_color));
+    SL::Button *cancel_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(210, 155), SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
     cancel_button->setString("Cancel");
     cancel_button->setCharacterSize(20);
 
@@ -48,15 +45,15 @@ OpenWindow *create_open_window()
 {
    
     SL::Editor *path_editor = new SL::Editor(SL::Vector2d(200, 40), SL::Vector2d(50, 60));
-    path_editor->setTextColor(text_color);
-    path_editor->set_texture(SL::Texture(editor_color));
+    path_editor->setTextColor(CUST_SL::Color::TEXT);
+    path_editor->set_texture(SL::Texture(CUST_SL::Color::EDITOR));
     path_editor->setAlignment(SL::Label::Alignment::LeftCenter);
 
-    SL::Button *open_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(20, 155), SL::Texture(button_color));
+    SL::Button *open_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(20, 155), SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
     open_button->setString("Open");
     open_button->setCharacterSize(20);
     
-    SL::Button *cancel_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(215, 155), SL::Texture(button_color));
+    SL::Button *cancel_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(215, 155), SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
     cancel_button->setString("Cancel");
     cancel_button->setCharacterSize(20);
 
@@ -72,24 +69,24 @@ HSVwindow *create_hsv_window()
     SL::Editor *r_editor        = new SL::Editor(SL::Vector2d(50, 30), SL::Vector2d(245, 20));
     SL::Editor *g_editor        = new SL::Editor(SL::Vector2d(50, 30), SL::Vector2d(245, 60));
     SL::Editor *b_editor        = new SL::Editor(SL::Vector2d(50, 30), SL::Vector2d(245, 100));
-    SL::Button *cancel_button   = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(20, 360),  SL::Texture(button_color));
-    SL::Button *ok_button       = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(210, 360), SL::Texture(button_color));
+    SL::Button *cancel_button   = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(20, 360),  SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
+    SL::Button *ok_button       = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(210, 360), SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
 
-    r_editor->set_texture  (editor_color);
-    r_editor->setTextColor (text_color);
+    r_editor->set_texture  (CUST_SL::Color::EDITOR);
+    r_editor->setTextColor (CUST_SL::Color::TEXT);
 
-    g_editor->set_texture  (editor_color);
-    g_editor->setTextColor (text_color);
+    g_editor->set_texture  (CUST_SL::Color::EDITOR);
+    g_editor->setTextColor (CUST_SL::Color::TEXT);
     
-    b_editor->set_texture  (editor_color);
-    b_editor->setTextColor (text_color);
+    b_editor->set_texture  (CUST_SL::Color::EDITOR);
+    b_editor->setTextColor (CUST_SL::Color::TEXT);
 
     ok_button->setString("Ok");
-    ok_button->setTextColor(text_color);
+    ok_button->setTextColor(CUST_SL::Color::TEXT);
     ok_button->setCharacterSize(22);
 
     cancel_button->setString("Cancel");
-    cancel_button->setTextColor(text_color);
+    cancel_button->setTextColor(CUST_SL::Color::TEXT);
     cancel_button->setCharacterSize(22);
 
     HSVwindow *hsv_window = new HSVwindow(SL::Vector2d(300, 400), SL::Texture(back_ground_color), hsv_palette, r_editor, g_editor, b_editor, ok_button, cancel_button);
@@ -98,26 +95,26 @@ HSVwindow *create_hsv_window()
 
 SL::ComboBox *create_file_combobox(Canvas *canvas)
 {
-    SL::ComboBox *file_button = new SL::ComboBox(SL::Vector2d(60, 20), SL::Vector2d(0, 0), SL::Texture(button_color));
+    SL::ComboBox *file_button = new SL::ComboBox(SL::Vector2d(60, 20), SL::Vector2d(0, 0), SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
     file_button->setString("File");
     file_button->setCharacterSize(16);
-    file_button->set_box_texture(SL::Texture(button_color));
+    file_button->set_box_texture(SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
 
 
-    SL::Button *file_save_button = new SL::Button(SL::Vector2d(50, 30), SL::Vector2d(0, 0), SL::Texture(button_color));
+    SL::Button *file_save_button = new SL::Button(SL::Vector2d(50, 30), SL::Vector2d(0, 0), SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
     file_save_button->setCharacterSize(16);
     file_save_button->setString("Save");
-    file_save_button->setTextColor(text_color);
+    file_save_button->setTextColor(CUST_SL::Color::TEXT);
 
     SaveWindow *save_window = create_save_window();
     save_window->set_canvas(canvas);
     file_save_button->set_left_click((SL::Command<const SL::Event &> *) new SL::SimpleCommand<SaveWindow, const SL::Event &>(save_window, &SaveWindow::exec));
 
-    SL::Button *file_open_button = new  SL::Button(SL::Vector2d(50, 30), SL::Vector2d(0, 30), SL::Texture(button_color));
+    SL::Button *file_open_button = new  SL::Button(SL::Vector2d(50, 30), SL::Vector2d(0, 30), SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
     
     file_open_button->setCharacterSize(16);
     file_open_button->setString("Open");
-    file_open_button->setTextColor(text_color);
+    file_open_button->setTextColor(CUST_SL::Color::TEXT);
 
     OpenWindow *open_window = create_open_window();
     open_window->set_canvas(canvas);
@@ -133,14 +130,14 @@ ColorPicker *create_color_picker()
 {
     SL::TextureManager &texture_manager = SL::TextureManager::getInstance();
     ;
-    SL::Button *foreground_button = new SL::Button(SL::Vector2d(40, 40), SL::Vector2d(120, 335), SL::Texture(Color::White));
+    SL::Button *foreground_button = new SL::Button(SL::Vector2d(40, 40), SL::Vector2d(120, 335), SL::Texture(CUST_SL::Color::White));
     
 
-    SL::Button *background_button = new SL::Button(SL::Vector2d(40, 40), SL::Vector2d(160, 375), SL::Texture(Color::Black));    
-    SL::Button *swap_button       = new SL::Button(SL::Vector2d(20, 20), SL::Vector2d(160, 355), SL::Texture(Color(button_color)));    
+    SL::Button *background_button = new SL::Button(SL::Vector2d(40, 40), SL::Vector2d(160, 375), SL::Texture(CUST_SL::Color::Black));    
+    SL::Button *swap_button       = new SL::Button(SL::Vector2d(20, 20), SL::Vector2d(160, 355), SL::Texture(CUST_SL::Color(CUST_SL::Color::Color::BUTTON_DARK)));    
     swap_button->set_texture(texture_manager[SL::TextureManager::Icon::Swap]);
-    booba::APPCONTEXT->fgColor = Color::convert_color_uint(Color::White);
-    booba::APPCONTEXT->bgColor = Color::convert_color_uint(Color::Black);
+    booba::APPCONTEXT->fgColor = CUST_SL::Color::convert_color_uint(CUST_SL::Color::White);
+    booba::APPCONTEXT->bgColor = CUST_SL::Color::convert_color_uint(CUST_SL::Color::Black);
 
     HSVwindow *hsv_window = create_hsv_window();
 
@@ -164,9 +161,11 @@ int main()
     ToolPalette tool_palette(SL::Vector2d(300, 300), SL::Vector2d(10, 23), SL::Texture(tool_color));
     SL::Container setting_container(SL::Vector2d(300, 568), SL::Vector2d(10, 430));
     setting_container.set_texture(SL::Texture(tool_color));
-    
-    Canvas *canvas = Canvas::Create(SL::Vector2d(1400, 970), SL::Vector2d(320, 20), &tool_palette, &setting_container);
-
+    //TODO order
+// 1
+    ToolManager::getInstance().set_setting_field(&setting_container);
+// 2  
+    Canvas *canvas = Canvas::Create(SL::Vector2d(1400, 970), SL::Vector2d(320, 20), &tool_palette);
     canvas->set_image(image);
     
     SL::DecoratorScrollBar scroll_bar_canvas(canvas);
@@ -175,6 +174,16 @@ int main()
 
     ColorPicker *color_picker = create_color_picker();
 
+    SL::Container layer_palette = SL::Container(SL::Vector2d(150, 400), SL::Vector2d(1760, 20), SL::Texture(tool_color));
+    SL::Container layers_field  = SL::Container(SL::Vector2d(140, 250), SL::Vector2d(5, 55), SL::Texture(CUST_SL::Color::White));
+    SL::Button add_button = SL::Button(SL::Vector2d(50, 50), SL::Vector2d(0, 0), SL::Texture(CUST_SL::Color::Blue));
+    add_button.setString("Add");
+    LayerManager layer_manager(Canvas::getInstance(), &layer_palette, &layers_field, &add_button);
+
+    layer_palette.add(&add_button);
+    layer_palette.add(&layers_field);
+
+    main_window.add(&layer_palette);
     main_window.add(&scroll_bar_canvas);    
     main_window.add(&tool_palette);
     main_window.add(&setting_container);

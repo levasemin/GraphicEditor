@@ -26,7 +26,7 @@ public:
         points_({}),
         drawing_object_(1.f)
     {
-        drawing_object_.set_color(Color::convert_uint_color(Color::convert_color_uint(Color::White)));
+        drawing_object_.set_color(CUST_SL::Color::convert_uint_color(CUST_SL::Color::convert_color_uint(CUST_SL::Color::White)));
 
         char icon_path[128] = "source/Eraser.png";
         std::memcpy(icon_path_, icon_path, 128);
@@ -57,8 +57,8 @@ public:
         float width = string.size() > 0 ? float(std::stoi(string)) : 0;
         width = width <= 30 ? width : 30;
 
-        Event new_event;
-        new_event.type_ = EventType::ScrollbarMoved;
+        SL::Event new_event;
+        new_event.type_ = SL::EventType::ScrollbarMoved;
         new_event.Oleg_.smedata.value = width;
         new_event.Oleg_.smedata.id = (uint64_t)&width_scroll_bar_;
         
@@ -87,7 +87,7 @@ public:
         {
             for (float t = 0; t <= 1.f; t += 0.1f)
             {
-                Vector2d new_point = interpolator_(t, points_[0], points_[1], points_[2], points_[3]);
+                SL::Vector2d new_point = interpolator_(t, points_[0], points_[1], points_[2], points_[3]);
                 
                 drawing_object_.draw_fill(image, new_point);
             }
@@ -107,7 +107,7 @@ public:
             {
                 clicked_ = true;
 
-                Vector2d new_point((float)event->Oleg.mbedata.x, (float)event->Oleg.mbedata.y);
+                SL::Vector2d new_point((float)event->Oleg.mbedata.x, (float)event->Oleg.mbedata.y);
 
                 points_.push_back(new_point);
                 paint(image);
@@ -124,9 +124,9 @@ public:
 
             case booba::EventType::MouseMoved:
             {
-                booba::Image *second_layer = booba::getHiddenLayerID();
+                booba::Image *second_layer = image->getHiddenLayer();
 
-                Vector2d new_point((float)event->Oleg.motion.x, (float)event->Oleg.motion.y);
+                SL::Vector2d new_point((float)event->Oleg.motion.x, (float)event->Oleg.motion.y);
 
                 if (clicked_)
                 {
@@ -204,7 +204,7 @@ public:
 private:
     int64_t width_scroll_bar_ = 0;
     int64_t width_editor_     = 0; 
-    std::deque<Vector2d> points_;
+    std::deque<SL::Vector2d> points_;
 
     Circle drawing_object_;
 };

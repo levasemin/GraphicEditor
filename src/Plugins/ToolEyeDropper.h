@@ -13,7 +13,7 @@ extern booba::ApplicationContext* booba::APPCONTEXT;
 class ToolEyeDropper : booba::Tool
 {
 private:
-    Color color_;
+    CUST_SL::Color color_;
 
     SL::Label color_box_label_;
     SL::Label label_r_;
@@ -37,13 +37,13 @@ public:
         label_g_  (SL::Vector2d(50, 30), SL::Vector2d()),
         label_b_  (SL::Vector2d(50, 30), SL::Vector2d())
     {
-        label_r_.set_texture(SL::Texture(Color(uint8_t(48), uint8_t(48), uint8_t(48))));
-        label_g_.set_texture(SL::Texture(Color(uint8_t(48), uint8_t(48), uint8_t(48))));
-        label_b_.set_texture(SL::Texture(Color(uint8_t(48), uint8_t(48), uint8_t(48))));
+        label_r_.set_texture(SL::Texture(CUST_SL::Color(uint8_t(48), uint8_t(48), uint8_t(48))));
+        label_g_.set_texture(SL::Texture(CUST_SL::Color(uint8_t(48), uint8_t(48), uint8_t(48))));
+        label_b_.set_texture(SL::Texture(CUST_SL::Color(uint8_t(48), uint8_t(48), uint8_t(48))));
         
-        label_r_.setTextColor(Color(uint8_t(190), uint8_t(190), uint8_t(190)));
-        label_g_.setTextColor(Color(uint8_t(190), uint8_t(190), uint8_t(190)));
-        label_b_.setTextColor(Color(uint8_t(190), uint8_t(190), uint8_t(190)));
+        label_r_.setTextColor(CUST_SL::Color(uint8_t(190), uint8_t(190), uint8_t(190)));
+        label_g_.setTextColor(CUST_SL::Color(uint8_t(190), uint8_t(190), uint8_t(190)));
+        label_b_.setTextColor(CUST_SL::Color(uint8_t(190), uint8_t(190), uint8_t(190)));
 
         label_r_.setCharacterSize(30);
         label_g_.setCharacterSize(30);
@@ -55,10 +55,10 @@ public:
     ToolEyeDropper           (const ToolEyeDropper &) = default;
     ToolEyeDropper &operator=(const ToolEyeDropper &) = default;
 
-    void set_color(const Color &color)
+    void set_color(const CUST_SL::Color &color)
     {
         color_ = color;
-        booba::APPCONTEXT->fgColor = Color::convert_color_uint(color);
+        booba::APPCONTEXT->fgColor = CUST_SL::Color::convert_color_uint(color);
         
         label_r_.setString(std::to_string(int(color.get_r())));
         label_g_.setString(std::to_string(int(color.get_g())));

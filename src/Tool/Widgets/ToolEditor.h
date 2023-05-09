@@ -11,7 +11,7 @@ class ToolEditor : public SL::Editor
     SL::Command<const booba::Event &> *tool_editor_command_ = nullptr;
 public:
 
-    ToolEditor(SL::Vector2d shape, SL::Vector2d position, const SL::Texture &texture = SL::Texture(Color::White)) : SL::Editor(shape, position, texture)    
+    ToolEditor(SL::Vector2d shape, SL::Vector2d position, const SL::Texture &texture = SL::Texture(CUST_SL::Color::White)) : SL::Editor(shape, position, texture)    
     {
         editor_command_ = (SL::Command<const SL::Event &> *) new SL::SimpleCommand<ToolEditor, const SL::Event &>(this, &ToolEditor::ToolTextEvent);
     }
