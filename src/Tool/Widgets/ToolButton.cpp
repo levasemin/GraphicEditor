@@ -1,5 +1,5 @@
 #include "ToolButton.h"
-#include "../../Custom_Widgets/Event.h"
+#include "Event.h"
 
 
 void ToolButton::ToolClickLeftEvent (const SL::Event &event)

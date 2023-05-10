@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../Graphic-Library/GraphLib/GraphLib.h"
-#include "../../Custom_Widgets/Custom_Widgets.h"
+#include "GraphLib.h"
+#include "Custom_Widgets.h"
 
 
 

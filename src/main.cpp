@@ -14,7 +14,7 @@
 
 
 
-const std::string path_mountain = "british.png";
+const std::string path_mountain = "../src/british.png";
 
 booba::ApplicationContext* booba::APPCONTEXT = nullptr;
 
@@ -155,7 +155,7 @@ int main()
     SL::MainWindow main_window(SL::Vector2d(SL::WIDTH, SL::HEIGHT), SL::Texture(back_ground_color));
 
     SL::TextureManager &texture_manager = SL::TextureManager::getInstance();
-    texture_manager.load_textures("Textures");
+    texture_manager.load_textures("../src/Textures");
 
     Image image(path_mountain);
     ToolPalette tool_palette(SL::Vector2d(300, 300), SL::Vector2d(10, 23), SL::Texture(tool_color));

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../Graphic-Library/GraphLib/GraphLib.h"
+#include "GraphLib.h"
 
-#include "/home/levce/projectsDED/GraphicEditor/src/Custom_Widgets/Canvas.h"
+#include "Canvas.h"
 
 
 
