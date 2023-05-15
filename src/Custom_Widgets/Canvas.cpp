@@ -22,7 +22,7 @@ Canvas *Canvas::Create(SL::Vector2d shape, SL::Vector2d position, ToolPalette *t
         getInstance()->tool_manager_.set_tool_palette(tool_palette);
     }
             
-    std::string dlPath = "./../src/Plugins_so";
+    std::string dlPath = "./../Plugins_so";
     
     for (const auto& curFile : std::filesystem::directory_iterator(dlPath)) 
     {
