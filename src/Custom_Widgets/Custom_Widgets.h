@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Canvas.h"
 #include "Color.h"
 #include "ColorPicker.h"

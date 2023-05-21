@@ -104,6 +104,7 @@ char *booba::getTextEditor(uint64_t editorId)
 void booba::setTextLabel(uint64_t labelId, const char *text)
 {
     ((SL::Label *)labelId)->setString(text);
+    SL::Application::get_current()->show(nullptr);
 }
 
 char *booba::getTextLabel(uint64_t labelId)
@@ -120,7 +121,6 @@ void booba::putPixel (uint64_t canvas, size_t x, size_t y, booba::Color color)
         tool_canvas->image_.setPixel(x, y, color);
     }
 }
-
 
 
 void booba::putSprite(uint64_t canvas, size_t x, size_t y, size_t w, size_t h, const char* texture)

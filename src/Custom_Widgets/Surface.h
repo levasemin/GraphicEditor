@@ -5,22 +5,6 @@
 #include "Image.h"
 #include "Color.h"
 
-
-class Surface;
-
-class Memento
-{
-  public:
-    Memento(const SL::Image &image):
-        state_()
-    {
-        state_ = image;
-    }
-  private:
-    friend class Surface;
-    SL::Image state_;
-};
-
 class Surface : public SL::Object
 {
 public:
@@ -44,16 +28,6 @@ public:
         render_texture_->draw(sprite);
 
         SL::Object::draw();
-    }
-
-    Memento *createMemento()
-    {
-        return new Memento(image_);
-    }
-
-    void reinstateMemento(Memento *mem)
-    {
-        image_ = mem->state_;
     }
 
     void set_image(const Image &image)

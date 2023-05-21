@@ -39,6 +39,7 @@ if(NOT glib_POPULATED)
 endif()
 
 file(GLOB geditor_Custom_Widgets_SRC "src/Custom_Widgets/*.cpp")
+file(GLOB geditor_HistoryManager_SRC "src/HistoryManager/*.cpp")
 file(GLOB geditor_Tool_SRC "src/Tool/*.cpp")
 file(GLOB geditor_Tool_Widgets_SRC "./src/Tool/Widgets/*.cpp")
 file(GLOB geditor_INC "./*/")
@@ -46,12 +47,14 @@ file(GLOB geditor_INC "./*/")
 include_directories(./src/Custom_Widgets)
 include_directories(./src/Tool)
 include_directories(./src/Tool/Widgets)
+include_directories(./src/HistoryManager)
 
 add_executable(geditor 
                 ./src/main.cpp
                 ${geditor_Custom_Widgets_SRC}
                 ${geditor_Tool_SRC}
                 ${geditor_Tool_Widgets_SRC}
+                ${geditor_HistoryManager_SRC}
 )
 
 find_package(SFML 2.5 COMPONENTS network audio graphics window system REQUIRED)

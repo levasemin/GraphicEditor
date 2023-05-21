@@ -12,6 +12,7 @@
 #include "Tool.h"
 #include "ToolPalette.h"
 #include "Surface.h"
+#include "HistoryManager.hpp"
 
 const int MAX_BACKUP = 32;
 
@@ -161,19 +162,26 @@ public:
         }
     }
 
+    void set_node(HistoryManager::Node *node)
+    {
+        current_node = node;
+        surface_->set_image(HistoryManager::getInstance().get_state(node));
+    }
+
+    static HistoryManager::Node *get_node()
+    {
+        return current_node;
+    }
+
     void create_memento(Surface *surface)
     {
-        if (numCommands_ == max_backup_ - 1)
+        if (current_node == nullptr)
         {
-            mementoList_->pop_front();
-            mementoList_->push_back(nullptr);
-            numCommands_--;
+            current_node = HistoryManager::getInstance().create_root(*surface->get_image());
         }
-
-        numCommands_++;
-
-        (*mementoList_)[numCommands_] = surface->createMemento();
-        max_forward_ = numCommands_;
+        else {
+            HistoryManager::getInstance().add_state(current_node, *surface->get_image());    
+        }
     }
 
     void apply(const SL::Event *event)
@@ -194,38 +202,26 @@ public:
 
     static void undo(Surface *surface)
     {
-        if (numCommands_ == 0)
-        {
-            std::cout << "undo fuck up" << std::endl;
-            return ;
-        }
-
-        surface->reinstateMemento((*mementoList_)[numCommands_ - 1]);
-        numCommands_--;
+        auto image = HistoryManager::getInstance().undo_state(current_node);
+        surface->set_image(image);
     }
 
     static void redo(Surface *surface)
     {
-        if (numCommands_ >= max_forward_)
-        {
-            std::cout << "redo fuck up" << std::endl;
-            return ;
-        }
-
-        surface->reinstateMemento((*mementoList_)[numCommands_ + 1]);
-
-        numCommands_++;
+        auto image = HistoryManager::getInstance().redo_state(current_node);
+        surface->set_image(image);
     }
 
     void remove_active_tool()
     {
-        // setting_field_->remove((SL::Container *) active_tool_->get_setting_widget());
         active_tool_ = nullptr;
     }
 
     void set_surface(Surface *surface)
     {
         surface_ = surface;
+        current_node = HistoryManager::getInstance().create_root(*surface_->get_image());
+        create_memento(surface);
     }
 
     void set_second_surface(Surface *second_surface)
@@ -285,15 +281,10 @@ public:
         return nullptr;
     }
 
-    void set_mementoList(std::deque<Memento *> *mementoList)
-    {
-        mementoList_ = mementoList;
-    }
-
     ~ToolManager() {};
 
 protected:
-    static std::deque<Memento *> *mementoList_;
+    static HistoryManager::Node *current_node;
     static int numCommands_;
     static int max_forward_;
     static const int max_backup_ = MAX_BACKUP;

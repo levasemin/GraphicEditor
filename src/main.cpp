@@ -1,3 +1,5 @@
+#include "Classes/Vector2d.h"
+#include "Decorator/DecoratorScrollBar.h"
 #include "GraphLib.h"
 
 #include "Custom_Widgets/SaveWindow.h"
@@ -7,7 +9,9 @@
 #include "Custom_Widgets/Canvas.h"
 #include "Custom_Widgets/HSVpalette.h"
 #include "Custom_Widgets/HSVwindow.h"
-#include "Custom_Widgets/LayerManager.hpp"
+#include "HistoryWindow.hpp"
+#include "Widget/Button.h"
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -174,21 +178,16 @@ int main()
 
     ColorPicker *color_picker = create_color_picker();
 
-    SL::Container layer_palette = SL::Container(SL::Vector2d(150, 400), SL::Vector2d(1760, 20), SL::Texture(tool_color));
-    SL::Container layers_field  = SL::Container(SL::Vector2d(140, 250), SL::Vector2d(5, 55), SL::Texture(CUST_SL::Color::White));
-    SL::Button add_button = SL::Button(SL::Vector2d(50, 50), SL::Vector2d(0, 0), SL::Texture(CUST_SL::Color::Blue));
-    add_button.setString("Add");
-    LayerManager layer_manager(Canvas::getInstance(), &layer_palette, &layers_field, &add_button);
+    HistoryWindow history_window(SL::Vector2d(1000, 1000));
 
-    layer_palette.add(&add_button);
-    layer_palette.add(&layers_field);
-
-    main_window.add(&layer_palette);
+    SL::Button open_history(SL::Vector2d(100, 100), SL::Vector2d(200, 200));
+    open_history.set_left_click(new SL::SimpleCommand<HistoryWindow, const SL::Event &>(&history_window, &HistoryWindow::exec));
     main_window.add(&scroll_bar_canvas);
     main_window.add(&tool_palette);
     main_window.add(&setting_container);
     main_window.add(file_button);
     main_window.add(color_picker);
+    main_window.add(&open_history);
     SL::Application app(&main_window);
 
     app.exec();
