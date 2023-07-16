@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/home/leveophan/MyProjects/GraphicEditor/src/Custom_Library/build/_deps/glib-subbuild/CMakeFiles/glib-populate"
+		},
+		{
+			"file" : "/home/leveophan/MyProjects/GraphicEditor/src/Custom_Library/build/_deps/glib-subbuild/CMakeFiles/glib-populate.rule"
+		},
+		{
+			"file" : "/home/leveophan/MyProjects/GraphicEditor/src/Custom_Library/build/_deps/glib-subbuild/CMakeFiles/glib-populate-complete.rule"
+		},
+		{
+			"file" : "/home/leveophan/MyProjects/GraphicEditor/src/Custom_Library/build/_deps/glib-subbuild/glib-populate-prefix/src/glib-populate-stamp/glib-populate-build.rule"
+		},
+		{
+			"file" : "/home/leveophan/MyProjects/GraphicEditor/src/Custom_Library/build/_deps/glib-subbuild/glib-populate-prefix/src/glib-populate-stamp/glib-populate-configure.rule"
+		},
+		{
+			"file" : "/home/leveophan/MyProjects/GraphicEditor/src/Custom_Library/build/_deps/glib-subbuild/glib-populate-prefix/src/glib-populate-stamp/glib-populate-download.rule"
+		},
+		{
+			"file" : "/home/leveophan/MyProjects/GraphicEditor/src/Custom_Library/build/_deps/glib-subbuild/glib-populate-prefix/src/glib-populate-stamp/glib-populate-install.rule"
+		},
+		{
+			"file" : "/home/leveophan/MyProjects/GraphicEditor/src/Custom_Library/build/_deps/glib-subbuild/glib-populate-prefix/src/glib-populate-stamp/glib-populate-mkdir.rule"
+		},
+		{
+			"file" : "/home/leveophan/MyProjects/GraphicEditor/src/Custom_Library/build/_deps/glib-subbuild/glib-populate-prefix/src/glib-populate-stamp/glib-populate-patch.rule"
+		},
+		{
+			"file" : "/home/leveophan/MyProjects/GraphicEditor/src/Custom_Library/build/_deps/glib-subbuild/glib-populate-prefix/src/glib-populate-stamp/glib-populate-test.rule"
+		},
+		{
+			"file" : "/home/leveophan/MyProjects/GraphicEditor/src/Custom_Library/build/_deps/glib-subbuild/glib-populate-prefix/src/glib-populate-stamp/glib-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"glib-populate"
+		],
+		"name" : "glib-populate"
+	}
+}
