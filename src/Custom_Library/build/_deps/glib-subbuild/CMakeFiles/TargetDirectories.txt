@@ -1,3 +1,0 @@
-/home/leveophan/MyProjects/GraphicEditor/src/Custom_Library/build/_deps/glib-subbuild/CMakeFiles/glib-populate.dir
-/home/leveophan/MyProjects/GraphicEditor/src/Custom_Library/build/_deps/glib-subbuild/CMakeFiles/edit_cache.dir
-/home/leveophan/MyProjects/GraphicEditor/src/Custom_Library/build/_deps/glib-subbuild/CMakeFiles/rebuild_cache.dir

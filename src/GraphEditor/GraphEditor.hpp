@@ -9,15 +9,18 @@
 #include "HSVwindow.hpp"
 #include "HistoryWindow.hpp"
 
-const CUST_SL::Color back_ground_color(uint8_t(69),  uint8_t(69),  uint8_t(69));
-const CUST_SL::Color tool_color       (uint8_t(48),  uint8_t(48),  uint8_t(48));
+#include "Constants.hpp"
+#include "ToolLibrary.hpp"
 
-ColorPicker *create_color_picker();
+const SL::Color back_ground_color(uint8_t(69),  uint8_t(69),  uint8_t(69));
+const SL::Color tool_color       (uint8_t(48),  uint8_t(48),  uint8_t(48));
 
-SL::ComboBox *create_file_combobox(Canvas *canvas);
+CUST_SL::ColorPicker *create_color_picker();
 
-OpenWindow *create_open_window();
+SL::ComboBox *create_file_combobox(CUST_SL::Canvas *canvas);
 
-SaveWindow *create_save_window();
+CUST_SL::OpenWindow *create_open_window();
 
-HSVwindow *create_hsv_window();
+CUST_SL::SaveWindow *create_save_window();
+
+CUST_SL::HSVwindow *create_hsv_window();

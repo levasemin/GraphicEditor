@@ -1,74 +1,73 @@
 #include "GraphEditor.hpp"
-#include "tools.hpp"
 
-OpenWindow *create_open_window()
+CUST_SL::OpenWindow *create_open_window()
 {
 
     SL::Editor *path_editor = new SL::Editor(SL::Vector2d(200, 40), SL::Vector2d(50, 60));
-    path_editor->setTextColor(CUST_SL::Color::TEXT);
-    path_editor->set_texture(SL::Texture(CUST_SL::Color::EDITOR));
+    path_editor->setTextColor(TEXT_COLOR);
+    path_editor->setTexture(SL::Texture(EDITOR_COLOR));
     path_editor->setAlignment(SL::Label::Alignment::LeftCenter);
 
-    SL::Button *open_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(20, 155), SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
-    open_button->setString("Open");
+    SL::Button *open_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(20, 155), SL::Texture(BUTTON_DARK_COLOR));
+    open_button->setText("Open");
     open_button->setCharacterSize(20);
 
-    SL::Button *cancel_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(215, 155), SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
-    cancel_button->setString("Cancel");
+    SL::Button *cancel_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(215, 155), SL::Texture(BUTTON_DARK_COLOR));
+    cancel_button->setText("Cancel");
     cancel_button->setCharacterSize(20);
 
-    OpenWindow *open_window = new OpenWindow(SL::Vector2d(300, 200), open_button, cancel_button, path_editor);
+    CUST_SL::OpenWindow *open_window = new CUST_SL::OpenWindow(SL::Vector2d(300, 200), open_button, cancel_button, path_editor);
 
     return open_window;
 }
 
-SaveWindow *create_save_window()
+CUST_SL::SaveWindow *create_save_window()
 {
     SL::Editor *path_editor = new SL::Editor(SL::Vector2d(200, 40), SL::Vector2d(50, 60));
-    path_editor->setTextColor(CUST_SL::Color::TEXT);
-    path_editor->set_texture(SL::Texture(CUST_SL::Color::EDITOR));
+    path_editor->setTextColor(TEXT_COLOR);
+    path_editor->setTexture(SL::Texture(EDITOR_COLOR));
     path_editor->setAlignment(SL::Label::Alignment::LeftCenter);
 
-    SL::Button *save_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(20, 155), SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
-    save_button->setString("Save");
+    SL::Button *save_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(20, 155), SL::Texture(BUTTON_DARK_COLOR));
+    save_button->setText("Save");
     save_button->setCharacterSize(20);
 
-    SL::Button *cancel_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(210, 155), SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
-    cancel_button->setString("Cancel");
+    SL::Button *cancel_button = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(210, 155), SL::Texture(BUTTON_DARK_COLOR));
+    cancel_button->setText("Cancel");
     cancel_button->setCharacterSize(20);
 
-    SaveWindow *save_window = new SaveWindow(SL::Vector2d(300, 200), save_button, cancel_button, path_editor);
+    CUST_SL::SaveWindow *save_window = new CUST_SL::SaveWindow(SL::Vector2d(300, 200), save_button, cancel_button, path_editor);
 
     return save_window;
 }
 
-HSVwindow *create_hsv_window()
+CUST_SL::HSVwindow *create_hsv_window()
 {
-    HSVpalette *hsv_palette = new HSVpalette(SL::Vector2d(175, 315), SL::Vector2d(30, 20));
+    CUST_SL::HSVpalette *hsv_palette = new CUST_SL::HSVpalette(SL::Vector2d(175, 315), SL::Vector2d(30, 20));
 
     SL::Editor *r_editor        = new SL::Editor(SL::Vector2d(50, 30), SL::Vector2d(245, 20));
     SL::Editor *g_editor        = new SL::Editor(SL::Vector2d(50, 30), SL::Vector2d(245, 60));
     SL::Editor *b_editor        = new SL::Editor(SL::Vector2d(50, 30), SL::Vector2d(245, 100));
-    SL::Button *cancel_button   = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(20, 360),  SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
-    SL::Button *ok_button       = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(210, 360), SL::Texture(CUST_SL::Color::Color::BUTTON_DARK));
+    SL::Button *cancel_button   = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(20, 360),  SL::Texture(BUTTON_DARK_COLOR));
+    SL::Button *ok_button       = new SL::Button(SL::Vector2d(70, 20), SL::Vector2d(210, 360), SL::Texture(BUTTON_DARK_COLOR));
 
-    r_editor->set_texture  (CUST_SL::Color::EDITOR);
-    r_editor->setTextColor (CUST_SL::Color::TEXT);
+    r_editor->setTexture  (EDITOR_COLOR);
+    r_editor->setTextColor (TEXT_COLOR);
 
-    g_editor->set_texture  (CUST_SL::Color::EDITOR);
-    g_editor->setTextColor (CUST_SL::Color::TEXT);
+    g_editor->setTexture  (EDITOR_COLOR);
+    g_editor->setTextColor (TEXT_COLOR);
 
-    b_editor->set_texture  (CUST_SL::Color::EDITOR);
-    b_editor->setTextColor (CUST_SL::Color::TEXT);
+    b_editor->setTexture  (EDITOR_COLOR);
+    b_editor->setTextColor (TEXT_COLOR);
 
-    ok_button->setString("Ok");
-    ok_button->setTextColor(CUST_SL::Color::TEXT);
+    ok_button->setText("Ok");
+    ok_button->setTextColor(TEXT_COLOR);
     ok_button->setCharacterSize(22);
 
-    cancel_button->setString("Cancel");
-    cancel_button->setTextColor(CUST_SL::Color::TEXT);
+    cancel_button->setText("Cancel");
+    cancel_button->setTextColor(TEXT_COLOR);
     cancel_button->setCharacterSize(22);
 
-    HSVwindow *hsv_window = new HSVwindow(SL::Vector2d(300, 400), SL::Texture(back_ground_color), hsv_palette, r_editor, g_editor, b_editor, ok_button, cancel_button);
+    CUST_SL::HSVwindow *hsv_window = new CUST_SL::HSVwindow(SL::Vector2d(300, 400), SL::Texture(back_ground_color), hsv_palette, r_editor, g_editor, b_editor, ok_button, cancel_button);
     return hsv_window;
 }

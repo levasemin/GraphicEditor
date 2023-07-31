@@ -1,0 +1,107 @@
+Date : 2023-07-30 16:06:18
+Directory : /home/leveophan/MyProjects/SuperProject/GraphicEditor
+Total : 52 files,  1850 codes, 1014 comments, 890 blanks, all 3754 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |         48 |      1,564 |      1,014 |        815 |      3,393 |
+| Python   |          3 |        285 |          0 |         74 |        359 |
+| Markdown |          1 |          1 |          0 |          1 |          2 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                             | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                |         52 |      1,850 |      1,014 |        890 |      3,754 |
+| . (Files)                                                                                                                        |          2 |         33 |          6 |         15 |         54 |
+| PythonPlugins                                                                                                                    |          3 |        285 |          0 |         74 |        359 |
+| src                                                                                                                              |         47 |      1,532 |      1,008 |        801 |      3,341 |
+| src (Files)                                                                                                                      |          1 |         15 |          0 |          8 |         23 |
+| src/Custom_Library                                                                                                               |         42 |      1,407 |      1,006 |        748 |      3,161 |
+| src/Custom_Library (Files)                                                                                                       |          2 |          9 |          3 |          4 |         16 |
+| src/Custom_Library/HistoryManager                                                                                                |          1 |          1 |          0 |          2 |          3 |
+| src/Custom_Library/ToolLibrary                                                                                                   |         21 |        460 |        585 |        318 |      1,363 |
+| src/Custom_Library/ToolLibrary (Files)                                                                                           |          1 |         10 |          0 |          3 |         13 |
+| src/Custom_Library/ToolLibrary/include                                                                                           |         11 |        163 |        374 |        186 |        723 |
+| src/Custom_Library/ToolLibrary/include/Constants                                                                                 |          1 |          6 |          0 |          1 |          7 |
+| src/Custom_Library/ToolLibrary/include/Event                                                                                     |          1 |          4 |          0 |          2 |          6 |
+| src/Custom_Library/ToolLibrary/include/Options                                                                                   |          2 |         49 |          0 |         24 |         73 |
+| src/Custom_Library/ToolLibrary/include/ToolManager                                                                               |          3 |         63 |        235 |         93 |        391 |
+| src/Custom_Library/ToolLibrary/include/Widgets                                                                                   |          4 |         41 |        139 |         66 |        246 |
+| src/Custom_Library/ToolLibrary/src                                                                                               |          9 |        287 |        211 |        129 |        627 |
+| src/Custom_Library/ToolLibrary/src/Event                                                                                         |          1 |         48 |          0 |         14 |         62 |
+| src/Custom_Library/ToolLibrary/src/Options                                                                                       |          2 |         64 |          4 |         22 |         90 |
+| src/Custom_Library/ToolLibrary/src/PluginFunctions                                                                               |          1 |          5 |          5 |          4 |         14 |
+| src/Custom_Library/ToolLibrary/src/ToolManager                                                                                   |          2 |         50 |         44 |         25 |        119 |
+| src/Custom_Library/ToolLibrary/src/Widgets                                                                                       |          3 |        120 |        158 |         64 |        342 |
+| src/Custom_Library/include                                                                                                       |         11 |        353 |        175 |        202 |        730 |
+| src/Custom_Library/include/HistoryManager                                                                                        |          3 |        140 |        128 |         64 |        332 |
+| src/Custom_Library/include/Widgets                                                                                               |          4 |         92 |         47 |         74 |        213 |
+| src/Custom_Library/include/Windows                                                                                               |          4 |        121 |          0 |         64 |        185 |
+| src/Custom_Library/src                                                                                                           |          7 |        584 |        243 |        222 |      1,049 |
+| src/Custom_Library/src/Widgets                                                                                                   |          3 |        218 |        220 |        140 |        578 |
+| src/Custom_Library/src/Windows                                                                                                   |          4 |        366 |         23 |         82 |        471 |
+| src/GraphEditor                                                                                                                  |          4 |        110 |          2 |         45 |        157 |
++----------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                         | language | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/PythonPlugins/conv_plugin.py                                               | Python   |         64 |          0 |         15 |         79 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/PythonPlugins/convolution.py                                               | Python   |         34 |          0 |         10 |         44 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/PythonPlugins/my_plugin.py                                                 | Python   |        187 |          0 |         49 |        236 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/README.md                                                                  | Markdown |          1 |          0 |          1 |          2 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/main.cpp                                                                   | C++      |         32 |          6 |         14 |         52 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/CustGraphLib.hpp                                        | C++      |          0 |          0 |          1 |          1 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/HistoryManager/HistoryManager.cpp                       | C++      |          1 |          0 |          2 |          3 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/ToolLibrary.hpp                             | C++      |         10 |          0 |          3 |         13 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/include/Constants/Constants.hpp             | C++      |          6 |          0 |          1 |          7 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/include/Event/ToolEvent.hpp                 | C++      |          4 |          0 |          2 |          6 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/include/Options/ToolColor.hpp               | C++      |         22 |          0 |          7 |         29 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/include/Options/ToolImage.hpp               | C++      |         27 |          0 |         17 |         44 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/include/ToolManager/ToolManager.hpp         | C++      |         31 |          4 |         19 |         54 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/include/ToolManager/ToolManagerO.hpp        | C++      |          0 |        231 |         63 |        294 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/include/ToolManager/ToolPalette.hpp         | C++      |         32 |          0 |         11 |         43 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/include/Widgets/ToolButton.hpp              | C++      |         41 |          0 |         19 |         60 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/include/Widgets/ToolCanvas.hpp              | C++      |          0 |         80 |         20 |        100 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/include/Widgets/ToolEditor.hpp              | C++      |          0 |         30 |         13 |         43 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/include/Widgets/ToolHorizontalScrollBar.hpp | C++      |          0 |         29 |         14 |         43 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/src/Event/ToolEvent.cpp                     | C++      |         48 |          0 |         14 |         62 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/src/Options/ToolColor.cpp                   | C++      |          4 |          0 |          2 |          6 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/src/Options/ToolImage.cpp                   | C++      |         60 |          4 |         20 |         84 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/src/PluginFunctions/plugin_function.cpp     | C++      |          5 |          5 |          4 |         14 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/src/ToolManager/ToolManager.cpp             | C++      |         50 |         40 |         23 |        113 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/src/ToolManager/ToolManagerO.cpp            | C++      |          0 |          4 |          2 |          6 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/src/Widgets/ToolButton.cpp                  | C++      |        120 |          2 |         26 |        148 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/src/Widgets/ToolEditor.cpp                  | C++      |          0 |         61 |         16 |         77 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/ToolLibrary/src/Widgets/ToolHorizontalScrollBar.cpp     | C++      |          0 |         95 |         22 |        117 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/include/HistoryManager/HistoryManager.hpp               | C++      |        120 |          0 |         31 |        151 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/include/HistoryManager/HistoryWindow.hpp                | C++      |          0 |        128 |         29 |        157 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/include/HistoryManager/NodeButton.hpp                   | C++      |         20 |          0 |          4 |         24 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/include/Widgets/Canvas.hpp                              | C++      |         37 |          1 |         20 |         58 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/include/Widgets/CanvasO.hpp                             | C++      |          0 |         45 |         27 |         72 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/include/Widgets/HSVpalette.hpp                          | C++      |         25 |          0 |         14 |         39 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/include/Widgets/Surface.hpp                             | C++      |         30 |          1 |         13 |         44 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/include/Windows/ColorPicker.hpp                         | C++      |         33 |          0 |         19 |         52 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/include/Windows/HSVwindow.hpp                           | C++      |         36 |          0 |         18 |         54 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/include/Windows/OpenWindow.hpp                          | C++      |         25 |          0 |         14 |         39 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/include/Windows/SaveWindow.hpp                          | C++      |         27 |          0 |         13 |         40 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/main.cpp                                                | C++      |          9 |          3 |          3 |         15 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/src/Widgets/Canvas.cpp                                  | C++      |        130 |         31 |         54 |        215 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/src/Widgets/CanvasO.cpp                                 | C++      |          0 |        187 |         68 |        255 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/src/Widgets/HSVpalette.cpp                              | C++      |         88 |          2 |         18 |        108 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/src/Windows/ColorPicker.cpp                             | C++      |        100 |         23 |         23 |        146 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/src/Windows/HSVwindow.cpp                               | C++      |        147 |          0 |         32 |        179 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/src/Windows/OpenWindow.cpp                              | C++      |         60 |          0 |         13 |         73 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/Custom_Library/src/Windows/SaveWindow.cpp                              | C++      |         59 |          0 |         14 |         73 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/GraphEditor/GraphEditor.hpp                                            | C++      |         17 |          0 |          9 |         26 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/GraphEditor/create_color_picker.cpp                                    | C++      |         15 |          0 |          7 |         22 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/GraphEditor/create_file_combobox.cpp                                   | C++      |         25 |          0 |         10 |         35 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/GraphEditor/create_windows.cpp                                         | C++      |         53 |          2 |         19 |         74 |
+| /home/leveophan/MyProjects/SuperProject/GraphicEditor/src/main.cpp                                                               | C++      |         15 |          0 |          8 |         23 |
+| Total                                                                                                                            |          |      1,850 |      1,014 |        890 |      3,754 |
++----------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

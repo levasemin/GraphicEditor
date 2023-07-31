@@ -1,1 +1,0 @@
-/usr/bin/c++  -std=c++17 CMakeFiles/main.dir/main.cpp.o -o main  libglib_cust.a build/_deps/glib-src/libglib.a /usr/lib/x86_64-linux-gnu/libsfml-network.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-audio.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1 

@@ -216,7 +216,7 @@ class mytool:
                     setTextLabel(self.state_label, "Done!   ")
 
 
-        if event.type == EventType.TextEvent:
+        if event.type == EventType.textEvent:
             self.style_image_path = event.text
 
     def getTexture(self):
