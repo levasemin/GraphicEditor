@@ -18,7 +18,8 @@ int main()
 
     SL::TextureManager &texture_manager = SL::TextureManager::getInstance();
     texture_manager.load_textures("../src/Textures");
-
+    TOOL_SL::ToolManager::loadPlugins("../Plugins_so");
+    
     SL::Image image(path_mountain);
     ToolPalette tool_palette(SL::Vector2d(300, 300), SL::Vector2d(10, 23), SL::Texture(tool_color));
     SL::Container setting_container(SL::Vector2d(300, 568), SL::Vector2d(10, 430), SL::Texture(tool_color));

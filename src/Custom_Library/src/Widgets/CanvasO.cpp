@@ -5,10 +5,10 @@
 // {
 //     getInstance()->setShape(shape);
 //     getInstance()->setPosition(position);
-//     getInstance()->setTexture(SL::Texture(SL::Color::Grey));
+//     getInstance()->setTexture(SL::Texture(SL::Color((uint8_t)69,  (uint8_t)69,  (uint8_t)69,   uint8_t(255))));
 
 //     getInstance()->tool_manager_ = ToolManager::getInstance();
-//     getInstance()->main_layer_   = new Surface(SL::Vector2d(1, 1), SL::Vector2d(0, 0), SL::Image(SL::Texture(SL::Color::Grey)));
+//     getInstance()->main_layer_   = new Surface(SL::Vector2d(1, 1), SL::Vector2d(0, 0), SL::Image(SL::Texture(SL::Color((uint8_t)69,  (uint8_t)69,  (uint8_t)69,   uint8_t(255)))));
 //     getInstance()->hidden_layer_ = new Surface(SL::Vector2d(1, 1), SL::Vector2d(0, 0), SL::Image());
 //     getInstance()->add(getInstance()->main_layer_);
 //     getInstance()->add(getInstance()->hidden_layer_);

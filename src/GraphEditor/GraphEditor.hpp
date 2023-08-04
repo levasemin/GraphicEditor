@@ -1,3 +1,5 @@
+#pragma once
+
 #include "GraphLib.hpp"
 
 #include "SaveWindow.hpp"

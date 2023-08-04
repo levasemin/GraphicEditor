@@ -84,7 +84,7 @@ namespace CUST_SL
             new_event.Oleg_.metion.pos  = event.Oleg_.metion.pos - getField().first - main_layer_->getPosition();
             new_event.Oleg_.metion.pos /= zoom_;
 
-            TOOL_SL::ToolManager::getInstance().apply(&new_event);
+            TOOL_SL::ToolManager::getInstance().apply(getImage(), new_event);
         }
     }
 
@@ -100,7 +100,7 @@ namespace CUST_SL
             new_event.Oleg_.mpedata.pos /= zoom_;
             new_event.Oleg_.mpedata.button = SL::MouseButton::Left;
 
-            TOOL_SL::ToolManager::getInstance().apply(&new_event);
+            TOOL_SL::ToolManager::getInstance().apply(getImage(), new_event);
         }           
     }
 
@@ -116,7 +116,7 @@ namespace CUST_SL
             new_event.Oleg_.mredata.pos /= zoom_;
             new_event.Oleg_.mredata.button = SL::MouseButton::Left;
 
-            TOOL_SL::ToolManager::getInstance().apply(&new_event);   
+            TOOL_SL::ToolManager::getInstance().apply(getImage(), new_event);
         }
     }
 
@@ -132,7 +132,7 @@ namespace CUST_SL
             new_event.Oleg_.mpedata.pos /= zoom_;
             new_event.Oleg_.mpedata.button = SL::MouseButton::Right;
 
-            TOOL_SL::ToolManager::getInstance().apply(&new_event);
+            TOOL_SL::ToolManager::getInstance().apply(getImage(), new_event);
         }           
     }
 
@@ -148,7 +148,7 @@ namespace CUST_SL
             new_event.Oleg_.mredata.pos /= zoom_;
             new_event.Oleg_.mredata.button = SL::MouseButton::Right;
             
-            TOOL_SL::ToolManager::getInstance().apply(&new_event);   
+            TOOL_SL::ToolManager::getInstance().apply(getImage(), new_event);
         }
     }
 

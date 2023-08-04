@@ -32,6 +32,7 @@ add_subdirectory(src/Custom_Library)
 add_subdirectory(src/Custom_Library/ToolLibrary)
 add_subdirectory(build/_deps/glib-src)
 
+add_compile_options(-ldl -export-dynamic)
 add_executable(geditor src/GraphEditor/create_file_combobox.cpp
                        src/GraphEditor/create_windows.cpp
                        src/main.cpp)

@@ -1,3 +1,4 @@
+#pragma once
 #include "GraphLib.hpp"
 
 const SL::Color TEXT_COLOR  (uint8_t(190), uint8_t(190), uint8_t(190));

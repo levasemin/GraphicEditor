@@ -1,8 +1,18 @@
 #include "ToolManager.hpp"
 
+booba::ApplicationContext* booba::APPCONTEXT = nullptr;
+
 namespace TOOL_SL
 {
-    class Canvas;
+    ToolManager::ToolManager():
+        plugin_buttons_({}),
+        tools_({}),
+        settings_containers_({})
+    {
+        booba::APPCONTEXT = new booba::ApplicationContext();
+        booba::APPCONTEXT->fgColor = booba::Color(255, 255, 255);
+        booba::APPCONTEXT->bgColor = booba::Color();
+    }
 
     ToolManager &ToolManager::getInstance()
     {
@@ -10,10 +20,9 @@ namespace TOOL_SL
         return instance;
     }
 
+
     void ToolManager::loadPlugins(std::string path)
     {
-        std::string dlPath = "./../Plugins_so";
-
         for (const auto& curFile : std::filesystem::directory_iterator(path)) 
         {
             if (curFile.is_directory()) 
@@ -25,10 +34,25 @@ namespace TOOL_SL
             
             if (dlHandler) 
             {
-                void (*init_func)()   = nullptr; 
-                *((void**)&init_func) = dlsym(dlHandler, "init_module");
+                booba::GUID (*get_GUID)()   = nullptr; 
+                *((booba::GUID**)&get_GUID) = (booba::GUID *)dlsym(dlHandler, "getGUID");
+                booba::GUID guid = (*get_GUID)();
 
-                (*init_func)();
+                SL::Container *settings_container = new SL::Container(SL::Vector2d(1, 1), SL::Vector2d(0, 0));
+                settings_containers_[guid] = settings_container;
+
+                void *(*init_func)()   = nullptr; 
+                *((void**)&init_func) = dlsym(dlHandler, "init_module");
+                booba::Tool *new_tool = (booba::Tool *)(*init_func)();
+
+                tools_[guid] = new_tool;
+
+                PluginButton *tool_button_ = new PluginButton(SL::Vector2d(50, 50), SL::Vector2d(25, 25), guid);
+                tool_button_->setTexture(SL::Texture(new_tool->getTexture()));
+                tool_button_->setLeftClick((SL::Command<booba::GUID> *) new SL::SimpleCommand<ToolManager, booba::GUID>(this, &ToolManager::chooseTool));
+                plugin_buttons_.push_back(tool_button_);
+
+                settings_container->setShape(SL::Vector2d(new_tool->getShape().first, new_tool->getShape().second));
             }
 
             else 
@@ -41,73 +65,77 @@ namespace TOOL_SL
     void ToolManager::setToolPalette(ToolPalette *tool_palette)
     {
         tool_palette_ = tool_palette;
+
+        for (auto plugin_button : plugin_buttons_)
+        {
+            tool_palette_->add(plugin_button);
+        }
     }
 
-    // void ToolManager::add(booba::Tool *new_tool)
-    // {
-    //     tools_.push_back(new_tool);
-
-    //     SL::Button *tool_button_ = new SL::Button(SL::Vector2d(50, 50), SL::Vector2d(25, 25));
-
-    //     tool_button_->setTexture(tool_palette_->getTexture());
-    //     tool_button_->setTexture(SL::Texture(new_tool->getTexture()));
-    //     tool_button_->setLeftClick((SL::Command<const SL::Event &> *) new SL::SimpleCommand<ToolManager, const SL::Event &>(this, &ToolManager::chooseTool));
-    //     tool_palette_->add(tool_button_);
-
-    //     SL::Container *setting_palette = new SL::Container(SL::Vector2d(setting_field_->getShape()), SL::Vector2d(0, 0));
-
-    //     setting_palette->setTexture(setting_field_->getTexture());
-    //     setting_palettes_.push_back(setting_palette);
-    //     init_tool_ = new_tool;
-    //     new_tool->buildSetupWidget();
-    // }
-
-    Canvas *ToolManager::getCanvas()
+    void ToolManager::chooseTool(booba::GUID guid)
     {
-        return canvas_;
+        if (setting_field_)
+        {
+            if (strlen(current_plugin_.str) != 0)
+            {
+                setting_field_->remove(settings_containers_[current_plugin_]);
+            }
+
+            current_plugin_ = guid;
+
+            setting_field_->add(settings_containers_[current_plugin_]);
+        }
     }
 
-    void ToolManager::setCanvas(Canvas *canvas)
+    void ToolManager::apply(SL::Image *image, const SL::Event &event)
     {
-        canvas_ = canvas;
+        if (strlen(current_plugin_.str) != 0)
+        {
+            if ((event.type_ == SL::EventType::MouseReleased))
+            {
+                // create_memento(surface_);
+
+                // surface_->image_.image_changed = false;
+            }
+
+            booba::Event booba_event   = convert_event(event);
+            auto tool_image = ToolImage(image);
+            // tools_[current_plugin_]->apply(, &booba_event);
+        }
     }
 
-    void ToolManager::chooseTool(const SL::Event &event)
+    SL::Container *ToolManager::getSettingsContainer(booba::GUID guid)
     {
-        // canvas_->recoverySecondLayer();
-
-        // std::vector<SL::Widget *> tool_palette_children = tool_palette_->getChildren();
-
-        // for (size_t i = 0; i < tool_palette_children.size(); i++)
-        // {
-        //     if ((uint64_t)tool_palette_children[i] == event.Oleg_.bcedata.id)
-        //     {
-        //         if (active_tool_ != tools_[i])
-        //         {
-        //             // set_active_tool(tools_[i]);
-        //         }
-
-        //         else
-        //         {
-        //             // remove_active_tool();
-        //         }
-        //     }
-        // }
+        return settings_containers_[guid];
     }
 
-    void ToolManager::apply(const SL::Event *event)
+    PluginButton::PluginButton(SL::Vector2d shape, SL::Vector2d position, booba::GUID guid, const SL::Texture &texture):
+        SL::Button(shape, position, texture),
+        guid_(guid)
     {
-        // if (active_tool_)
-        // {
-        //     if ((event->type_ == SL::EventType::MouseReleased || event->type_ == SL::EventType::CanvasMPressed))
-        //     {
-        //         // create_memento(surface_);
+        Button::setLeftClick((SL::Command<> *) new SL::SimpleCommand<PluginButton>(this, &PluginButton::clickLeftEvent));
+    }
 
-        //         // surface_->image_.image_changed = false;
-        //     }
+    PluginButton::~PluginButton()
+    {
+        delete command_;
+    }
 
-        //     // booba::Event booba_event   = convert_event(*event);
-        //     // active_tool_->apply(canvas_->getImage(), &booba_event);
-        // }
+    SL::Command<booba::GUID> *PluginButton::getLeftClick()
+    {
+        return command_;
+    }
+
+    void PluginButton::setLeftClick(SL::Command<booba::GUID> *command)
+    {
+        command_ = command;
+    }
+    
+    void PluginButton::clickLeftEvent()
+    {
+        if (command_)
+        {
+            command_->Execute(guid_);        
+        }
     }
 }

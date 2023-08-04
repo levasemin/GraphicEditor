@@ -1,0 +1,3 @@
+/home/leveophan/MyProjects/SuperProject/GraphicEditor/Plugins/build/CMakeFiles/paint_tool.dir
+/home/leveophan/MyProjects/SuperProject/GraphicEditor/Plugins/build/CMakeFiles/edit_cache.dir
+/home/leveophan/MyProjects/SuperProject/GraphicEditor/Plugins/build/CMakeFiles/rebuild_cache.dir

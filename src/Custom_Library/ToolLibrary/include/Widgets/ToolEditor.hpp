@@ -15,7 +15,7 @@ namespace TOOL_SL
 
         ToolEditor(const ToolEditor &source) = default;
         ToolEditor &operator=(const ToolEditor &source) = default;
-        ~ToolEditor();
+        ~ToolEditor() override;
 
         int getX() override;
         void setX(int x) override;

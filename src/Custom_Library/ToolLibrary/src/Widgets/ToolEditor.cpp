@@ -72,6 +72,11 @@ namespace TOOL_SL
         tool_editor_command_->Execute(text);
     }
 
+    booba::Command<std::string> *ToolEditor::getCommand()
+    {
+        return tool_editor_command_;
+    }
+
     void ToolEditor::setCommand(booba::Command<std::string> *command)
     {
         tool_editor_command_ = command;

@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -shared -Wl,-soname,libpaint_tool.so -o libpaint_tool.so CMakeFiles/paint_tool.dir/Paint.cpp.o CMakeFiles/paint_tool.dir/Interpolator.cpp.o 

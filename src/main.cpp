@@ -2,18 +2,16 @@
 
 const std::string path_mountain = "../kot.jpg";
 
-booba::ApplicationContext* booba::APPCONTEXT = nullptr;
 
 int main()
 {
-    booba::APPCONTEXT = new booba::ApplicationContext();
-    booba::APPCONTEXT->fgColor = booba::Color(255, 255, 255);
-    booba::APPCONTEXT->bgColor = booba::Color();
+
 
     SL::MainWindow main_window(SL::Vector2d(SL::WIDTH, SL::HEIGHT), SL::Texture(back_ground_color));
 
     SL::TextureManager &texture_manager = SL::TextureManager::getInstance();
     texture_manager.load_textures("../src/Textures");
+    TOOL_SL::ToolManager::getInstance().loadPlugins("../Plugins_so/");
 
     SL::Image image(path_mountain);
     TOOL_SL::ToolPalette tool_palette(SL::Vector2d(300, 300), SL::Vector2d(10, 23), SL::Texture(tool_color));
@@ -24,9 +22,9 @@ int main()
     
     SL::DecoratorScrollBar scroll_bar_canvas(&canvas, SL::Vector2d(1400, 970), SL::Vector2d(320, 20));
 
-    // main_window.add(&scroll_bar_canvas);
-    // main_window.add(&tool_palette);
-    // main_window.add(&setting_container);
+    main_window.add(&scroll_bar_canvas);
+    main_window.add(&tool_palette);
+    main_window.add(&setting_container);
 
     CUST_SL::HSVwindow *hsv_window = create_hsv_window();
 

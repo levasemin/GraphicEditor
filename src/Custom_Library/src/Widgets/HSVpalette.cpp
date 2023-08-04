@@ -8,7 +8,7 @@ namespace CUST_SL
     {
         scroll_bar_.setScrollCommand((SL::Command<float> *) new SL::SimpleCommand<HSVfield, float>(&palette_, &HSVfield::change_H));
         scroll_bar_.setScrollButtonShape(SL::Vector2d(20, 4));
-        
+        scroll_bar_.setSideButton(false);
         add(&scroll_bar_);
         add(&palette_);
 

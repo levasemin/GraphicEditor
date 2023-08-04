@@ -1,3 +1,5 @@
+#pragma once
+
 #include "ToolEvent.hpp"
 
 #include "ToolColor.hpp"

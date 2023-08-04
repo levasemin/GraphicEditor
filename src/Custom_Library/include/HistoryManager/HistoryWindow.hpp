@@ -34,7 +34,7 @@
 //     SL::Button add_button_;
 //     SL::Button delete_button_;
 
-//     HistoryWindow(SL::Vector2d shape) : SL::MainWindow(shape, SL::Texture(SL::Color::Grey)),
+//     HistoryWindow(SL::Vector2d shape) : SL::MainWindow(shape, SL::Texture(SL::Color((uint8_t)69,  (uint8_t)69,  (uint8_t)69,   uint8_t(255)))),
 //         select_button_({60, 30}, {0, 0}, SL::Texture(BUTTON_DARK_COLOR)),
 //         add_button_({60, 30}, {70, 0}, SL::Texture(BUTTON_DARK_COLOR)),
 //         delete_button_({60, 30}, {140, 0}, SL::Texture(BUTTON_DARK_COLOR)), 

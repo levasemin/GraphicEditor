@@ -1,0 +1,11 @@
+# Hashes of file build rules.
+4c542d2d458704a1f6e5fc8a79444a0c CMakeFiles/pluginstandart-populate
+5823f4c609b0ddc7cb0b53fc3d4fb012 CMakeFiles/pluginstandart-populate-complete
+5bca461d6801724e503f9bf43f460d71 pluginstandart-populate-prefix/src/pluginstandart-populate-stamp/pluginstandart-populate-build
+115d34b855e57eb4b920204272e8261b pluginstandart-populate-prefix/src/pluginstandart-populate-stamp/pluginstandart-populate-configure
+664cdd4632554a73c60a801aa4dce64f pluginstandart-populate-prefix/src/pluginstandart-populate-stamp/pluginstandart-populate-download
+231f2d853984274489c336b1174da6e6 pluginstandart-populate-prefix/src/pluginstandart-populate-stamp/pluginstandart-populate-install
+34314ae765a33b825b3e0f3ab113e842 pluginstandart-populate-prefix/src/pluginstandart-populate-stamp/pluginstandart-populate-mkdir
+3319ac90c3a2d92290b9546a9f0caa00 pluginstandart-populate-prefix/src/pluginstandart-populate-stamp/pluginstandart-populate-patch
+4211e5d0aa45c0564ec9cf59c1c3504e pluginstandart-populate-prefix/src/pluginstandart-populate-stamp/pluginstandart-populate-test
+e3bcae6b5d609ae7ea171fa13ecded8c pluginstandart-populate-prefix/src/pluginstandart-populate-stamp/pluginstandart-populate-update

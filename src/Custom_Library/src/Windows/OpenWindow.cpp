@@ -2,7 +2,7 @@
 
 namespace CUST_SL
 {
-    OpenWindow::OpenWindow(SL::Vector2d shape, SL::Button *open_button, SL::Button *cancel_button, SL::Editor *path_editor): MainWindow(shape, SL::Texture(SL::Color::Grey)),
+    OpenWindow::OpenWindow(SL::Vector2d shape, SL::Button *open_button, SL::Button *cancel_button, SL::Editor *path_editor): MainWindow(shape, SL::Texture(SL::Color((uint8_t)69,  (uint8_t)69,  (uint8_t)69,   uint8_t(255)))),
         path_(""),
         open_button_(open_button),
         cancel_button_(cancel_button),

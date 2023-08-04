@@ -28,9 +28,13 @@ namespace CUST_SL
         delete foreground_button_.getLeftClick();
         delete background_button_.getLeftClick();
         delete swap_button_.getLeftClick();
-        delete hsv_window_->getCommand();
-        delete hsv_window_->ok_button_->getLeftClick();
-        delete hsv_window_->cancel_button_->getLeftClick();
+        
+        if (hsv_window_)
+        {
+            delete hsv_window_->getCommand();
+            delete hsv_window_->ok_button_->getLeftClick();
+            delete hsv_window_->cancel_button_->getLeftClick();
+        }
     }
 
     void ColorPicker::change_color(const SL::Color &color)
@@ -78,7 +82,11 @@ namespace CUST_SL
         }
 
         color_type_ = Type::NO_COLOR;
-        hsv_window_->close();
+
+        if (hsv_window_)
+        {
+            hsv_window_->close();
+        }
     }
 
     void ColorPicker::setHSVwindow(HSVwindow *hsv_window)
@@ -97,8 +105,10 @@ namespace CUST_SL
                                   booba::APPCONTEXT->fgColor.g, 
                                   booba::APPCONTEXT->fgColor.b, 
                                   booba::APPCONTEXT->fgColor.a);
-
-            hsv_window_->setColor(fg_color_);
+            if (hsv_window_)
+            {
+                hsv_window_->setColor(fg_color_);
+            }
         }
 
         else if (color_type_ == Type::BACKGROUND_COLOR)
@@ -107,26 +117,40 @@ namespace CUST_SL
                                   booba::APPCONTEXT->bgColor.g, 
                                   booba::APPCONTEXT->bgColor.b, 
                                   booba::APPCONTEXT->bgColor.a);
-                                  
-            hsv_window_->setColor(bg_color_);
+            if (hsv_window_)
+            {                   
+                hsv_window_->setColor(bg_color_);
+            }
         }
 
         color_type_ = Type::NO_COLOR;
-        hsv_window_->close();
+
+        if (hsv_window_)
+        {
+            hsv_window_->close();
+        }
     }
 
     void ColorPicker::open_foreground_hsv_window()
     {
         color_type_ = Type::FOREGROUND_COLOR;
-        hsv_window_->setColor(fg_color_);
-        hsv_window_->exec();
+        
+        if (hsv_window_)
+        {
+            hsv_window_->setColor(fg_color_);
+            hsv_window_->exec();
+        }
     }
 
     void ColorPicker::open_background_hsv_window()
     {
         color_type_ = Type::BACKGROUND_COLOR;
-        hsv_window_->setColor(bg_color_);
-        hsv_window_->exec();
+        
+        if (hsv_window_)
+        {
+            hsv_window_->setColor(bg_color_);
+            hsv_window_->exec();
+        }
     }
 
     void ColorPicker::moveMouseEvent(const SL::Event &event)
