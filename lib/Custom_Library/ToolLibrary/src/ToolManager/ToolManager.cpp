@@ -34,25 +34,16 @@ namespace TOOL_SL
             
             if (dlHandler) 
             {
-                booba::GUID (*get_GUID)()   = nullptr; 
-                *((booba::GUID**)&get_GUID) = (booba::GUID *)dlsym(dlHandler, "getGUID");
-                booba::GUID guid = (*get_GUID)();
-
-                SL::Container *settings_container = new SL::Container(SL::Vector2d(1, 1), SL::Vector2d(0, 0), SL::Texture(SL::Color::Grey));
-                settings_containers_[guid] = settings_container;
-
                 void *(*init_func)()   = nullptr; 
                 *((void**)&init_func) = dlsym(dlHandler, "init_module");
                 booba::Tool *new_tool = (booba::Tool *)(*init_func)();
 
-                tools_[guid] = new_tool;
+                tools_[new_tool] = new_tool;
                 
-                PluginButton *tool_button_ = new PluginButton(SL::Vector2d(50, 50), SL::Vector2d(25, 25), guid);
+                PluginButton *tool_button_ = new PluginButton(SL::Vector2d(50, 50), SL::Vector2d(25, 25), new_tool);
                 tool_button_->setTexture(SL::Texture(new_tool->getTexture()));
-                tool_button_->setLeftClick((SL::Command<booba::GUID> *) new SL::SimpleCommand<ToolManager, booba::GUID>(this, &ToolManager::chooseTool));
+                tool_button_->setLeftClick((SL::Command<booba::Tool *> *) new SL::SimpleCommand<ToolManager, booba::Tool *>(this, &ToolManager::chooseTool));
                 plugin_buttons_.push_back(tool_button_);
-
-                settings_container->setShape(SL::Vector2d(new_tool->getShape().first, new_tool->getShape().second));
             }
 
             else 
@@ -77,24 +68,27 @@ namespace TOOL_SL
         settings_field_ = settings_field;
     }
 
-    void ToolManager::chooseTool(booba::GUID guid)
+    void ToolManager::chooseTool(booba::Tool *tool)
     {
         if (settings_field_)
         {
-            if (strlen(current_plugin_.str) != 0)
+            if (current_plugin_)
             {
                 settings_field_->remove(settings_containers_[current_plugin_]);
             }
 
-            current_plugin_ = guid;
+            current_plugin_ = tool;
 
-            settings_field_->add(settings_containers_[current_plugin_]);
+            if (settings_containers_[current_plugin_])
+            {
+                settings_field_->add(settings_containers_[current_plugin_]);
+            }
         }
     }
 
     void ToolManager::apply(SL::Image *image, SL::Image *hidden_layer, const SL::Event &event)
     {
-        if (strlen(current_plugin_.str) != 0)
+        if (current_plugin_)
         {
             if ((event.type_ == SL::EventType::MouseReleased))
             {
@@ -110,14 +104,19 @@ namespace TOOL_SL
         }
     }
 
-    SL::Container *ToolManager::getSettingsContainer(booba::GUID guid)
+    SL::Container *ToolManager::getSettingsContainer(booba::Tool *tool)
     {
-        return settings_containers_[guid];
+        return settings_containers_[tool];
+    }
+    
+    void ToolManager::addSettingsContainer(booba::Tool *tool, SL::Container *container)
+    {
+        settings_containers_[tool] = container;
     }
 
-    PluginButton::PluginButton(SL::Vector2d shape, SL::Vector2d position, booba::GUID guid, const SL::Texture &texture):
+    PluginButton::PluginButton(SL::Vector2d shape, SL::Vector2d position, booba::Tool *tool, const SL::Texture &texture):
         SL::Button(shape, position, texture),
-        guid_(guid)
+        tool_(tool)
     {
         Button::setLeftClick((SL::Command<> *) new SL::SimpleCommand<PluginButton>(this, &PluginButton::clickLeftEvent));
     }
@@ -127,12 +126,12 @@ namespace TOOL_SL
         delete command_;
     }
 
-    SL::Command<booba::GUID> *PluginButton::getLeftClick()
+    SL::Command<booba::Tool *> *PluginButton::getLeftClick()
     {
         return command_;
     }
 
-    void PluginButton::setLeftClick(SL::Command<booba::GUID> *command)
+    void PluginButton::setLeftClick(SL::Command<booba::Tool *> *command)
     {
         command_ = command;
     }
@@ -141,7 +140,7 @@ namespace TOOL_SL
     {
         if (command_)
         {
-            command_->Execute(guid_);        
+            command_->Execute(tool_);        
         }
     }
 }

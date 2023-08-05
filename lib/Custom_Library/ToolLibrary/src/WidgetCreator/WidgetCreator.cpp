@@ -2,16 +2,17 @@
 
 namespace TOOL_SL
 {
-    WidgetCreator::WidgetCreator(booba::GUID guid):
-        guid_(guid)
+    WidgetCreator::WidgetCreator(booba::Tool *tool):
+        tool_(tool)
     {
-        std::cout << guid.str << "\n";
+        SL::Container *settings_container = new SL::Container(SL::Vector2d(tool->getShape().first, tool->getShape().second), SL::Vector2d(0, 0), SL::Texture(SL::Color::Grey));
+        ToolManager::getInstance().addSettingsContainer(tool, settings_container);
     }
 
 
     booba::Widget *WidgetCreator::createWidget(booba::WidgetCreator::Type type, int w, int h, int x, int y)
     {
-        SL::Container *settings_container = ToolManager::getInstance().getSettingsContainer(guid_);
+        SL::Container *settings_container = ToolManager::getInstance().getSettingsContainer(tool_);
         
         switch(type)
         {
@@ -47,8 +48,7 @@ namespace TOOL_SL
     }   
 }
 
-extern "C" void* getWidgetCreator(booba::GUID guid)
+extern "C" void* getWidgetCreator(booba::Tool *tool)
 {
-    std::cout << "WidgetCreator is created\n";
-    return new TOOL_SL::WidgetCreator(guid);
+    return new TOOL_SL::WidgetCreator(tool);
 }

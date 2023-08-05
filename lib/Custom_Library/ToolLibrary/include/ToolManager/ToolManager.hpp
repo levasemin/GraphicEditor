@@ -11,29 +11,6 @@
 #include "ToolEvent.hpp"
 #include "ToolImage.hpp"
 
-template<>
-struct std::hash<booba::GUID> {
-    std::size_t operator()(const booba::GUID& g) const {
-        std::string str(g.str);
-        std::hash<std::string> hashsa;
-
-        return hashsa(str);
-    }
-};
-
-template <>
-struct std::equal_to<booba::GUID> {
-    constexpr bool operator()( const booba::GUID& lhs, const booba::GUID& rhs ) const {
-        for (uint32_t curIdx = 0; curIdx < sizeof(lhs.str); curIdx++) {
-            if (rhs.str[curIdx] != lhs.str[curIdx]) {
-                return 0;
-            }
-        }
-
-        return 1;
-    }
-};
-
 namespace TOOL_SL
 {
     class Canvas;
@@ -57,38 +34,40 @@ namespace TOOL_SL
         void setToolPalette(ToolPalette *tool_palette);
         void setSettingsField(SL::Container *settings_field);
 
-        void chooseTool(booba::GUID guid);
+        void chooseTool(booba::Tool *tool);
 
         void apply(SL::Image *image, SL::Image *hidden_layer, const SL::Event &event);
         
-        SL::Container *getSettingsContainer(booba::GUID guid);
+        SL::Container *getSettingsContainer(booba::Tool *tool);
+
+        void addSettingsContainer(booba::Tool *tool, SL::Container *container);
 
     private:
         std::vector<PluginButton *> plugin_buttons_;
-        std::unordered_map<booba::GUID, booba::Tool *> tools_;
-        std::unordered_map<booba::GUID, SL::Container *> settings_containers_;
+        std::unordered_map<booba::Tool *, booba::Tool *> tools_;
+        std::unordered_map<booba::Tool *, SL::Container *> settings_containers_;
 
         ToolPalette *tool_palette_ = nullptr;
         SL::Container *settings_field_ = nullptr;
 
-        booba::GUID current_plugin_;
+        booba::Tool *current_plugin_ = nullptr;
     };
 
     class PluginButton : public SL::Button
     {
     public:
-        PluginButton(SL::Vector2d shape, SL::Vector2d position, booba::GUID guid, const SL::Texture &texture = SL::Texture(SL::Color::White));
+        PluginButton(SL::Vector2d shape, SL::Vector2d position, booba::Tool *tool, const SL::Texture &texture = SL::Texture(SL::Color::White));
         
         PluginButton(const PluginButton &source) = default;
         PluginButton &operator=(const PluginButton &source) = default;
         ~PluginButton();
 
-        SL::Command<booba::GUID> *getLeftClick();
-        void setLeftClick(SL::Command<booba::GUID> *command);
+        SL::Command<booba::Tool *> *getLeftClick();
+        void setLeftClick(SL::Command<booba::Tool *> *command);
 
     private:
-        booba::GUID guid_;
-        SL::Command<booba::GUID> *command_;
+        booba::Tool *tool_;
+        SL::Command<booba::Tool *> *command_;
 
         void clickLeftEvent();
     };
