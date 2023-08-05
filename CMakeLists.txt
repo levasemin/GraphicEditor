@@ -28,8 +28,8 @@ FetchContent_Declare(
 FetchContent_GetProperties(glib)
 FetchContent_Populate(glib)
 
-add_subdirectory(src/Custom_Library)
-add_subdirectory(src/Custom_Library/ToolLibrary)
+add_subdirectory(lib/Custom_Library)
+add_subdirectory(lib/Custom_Library/ToolLibrary)
 add_subdirectory(build/_deps/glib-src)
 
 add_compile_options(-ldl -export-dynamic)

@@ -46,7 +46,7 @@ namespace TOOL_SL
                 booba::Tool *new_tool = (booba::Tool *)(*init_func)();
 
                 tools_[guid] = new_tool;
-
+                
                 PluginButton *tool_button_ = new PluginButton(SL::Vector2d(50, 50), SL::Vector2d(25, 25), guid);
                 tool_button_->setTexture(SL::Texture(new_tool->getTexture()));
                 tool_button_->setLeftClick((SL::Command<booba::GUID> *) new SL::SimpleCommand<ToolManager, booba::GUID>(this, &ToolManager::chooseTool));

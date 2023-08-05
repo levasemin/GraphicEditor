@@ -4,7 +4,9 @@ namespace TOOL_SL
 {
     WidgetCreator::WidgetCreator(booba::GUID guid):
         guid_(guid)
-    {}
+    {
+        std::cout << guid.str << "\n";
+    }
 
 
     booba::Widget *WidgetCreator::createWidget(booba::WidgetCreator::Type type, int w, int h, int x, int y)
