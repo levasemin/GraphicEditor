@@ -5,7 +5,7 @@
 
 namespace TOOL_SL
 {
-    class ToolHorizontalScrollBar : public booba::ScrollBar,  private SL::HorizontalScrollBar
+    class ToolHorizontalScrollBar : public SL::HorizontalScrollBar, protected booba::ScrollBar 
     {
     public:
         ToolHorizontalScrollBar(SL::Vector2d shape, SL::Vector2d position, float min_value, float max_value);

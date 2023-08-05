@@ -23,16 +23,19 @@ namespace TOOL_SL
             case booba::WidgetCreator::Type::BUTTON:
             {
                 auto button = new ToolButton(SL::Vector2d(w, h), SL::Vector2d(x, y));
+                settings_container->add(button);
                 return (booba::Widget *)button;
             }
             case booba::WidgetCreator::Type::EDITOR:
             {
                 auto editor = new ToolEditor(SL::Vector2d(w, h), SL::Vector2d(x, y));
+                settings_container->add(editor);
                 return (booba::Widget *)editor;
             }
             case booba::WidgetCreator::Type::SCROLLBAR:
             {
                 auto scrollbar = new ToolHorizontalScrollBar(SL::Vector2d(w, h), SL::Vector2d(x, y), 0, 1);
+                settings_container->add(scrollbar);
                 return (booba::Widget *)scrollbar;
             }
 

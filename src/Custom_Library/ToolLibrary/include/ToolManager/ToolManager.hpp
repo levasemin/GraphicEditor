@@ -55,22 +55,21 @@ namespace TOOL_SL
         void loadPlugins(std::string path);
 
         void setToolPalette(ToolPalette *tool_palette);
-        
+        void setSettingsField(SL::Container *settings_field);
+
         void chooseTool(booba::GUID guid);
 
-        void apply(SL::Image *image, const SL::Event &event);
+        void apply(SL::Image *image, SL::Image *hidden_layer, const SL::Event &event);
         
         SL::Container *getSettingsContainer(booba::GUID guid);
 
     private:
-        booba::Tool *init_tool_ = nullptr;
-
         std::vector<PluginButton *> plugin_buttons_;
         std::unordered_map<booba::GUID, booba::Tool *> tools_;
         std::unordered_map<booba::GUID, SL::Container *> settings_containers_;
 
         ToolPalette *tool_palette_ = nullptr;
-        SL::Container *setting_field_ = nullptr;
+        SL::Container *settings_field_ = nullptr;
 
         booba::GUID current_plugin_;
     };

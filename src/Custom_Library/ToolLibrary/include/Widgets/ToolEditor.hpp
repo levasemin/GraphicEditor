@@ -7,7 +7,7 @@
 
 namespace TOOL_SL
 {
-    class ToolEditor : public booba::Editor, protected SL::Editor
+    class ToolEditor : public SL::Editor, protected booba::Editor
     {
     public:
 

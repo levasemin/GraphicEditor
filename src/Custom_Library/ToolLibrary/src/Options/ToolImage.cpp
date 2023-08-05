@@ -35,35 +35,15 @@ namespace TOOL_SL
         return pic;
     }
 
-    void ToolImage::setPicture(booba::Picture &&pic, size_t x, size_t y) 
+    void ToolImage::setPicture(booba::Picture &pic, size_t image_x, size_t image_y, size_t pic_start_x, size_t pic_start_y, size_t pic_end_x, size_t pic_end_y, bool applyAlpha)
     {
         sf::Image image;
         image.create(uint32_t(pic.getW()), uint32_t(pic.getH()), (sf::Uint8*)pic.getData());
-        SL::RenderTexture render_texture(SL::Vector2d(image_->getSize().x_, image_->getSize().y_));
-        SL::Sprite main_sprite(SL::Vector2d(image_->getSize().x_, image_->getSize().y_), image_->getTexture());
-
-        SL::Texture texture;
-        texture.texture_.loadFromImage(image);
-
-        SL::Sprite pic_sprite(SL::Vector2d(pic.getW(), pic.getH()), texture);
-        pic_sprite.setPosition(SL::Vector2d(x, y));
-
-        render_texture.clear(SL::Color(0, 0, 0, 0));
-        render_texture.draw(main_sprite);
-        render_texture.draw(pic_sprite);
-        render_texture.display();
-
-        *image_ = render_texture.getTexture().copyToImage();
+        image_->copy(SL::Image(image), SL::Vector2d(image_x, image_y), SL::Vector2d(pic_start_x, pic_start_y), SL::Vector2d(pic_end_x, pic_end_y), applyAlpha);
     }
 
     void ToolImage::clean(const booba::Color &color) 
     {
         image_->create(SL::Vector2d(getW(), getH()), SL::Color(0, 0, 0, 0));
     }
-
-    booba::Image *ToolImage::getHiddenLayer()
-    {
-        return nullptr;
-    }
-    
 }

@@ -81,10 +81,10 @@ namespace CUST_SL
 
             new_event.type_ = SL::EventType::MouseMoved;
             
-            new_event.Oleg_.metion.pos  = event.Oleg_.metion.pos - getField().first - main_layer_->getPosition();
+            new_event.Oleg_.metion.pos  = event.Oleg_.metion.pos - getField().first - getPosition() - main_layer_->getPosition();
             new_event.Oleg_.metion.pos /= zoom_;
 
-            TOOL_SL::ToolManager::getInstance().apply(getImage(), new_event);
+            TOOL_SL::ToolManager::getInstance().apply(getImage(), hidden_layer_->getImage(), new_event);
         }
     }
 
@@ -96,11 +96,11 @@ namespace CUST_SL
 
             new_event.type_ = SL::EventType::MousePressed;
             
-            new_event.Oleg_.mpedata.pos  = event.Oleg_.mpedata.pos - getField().first - main_layer_->getPosition();
+            new_event.Oleg_.mpedata.pos  = event.Oleg_.mpedata.pos - getField().first - getPosition() - main_layer_->getPosition();
             new_event.Oleg_.mpedata.pos /= zoom_;
             new_event.Oleg_.mpedata.button = SL::MouseButton::Left;
 
-            TOOL_SL::ToolManager::getInstance().apply(getImage(), new_event);
+            TOOL_SL::ToolManager::getInstance().apply(getImage(), hidden_layer_->getImage(), new_event);
         }           
     }
 
@@ -112,11 +112,11 @@ namespace CUST_SL
 
             new_event.type_ = SL::EventType::MouseReleased;
                 
-            new_event.Oleg_.mredata.pos  = event.Oleg_.mredata.pos - getField().first - main_layer_->getPosition();
+            new_event.Oleg_.mredata.pos  = event.Oleg_.mredata.pos - getField().first - getPosition() - main_layer_->getPosition();
             new_event.Oleg_.mredata.pos /= zoom_;
             new_event.Oleg_.mredata.button = SL::MouseButton::Left;
 
-            TOOL_SL::ToolManager::getInstance().apply(getImage(), new_event);
+            TOOL_SL::ToolManager::getInstance().apply(getImage(), hidden_layer_->getImage(), new_event);
         }
     }
 
@@ -128,11 +128,11 @@ namespace CUST_SL
 
             new_event.type_ = SL::EventType::MousePressed;
             
-            new_event.Oleg_.mpedata.pos  = event.Oleg_.mpedata.pos - getField().first - main_layer_->getPosition();
+            new_event.Oleg_.mpedata.pos  = event.Oleg_.mpedata.pos - getField().first - getPosition() - main_layer_->getPosition();
             new_event.Oleg_.mpedata.pos /= zoom_;
             new_event.Oleg_.mpedata.button = SL::MouseButton::Right;
 
-            TOOL_SL::ToolManager::getInstance().apply(getImage(), new_event);
+            TOOL_SL::ToolManager::getInstance().apply(getImage(), hidden_layer_->getImage(), new_event);
         }           
     }
 
@@ -144,11 +144,11 @@ namespace CUST_SL
 
             new_event.type_ = SL::EventType::MouseReleased;
                 
-            new_event.Oleg_.mredata.pos  = event.Oleg_.mredata.pos - getField().first - main_layer_->getPosition();
+            new_event.Oleg_.mredata.pos  = event.Oleg_.mredata.pos - getField().first - getPosition() - main_layer_->getPosition();
             new_event.Oleg_.mredata.pos /= zoom_;
             new_event.Oleg_.mredata.button = SL::MouseButton::Right;
             
-            TOOL_SL::ToolManager::getInstance().apply(getImage(), new_event);
+            TOOL_SL::ToolManager::getInstance().apply(getImage(), hidden_layer_->getImage(), new_event);
         }
     }
 

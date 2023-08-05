@@ -38,7 +38,7 @@ namespace TOOL_SL
                 *((booba::GUID**)&get_GUID) = (booba::GUID *)dlsym(dlHandler, "getGUID");
                 booba::GUID guid = (*get_GUID)();
 
-                SL::Container *settings_container = new SL::Container(SL::Vector2d(1, 1), SL::Vector2d(0, 0));
+                SL::Container *settings_container = new SL::Container(SL::Vector2d(1, 1), SL::Vector2d(0, 0), SL::Texture(SL::Color::Grey));
                 settings_containers_[guid] = settings_container;
 
                 void *(*init_func)()   = nullptr; 
@@ -72,22 +72,27 @@ namespace TOOL_SL
         }
     }
 
+    void ToolManager::setSettingsField(SL::Container *settings_field)
+    {
+        settings_field_ = settings_field;
+    }
+
     void ToolManager::chooseTool(booba::GUID guid)
     {
-        if (setting_field_)
+        if (settings_field_)
         {
             if (strlen(current_plugin_.str) != 0)
             {
-                setting_field_->remove(settings_containers_[current_plugin_]);
+                settings_field_->remove(settings_containers_[current_plugin_]);
             }
 
             current_plugin_ = guid;
 
-            setting_field_->add(settings_containers_[current_plugin_]);
+            settings_field_->add(settings_containers_[current_plugin_]);
         }
     }
 
-    void ToolManager::apply(SL::Image *image, const SL::Event &event)
+    void ToolManager::apply(SL::Image *image, SL::Image *hidden_layer, const SL::Event &event)
     {
         if (strlen(current_plugin_.str) != 0)
         {
@@ -100,7 +105,8 @@ namespace TOOL_SL
 
             booba::Event booba_event   = convert_event(event);
             auto tool_image = ToolImage(image);
-            // tools_[current_plugin_]->apply(, &booba_event);
+            auto tool_hidden_layer = ToolImage(hidden_layer);
+            tools_[current_plugin_]->apply(&tool_image, &tool_hidden_layer, &booba_event);
         }
     }
 

@@ -5,8 +5,6 @@ const std::string path_mountain = "../kot.jpg";
 
 int main()
 {
-
-
     SL::MainWindow main_window(SL::Vector2d(SL::WIDTH, SL::HEIGHT), SL::Texture(back_ground_color));
 
     SL::TextureManager &texture_manager = SL::TextureManager::getInstance();
@@ -16,7 +14,9 @@ int main()
     SL::Image image(path_mountain);
     TOOL_SL::ToolPalette tool_palette(SL::Vector2d(300, 300), SL::Vector2d(10, 23), SL::Texture(tool_color));
     SL::Container setting_container(SL::Vector2d(300, 568), SL::Vector2d(10, 430), SL::Texture(tool_color));
-
+    TOOL_SL::ToolManager::getInstance().setToolPalette(&tool_palette);
+    TOOL_SL::ToolManager::getInstance().setSettingsField(&setting_container);
+    
     CUST_SL::Canvas canvas(SL::Vector2d(0, 0), SL::Vector2d(0, 0), SL::Texture(back_ground_color));
     canvas.setImage(image);
     
