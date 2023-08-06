@@ -81,7 +81,17 @@ namespace TOOL_SL
 
             if (settings_containers_[current_plugin_])
             {
-                settings_field_->add(settings_containers_[current_plugin_]);
+                if (settings_containers_[current_plugin_]->getShape().x_ > settings_field_->getShape().x_ ||
+                    settings_containers_[current_plugin_]->getShape().y_ > settings_field_->getShape().y_)
+                {
+                    SL::DecoratorScrollBar *scroll_container = new SL::DecoratorScrollBar(settings_containers_[current_plugin_], settings_field_->getShape(), SL::Vector2d(0, 0));
+                    settings_field_->add(scroll_container);
+                }
+
+                else
+                {
+                    settings_field_->add(settings_containers_[current_plugin_]);
+                }
             }
         }
     }

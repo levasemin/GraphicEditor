@@ -22,10 +22,6 @@ int main()
     
     SL::DecoratorScrollBar scroll_bar_canvas(&canvas, SL::Vector2d(1400, 970), SL::Vector2d(320, 20));
 
-    main_window.add(&scroll_bar_canvas);
-    main_window.add(&tool_palette);
-    main_window.add(&setting_container);
-
     CUST_SL::HSVwindow *hsv_window = create_hsv_window();
 
     CUST_SL::ColorPicker color_picker(SL::Vector2d(80, 80), SL::Vector2d(120, 335), SL::Texture(back_ground_color));
@@ -34,6 +30,16 @@ int main()
     main_window.add(&color_picker);
 
     SL::Application app(&main_window);
+
+    CUST_SL::HistoryWindow history_window(SL::Vector2d(1000, 1000), &canvas);
+    
+    SL::Button open_history(SL::Vector2d(100, 100), SL::Vector2d(200, 200));
+    open_history.setLeftClick(new SL::SimpleCommand<CUST_SL::HistoryWindow>(&history_window, &CUST_SL::HistoryWindow::exec));
+    
+    main_window.add(&scroll_bar_canvas);
+    main_window.add(&tool_palette);
+    main_window.add(&setting_container);
+    main_window.add(&open_history);
 
     app.exec();
 }

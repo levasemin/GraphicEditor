@@ -14,3 +14,5 @@
 #include "ToolEditor.hpp"
 #include "ToolHorizontalScrollBar.hpp"
 #include "WidgetCreator.hpp"
+
+#include "Constants.hpp"

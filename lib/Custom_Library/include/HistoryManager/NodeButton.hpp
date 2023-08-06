@@ -5,22 +5,27 @@
 
 class NodeButton : public SL::Button
 {
-    HistoryManager::Node *node_;
 public:
-    std::vector<NodeButton *> nodes_;
     int layer_ = 0;
+    static NodeButton *current_button_;
     
-    NodeButton(SL::Vector2d shape, SL::Vector2d position, SL::Texture texture = SL::Texture(SL::Color::White)) : SL::Button(shape, position, texture)
-    {}
+    NodeButton(SL::Vector2d shape, SL::Vector2d position, SL::Texture texture = SL::Texture(SL::Color::White));
 
-    void set_node(HistoryManager::Node *node)
-    {
-        setTexture(HistoryManager::getInstance().get_state(node).getTexture());
-        node_ = node;
-    }
+    void set_node(HistoryManager::Node *node);
 
-    HistoryManager::Node *get_node()
-    {
-        return node_;
-    }
+    HistoryManager::Node *get_node();
+
+    void setLeftClick(SL::Command<NodeButton *> *command);
+
+    SL::Command<NodeButton *> *getLeftClick();
+
+private:
+    bool was_clicked_ = false;
+    
+    HistoryManager::Node *node_;
+    SL::Command<NodeButton *> *command_;
+
+    void clickLeftEvent();
+    void moveMouseEvent    (const SL::Event &event) override;
+    void scrollEvent       (const SL::Event &event) override;
 };
