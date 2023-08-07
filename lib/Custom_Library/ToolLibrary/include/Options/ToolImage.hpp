@@ -10,6 +10,8 @@ namespace TOOL_SL
     class ToolImage : public booba::Image
     {
     public:        
+        bool image_changed_ = false;
+
         ToolImage (SL::Image *image);
         ToolImage(const ToolImage &source) = default;
         ToolImage &operator=(const ToolImage &source) = default;
@@ -31,6 +33,5 @@ namespace TOOL_SL
     
     private:
         SL::Image *image_;
-        bool image_changed = false;
     };
 }

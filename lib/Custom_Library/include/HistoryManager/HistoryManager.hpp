@@ -40,32 +40,42 @@ public:
     public:
         Node(const SL::Image &);
 
-        const SL::Image &getState();
-        const std::vector<Node *> &getChildren();
+        const SL::Image &getState() const;
+        void addState(const SL::Image &image);
+
+        const SL::Image &redoState();
+        const SL::Image &undoState();
+
+        const std::vector<Node *> &getChildren() const;
         
         friend class HistoryManager;
     private:
+        ~Node();
+
         int numCommands = 0;
         int max_forward = 0;
 
         Node *parent = nullptr;
-        std::vector<Node *> next_nodes;
-        std::deque<Memento *> mementos;
+        std::vector<Node *> next_nodes_;
+        std::deque<Memento *> mementos_;
     };
 
     static HistoryManager &getInstance();
 
-    Node *create_root(const SL::Image &image);
-    void add_state(Node *node, const SL::Image &image);
+    Node *createHistory(const SL::Image &image);
+    void deleteHistory();
 
-    const SL::Image &undo_state(Node *node);
-    const SL::Image &redo_state(Node *node);
+    void setCurrentNode(Node *node);
+    Node *getCurrentNode();
+
+    void addState(Node *node, const SL::Image &image);
     
-    Node *add_node(Node *parent);
-    void delete_node(Node *node);
+    Node *addNode(Node *parent);
+    void deleteNode(Node *node);
     
-    void clear_branch(Node *node);
+    void deleteBranch(Node *node);
 
 private:
     Node *root_ = nullptr;
+    Node *current_node_ = nullptr;
 };

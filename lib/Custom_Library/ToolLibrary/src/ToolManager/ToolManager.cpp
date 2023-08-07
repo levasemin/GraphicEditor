@@ -96,22 +96,19 @@ namespace TOOL_SL
         }
     }
 
-    void ToolManager::apply(SL::Image *image, SL::Image *hidden_layer, const SL::Event &event)
+    bool ToolManager::apply(SL::Image *image, SL::Image *hidden_layer, const SL::Event &event)
     {
-        if (current_plugin_)
+        if (!current_plugin_)
         {
-            if ((event.type_ == SL::EventType::MouseReleased))
-            {
-                // create_memento(surface_);
-
-                // surface_->image_.image_changed = false;
-            }
-
-            booba::Event booba_event   = convert_event(event);
-            auto tool_image = ToolImage(image);
-            auto tool_hidden_layer = ToolImage(hidden_layer);
-            tools_[current_plugin_]->apply(&tool_image, &tool_hidden_layer, &booba_event);
+            return false;
         }
+
+        booba::Event booba_event   = convert_event(event);
+        ToolImage tool_image(image);
+        ToolImage tool_hidden_layer(hidden_layer);
+        tools_[current_plugin_]->apply(&tool_image, &tool_hidden_layer, &booba_event);
+        
+        return  tool_image.image_changed_;
     }
 
     SL::Container *ToolManager::getSettingsContainer(booba::Tool *tool)

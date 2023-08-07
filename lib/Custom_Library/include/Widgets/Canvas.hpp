@@ -8,6 +8,7 @@
 #include <vector>
 #include <memory>
 
+#include "HistoryManager.hpp"
 #include "GraphLib.hpp"
 #include "Surface.hpp"
 
@@ -26,12 +27,13 @@ namespace CUST_SL
         SL::Image *getImage();
         SL::Image *getHiddenImage();
         
-        void setImage(const SL::Image &new_image);
+        void setImage(const SL::Image &new_image, bool is_new_project = true);
+        void setNode(HistoryManager::Node *node);
 
-        // void set_current_node(HistoryManager::Node *node);
+        void set_current_node(HistoryManager::Node *node);
 
         void recoverySecondLayer();
-        
+            
     protected:
         void moveMouseEvent(const SL::Event &event) override;
 
@@ -48,9 +50,13 @@ namespace CUST_SL
         Surface *hidden_layer_;
 
         float zoom_;
+        
+        bool image_changed_ = false;
 
+        HistoryManager::Node *current_node_ = nullptr;
         void set_zoom(float value);
 
         void ConfigureSurface(Surface *surface);
+        void apply(const SL::Event &event);
     };
 }

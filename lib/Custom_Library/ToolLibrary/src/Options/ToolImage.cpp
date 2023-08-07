@@ -24,7 +24,8 @@ namespace TOOL_SL
 
     void ToolImage::setPixel(size_t x, size_t y, booba::Color color) 
     {
-        image_changed = true;
+        image_changed_ = true;
+        
         image_->setPixel(SL::Vector2d(x, y), SL::Color(color.r, color.g, color.b, color.a));
     }
 
@@ -37,6 +38,8 @@ namespace TOOL_SL
 
     void ToolImage::setPicture(booba::Picture &pic, size_t image_x, size_t image_y, size_t pic_start_x, size_t pic_start_y, size_t pic_end_x, size_t pic_end_y, bool applyAlpha)
     {
+        image_changed_ = true;
+
         sf::Image image;
         image.create(uint32_t(pic.getW()), uint32_t(pic.getH()), (sf::Uint8*)pic.getData());
         image_->copy(SL::Image(image), SL::Vector2d(image_x, image_y), SL::Vector2d(pic_start_x, pic_start_y), SL::Vector2d(pic_end_x, pic_end_y), applyAlpha);
@@ -44,6 +47,8 @@ namespace TOOL_SL
 
     void ToolImage::clean(const booba::Color &color) 
     {
+        image_changed_ = true;
+
         image_->create(SL::Vector2d(getW(), getH()), SL::Color(0, 0, 0, 0));
     }
 }

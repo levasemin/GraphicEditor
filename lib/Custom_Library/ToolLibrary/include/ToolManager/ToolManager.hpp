@@ -36,7 +36,7 @@ namespace TOOL_SL
 
         void chooseTool(booba::Tool *tool);
 
-        void apply(SL::Image *image, SL::Image *hidden_layer, const SL::Event &event);
+        bool apply(SL::Image *image, SL::Image *hidden_layer, const SL::Event &event);
         
         SL::Container *getSettingsContainer(booba::Tool *tool);
 

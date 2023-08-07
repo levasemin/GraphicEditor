@@ -11,7 +11,6 @@ namespace CUST_SL
         hidden_layer_(nullptr),
         zoom_(1.f)
     {
-
     }
 
     Canvas::Canvas(const Canvas &source):
@@ -77,14 +76,7 @@ namespace CUST_SL
     {
         if (pointBelong(event.Oleg_.metion.pos) && main_layer_)
         {
-            SL::Event new_event = event;
-
-            new_event.type_ = SL::EventType::MouseMoved;
-            
-            new_event.Oleg_.metion.pos  = event.Oleg_.metion.pos - getField().first - getPosition() - main_layer_->getPosition();
-            new_event.Oleg_.metion.pos /= zoom_;
-
-            TOOL_SL::ToolManager::getInstance().apply(getImage(), hidden_layer_->getImage(), new_event);
+            apply(event);
         }
     }
 
@@ -92,15 +84,7 @@ namespace CUST_SL
     {
         if (pointBelong(event.Oleg_.mpedata.pos) && main_layer_)
         {
-            SL::Event new_event = event;
-
-            new_event.type_ = SL::EventType::MousePressed;
-            
-            new_event.Oleg_.mpedata.pos  = event.Oleg_.mpedata.pos - getField().first - getPosition() - main_layer_->getPosition();
-            new_event.Oleg_.mpedata.pos /= zoom_;
-            new_event.Oleg_.mpedata.button = SL::MouseButton::Left;
-
-            TOOL_SL::ToolManager::getInstance().apply(getImage(), hidden_layer_->getImage(), new_event);
+            apply(event);
         }           
     }
 
@@ -108,15 +92,7 @@ namespace CUST_SL
     {
         if (main_layer_)
         {
-            SL::Event new_event = event;
-
-            new_event.type_ = SL::EventType::MouseReleased;
-                
-            new_event.Oleg_.mredata.pos  = event.Oleg_.mredata.pos - getField().first - getPosition() - main_layer_->getPosition();
-            new_event.Oleg_.mredata.pos /= zoom_;
-            new_event.Oleg_.mredata.button = SL::MouseButton::Left;
-
-            TOOL_SL::ToolManager::getInstance().apply(getImage(), hidden_layer_->getImage(), new_event);
+            apply(event);
         }
     }
 
@@ -124,15 +100,7 @@ namespace CUST_SL
     {
         if (pointBelong(event.Oleg_.mpedata.pos) && main_layer_)
         {
-            SL::Event new_event = event;
-
-            new_event.type_ = SL::EventType::MousePressed;
-            
-            new_event.Oleg_.mpedata.pos  = event.Oleg_.mpedata.pos - getField().first - getPosition() - main_layer_->getPosition();
-            new_event.Oleg_.mpedata.pos /= zoom_;
-            new_event.Oleg_.mpedata.button = SL::MouseButton::Right;
-
-            TOOL_SL::ToolManager::getInstance().apply(getImage(), hidden_layer_->getImage(), new_event);
+            apply(event);
         }           
     }
 
@@ -140,18 +108,46 @@ namespace CUST_SL
     {
         if (main_layer_)
         {
-            SL::Event new_event = event;
-
-            new_event.type_ = SL::EventType::MouseReleased;
-                
-            new_event.Oleg_.mredata.pos  = event.Oleg_.mredata.pos - getField().first - getPosition() - main_layer_->getPosition();
-            new_event.Oleg_.mredata.pos /= zoom_;
-            new_event.Oleg_.mredata.button = SL::MouseButton::Right;
-            
-            TOOL_SL::ToolManager::getInstance().apply(getImage(), hidden_layer_->getImage(), new_event);
+            apply(event);
         }
     }
 
+    void Canvas::apply(const SL::Event &event)
+    {
+        SL::Event new_event = event;
+
+        switch (event.type_)
+        {
+            case SL::EventType::MouseMoved:
+            {            
+                new_event.Oleg_.metion.pos  = (event.Oleg_.metion.pos - getField().first - getPosition() - main_layer_->getPosition()) / zoom_;
+
+                break;
+            }
+            case SL::EventType::MousePressed:
+            {            
+                new_event.Oleg_.mpedata.pos  = (event.Oleg_.mpedata.pos - getField().first - getPosition() - main_layer_->getPosition()) / zoom_;
+                
+                break;
+            }
+            case SL::EventType::MouseReleased:
+            {
+                new_event.Oleg_.mredata.pos  = (event.Oleg_.mredata.pos - getField().first - getPosition() - main_layer_->getPosition()) / zoom_;
+                
+                if (image_changed_)
+                {
+                    HistoryManager::getInstance().getCurrentNode()->addState(*main_layer_->getImage());
+                    image_changed_ = false;
+                }
+
+                break;
+            }
+            default:
+                break;
+        }
+
+        image_changed_ = TOOL_SL::ToolManager::getInstance().apply(getImage(), hidden_layer_->getImage(), new_event);
+    }
 
     void Canvas::pressKeyEvent(const SL::Event &event)
     {
@@ -163,12 +159,14 @@ namespace CUST_SL
                 {
                     if (event.Oleg_.kpedata.shift)
                     {
-                        // ToolManager::getInstance().redo(main_layer_);
+                        HistoryManager::getInstance().getCurrentNode()->redoState();
+                        setImage(HistoryManager::getInstance().getCurrentNode()->getState(), false);
                     }
 
                     else
                     {
-                        // ToolManager::getInstance().undo(main_layer_);
+                        HistoryManager::getInstance().getCurrentNode()->undoState();
+                        setImage(HistoryManager::getInstance().getCurrentNode()->getState(), false);
                     }
 
                     break;
@@ -206,8 +204,15 @@ namespace CUST_SL
         surface->setPosition(new_center - surface->getShape() / 2);
     }
 
-    void Canvas::setImage(const SL::Image &new_image)
+    void Canvas::setImage(const SL::Image &new_image, bool is_new_project)
     {
+        if (is_new_project)
+        {
+            HistoryManager::getInstance().deleteHistory();
+            HistoryManager::getInstance().createHistory(new_image);
+            HistoryManager::getInstance().getCurrentNode()->addState(new_image);
+        }
+
         if (main_layer_)
         {
             remove(main_layer_);
@@ -232,6 +237,11 @@ namespace CUST_SL
         add (hidden_layer_);
 
         setShape(new_image.getSize());
+    }
+
+    void Canvas::setNode(HistoryManager::Node *node)
+    {
+        setImage(node->getState());
     }
 
     SL::Image *Canvas::getHiddenImage()

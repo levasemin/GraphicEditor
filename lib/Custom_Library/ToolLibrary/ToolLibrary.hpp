@@ -6,7 +6,6 @@
 #include "ToolImage.hpp"
 
 #include "ToolManager.hpp"
-#include "ToolManagerO.hpp"
 #include "ToolPalette.hpp"
 
 #include "ToolButton.hpp"

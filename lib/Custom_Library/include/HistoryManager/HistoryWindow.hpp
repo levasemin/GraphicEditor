@@ -18,10 +18,12 @@ namespace CUST_SL
             HistoryTree(SL::Vector2d shape, HistoryWindow *history_window, CUST_SL::Canvas *canvas);
 
             void selectNode(NodeButton *node_button);
+            void addNode(NodeButton *node_button);
+
             void clickDelete();
             void clickSelect();
-            void addNode(NodeButton *node_button);
-            
+
+            void update();            
             friend class HistoryWindow;
         private:
             Canvas *canvas_;

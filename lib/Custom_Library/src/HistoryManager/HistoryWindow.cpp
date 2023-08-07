@@ -2,6 +2,8 @@
 
 namespace CUST_SL
 {
+    class Canvas;
+    
     HistoryWindow::HistoryWindow(SL::Vector2d shape, CUST_SL::Canvas *canvas) : SL::Application(nullptr),
         history_tree_(shape, this, canvas)
     {
@@ -10,8 +12,7 @@ namespace CUST_SL
 
     void HistoryWindow::exec()
     {
-        auto current_button = history_tree_.current_node_button_;
-        current_button->setTexture(SL::Texture(current_button->get_node()->getState().getTexture()));
+        history_tree_.update();
         SL::Application::exec();
     }
 
@@ -41,31 +42,63 @@ namespace CUST_SL
         select_button_.setText("select");
         select_button_.setTextColor(TEXT_COLOR);
 
-        auto root_button_ = new NodeButton(shape / 5, 
-                                      SL::Vector2d(10, 10));
-        root_button_->layer_ = 0;
-        root_button_->setLeftClick(new SL::SimpleCommand<HistoryTree, NodeButton *>(this, &HistoryTree::selectNode));   
-        root_button_->set_node(new HistoryManager::Node(*canvas->getImage()));
-
-        current_node_button_ = root_button_;
-
-        tree_container_.add(root_button_);
-        current_layer_buttons_.push_back(root_button_);
-
-        auto add_button = new NodeButton(current_node_button_->getShape(), 
-                                             SL::Vector2d(current_node_button_->get_node()->getChildren().size(), size_t(current_node_button_->layer_ + 1)) * (current_node_button_->getShape().x_ + 10.f) + 10);
-        add_button->layer_ = 1;
-        add_button->setText("add");
-        add_button->setTextColor(TEXT_COLOR);
-        
-        add_button->setLeftClick(new SL::SimpleCommand<HistoryTree, NodeButton *>(this, &HistoryTree::addNode));
-        tree_container_.add(add_button);
-
-        current_layer_buttons_.push_back(add_button);
-
         add(scroll_bar_history_window);
         add(&delete_button_);
         add(&select_button_);
+    }
+
+    void HistoryWindow::HistoryTree::update()
+    {
+        if (HistoryManager::getInstance().getCurrentNode() == nullptr)
+        {
+            return;
+        }
+        
+        bool flag = false;
+
+        for (auto button : current_layer_buttons_)
+        {
+            if (button->get_node() == HistoryManager::getInstance().getCurrentNode())
+            {
+                flag = true;
+                break;
+            }
+        }
+
+        if (!flag)
+        {
+            current_layer_buttons_.clear();
+            
+            auto root_button_ = new NodeButton(getShape() / 5, 
+                                    SL::Vector2d(10, 10));
+            root_button_->layer_ = 0;
+            root_button_->setLeftClick(new SL::SimpleCommand<HistoryTree, NodeButton *>(this, &HistoryTree::selectNode));   
+            root_button_->set_node(HistoryManager::getInstance().getCurrentNode());
+
+            current_node_button_ = root_button_;
+
+            tree_container_.add(root_button_);
+            current_layer_buttons_.push_back(root_button_);
+
+            auto add_button = new NodeButton(current_node_button_->getShape(), 
+            SL::Vector2d(current_node_button_->get_node()->getChildren().size(), size_t(current_node_button_->layer_ + 1)) * (current_node_button_->getShape().x_ + 10.f) + 10);
+            
+            add_button->layer_ = 1;
+            add_button->setText("add");
+            add_button->setTextColor(TEXT_COLOR);
+        
+            add_button->setLeftClick(new SL::SimpleCommand<HistoryTree, NodeButton *>(this, &HistoryTree::addNode));
+            tree_container_.add(add_button);
+
+            current_layer_buttons_.push_back(add_button);
+
+        }
+        
+        else
+        {
+            auto current_button = current_node_button_;
+            current_button->setTexture(SL::Texture(current_button->get_node()->getState().getTexture()));
+        }
     }
 
     void HistoryWindow::HistoryTree::selectNode(NodeButton *node_button)
@@ -121,14 +154,14 @@ namespace CUST_SL
         tree_container_.add(add_button);
         current_layer_buttons_.push_back(add_button);
 
-        auto new_node = HistoryManager::getInstance().add_node(current_node_button_->get_node());
+        auto new_node = HistoryManager::getInstance().addNode(current_node_button_->get_node());
         node_button->setLeftClick(new SL::SimpleCommand<HistoryTree, NodeButton *>(this, &HistoryTree::selectNode));   
         node_button->set_node(new_node);
     }
 
     void HistoryWindow::HistoryTree::clickDelete()
     {
-        HistoryManager::getInstance().delete_node(current_node_button_->get_node());
+        HistoryManager::getInstance().deleteNode(current_node_button_->get_node());
         tree_container_.remove(current_node_button_);
         
         for (auto curr_button = std::find(current_layer_buttons_.begin(), current_layer_buttons_.end(), current_node_button_); curr_button < current_layer_buttons_.end(); curr_button++)
@@ -144,7 +177,8 @@ namespace CUST_SL
 
     void HistoryWindow::HistoryTree::clickSelect()
     {
-        canvas_->setImage(current_node_button_->get_node()->getState());
+        HistoryManager::getInstance().setCurrentNode(current_node_button_->get_node());
+        canvas_->setNode(current_node_button_->get_node());
         history_window_->close();
     }
 }

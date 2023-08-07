@@ -1,17 +1,20 @@
 #include "HistoryManager.hpp"
 HistoryManager::Node::Node(const SL::Image &image)
 {
-    mementos.push_back(new Memento(image));
+    mementos_.push_back(new Memento(image));
 }
 
-const SL::Image &HistoryManager::Node::getState()
+HistoryManager::Node::~Node()
+{}
+
+const SL::Image &HistoryManager::Node::getState() const
 {
-    return mementos[numCommands]->state_;
+    return mementos_[numCommands]->state_;
 }
 
-const std::vector<HistoryManager::Node *> &HistoryManager::Node::getChildren()
+const std::vector<HistoryManager::Node *> &HistoryManager::Node::getChildren() const
 {
-    return next_nodes;
+    return next_nodes_;
 }
 
 HistoryManager &HistoryManager::getInstance()
@@ -20,73 +23,94 @@ HistoryManager &HistoryManager::getInstance()
     return manager;
 }
 
-HistoryManager::Node *HistoryManager::create_root(const SL::Image &image)
+HistoryManager::Node *HistoryManager::createHistory(const SL::Image &image)
 {
     Node *new_node   = new Node(image);
 
     root_ = new_node;
+    current_node_ = new_node;
+    
     return new_node;
 }
 
-void HistoryManager::add_state(HistoryManager::Node *node, const SL::Image &image)
+void HistoryManager::deleteHistory()
 {
-    if (node->mementos.size() == max_backup_ - 1)
+    root_ = nullptr;
+    current_node_ = nullptr;
+
+    deleteBranch(root_);
+}
+
+void HistoryManager::setCurrentNode(Node *node)
+{
+    current_node_ = node;
+}
+
+HistoryManager::Node *HistoryManager::getCurrentNode()
+{
+    return current_node_;
+}
+
+
+void HistoryManager::Node::addState(const SL::Image &image)
+{
+    if (mementos_.size() == max_backup_ - 1)
     {
-        node->mementos.pop_front();
-        node->mementos.push_back(nullptr);
-        node->numCommands --;
+        mementos_.pop_front();
+        mementos_.push_back(nullptr);
+        numCommands --;
     }
 
-    node->numCommands++;
+    numCommands++;
 
     Memento *new_memento = new Memento(image);
-    node->mementos[node->numCommands] = new_memento;
-    node->max_forward = node->numCommands;
+    mementos_[numCommands] = new_memento;
+    max_forward = numCommands;
 }
 
-const SL::Image &HistoryManager::undo_state(HistoryManager::Node *node)
+const SL::Image &HistoryManager::Node::undoState()
 {
-    if (node->numCommands == 0)
+    if (numCommands == 0)
     {
-        return node->mementos[0]->state_;
+        return mementos_[0]->state_;
     }
 
-    return node->mementos[--node->numCommands]->state_;
+    return mementos_[--numCommands]->state_;
 }
 
-const SL::Image &HistoryManager::redo_state(Node *node)
+const SL::Image &HistoryManager::Node::redoState()
 {
-    if (node->numCommands >= node->max_forward)
+    if (numCommands >= max_forward)
     {
-        return node->mementos[node->numCommands]->state_;
+        return mementos_[numCommands]->state_;
     }
     
-    return node->mementos[++node->numCommands]->state_;
+    return mementos_[++numCommands]->state_;
 
 }
 
-HistoryManager::Node *HistoryManager::add_node(HistoryManager::Node *parent)
+HistoryManager::Node *HistoryManager::addNode(HistoryManager::Node *parent)
 {
     Node *new_node = new Node(parent->getState());
     new_node->parent = parent;
-    parent->next_nodes.push_back(new_node);
+    parent->next_nodes_.push_back(new_node);
     return new_node;
 }
 
-void HistoryManager::delete_node(HistoryManager::Node *node)
+void HistoryManager::deleteNode(HistoryManager::Node *node)
 {
-    auto &parent_nodes = node->parent->next_nodes;
+    auto &parent_nodes = node->parent->next_nodes_;
     auto iter_node = std::find(parent_nodes.begin(), parent_nodes.end(), node);
     parent_nodes.erase(iter_node);
 
-    for (auto child : node->next_nodes)
+    for (auto child : node->next_nodes_)
     {
         child->parent = node->parent;
 
         parent_nodes.insert(iter_node, child);
     }
 
-    for (auto memento : node->mementos)
+    for (auto memento : node->mementos_)
     {
         delete memento;
     }
@@ -94,16 +118,16 @@ void HistoryManager::delete_node(HistoryManager::Node *node)
     delete node;
 }
 
-void HistoryManager::clear_branch(HistoryManager::Node *node)
+void HistoryManager::deleteBranch(HistoryManager::Node *node)
 {
     if (node == nullptr)
     {
         return ;
     }
 
-    for (auto child: node->next_nodes)
+    for (auto child: node->next_nodes_)
     {
-        clear_branch(child);
-        delete_node(node);
+        deleteBranch(child);
+        deleteNode(node);
     }
 }
