@@ -118,19 +118,19 @@ namespace CUST_SL
 
         switch (event.type_)
         {
-            case SL::EventType::MouseMoved:
+            case SL::Event::MouseMoved:
             {            
                 new_event.Oleg_.metion.pos  = (event.Oleg_.metion.pos - getField().first - getPosition() - main_layer_->getPosition()) / zoom_;
 
                 break;
             }
-            case SL::EventType::MousePressed:
+            case SL::Event::MousePressed:
             {            
                 new_event.Oleg_.mpedata.pos  = (event.Oleg_.mpedata.pos - getField().first - getPosition() - main_layer_->getPosition()) / zoom_;
                 
                 break;
             }
-            case SL::EventType::MouseReleased:
+            case SL::Event::MouseReleased:
             {
                 new_event.Oleg_.mredata.pos  = (event.Oleg_.mredata.pos - getField().first - getPosition() - main_layer_->getPosition()) / zoom_;
                 
@@ -155,7 +155,7 @@ namespace CUST_SL
         {            
             switch(event.Oleg_.kpedata.code)
             {
-                case SL::Key::Z:
+                case SL::Event::Key::Z:
                 {
                     if (event.Oleg_.kpedata.shift)
                     {
@@ -172,14 +172,14 @@ namespace CUST_SL
                     break;
                 }
 
-                case SL::Key::Equal:
+                case SL::Event::Key::Equal:
                 {
                     set_zoom(zoom_ + 0.1f);
 
                     break;
                 }
 
-                case SL::Key::Hyphen:
+                case SL::Event::Key::Hyphen:
                 {
                     set_zoom(zoom_ - 0.1f);
 
@@ -241,7 +241,7 @@ namespace CUST_SL
 
     void Canvas::setNode(HistoryManager::Node *node)
     {
-        setImage(node->getState());
+        setImage(node->getState(), false);
     }
 
     SL::Image *Canvas::getHiddenImage()

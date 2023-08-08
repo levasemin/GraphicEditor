@@ -33,12 +33,12 @@ namespace CUST_SL
             NodeButton *current_node_button_ = nullptr;
             std::vector<NodeButton *> current_layer_buttons_;
             HistoryWindow *history_window_;
+            SL::Vector2d node_button_shape_;
         }; 
 
         HistoryWindow(SL::Vector2d shape, CUST_SL::Canvas *canvas);
 
         void exec();
-        void close();
         
         private:
             HistoryTree history_tree_;

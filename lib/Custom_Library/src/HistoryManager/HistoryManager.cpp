@@ -5,7 +5,12 @@ HistoryManager::Node::Node(const SL::Image &image)
 }
 
 HistoryManager::Node::~Node()
-{}
+{
+    for (auto memento : mementos_)
+    {
+        delete memento;
+    }
+}
 
 const SL::Image &HistoryManager::Node::getState() const
 {
@@ -91,6 +96,11 @@ const SL::Image &HistoryManager::Node::redoState()
 
 HistoryManager::Node *HistoryManager::addNode(HistoryManager::Node *parent)
 {
+    if (parent == nullptr)
+    {
+        return nullptr;
+    }
+
     Node *new_node = new Node(parent->getState());
     new_node->parent = parent;
     parent->next_nodes_.push_back(new_node);
@@ -99,20 +109,27 @@ HistoryManager::Node *HistoryManager::addNode(HistoryManager::Node *parent)
 
 void HistoryManager::deleteNode(HistoryManager::Node *node)
 {
+    if (node == nullptr)
+    {
+        return;
+    }
+
+    if (node == root_)
+    {
+        deleteHistory();
+        return;
+    }
+
     auto &parent_nodes = node->parent->next_nodes_;
     auto iter_node = std::find(parent_nodes.begin(), parent_nodes.end(), node);
+    
     parent_nodes.erase(iter_node);
-
+    
     for (auto child : node->next_nodes_)
     {
         child->parent = node->parent;
 
-        parent_nodes.insert(iter_node, child);
-    }
-
-    for (auto memento : node->mementos_)
-    {
-        delete memento;
+        parent_nodes.push_back(child);
     }
 
     delete node;
@@ -122,7 +139,7 @@ void HistoryManager::deleteBranch(HistoryManager::Node *node)
 {
     if (node == nullptr)
     {
-        return ;
+        return;
     }
 
     for (auto child: node->next_nodes_)
