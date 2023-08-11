@@ -17,7 +17,7 @@ namespace CUST_SL
     }
 
     HistoryWindow::HistoryTree::HistoryTree(SL::Vector2d shape, HistoryWindow *history_window, Canvas *canvas) : 
-        SL::MainWindow(shape, SL::Texture(SL::Color((uint8_t)69,  (uint8_t)69,  (uint8_t)69,   uint8_t(255)))),
+        SL::MainWindow(shape, SL::Texture(SL::Color(static_cast<uint8_t>(69),  static_cast<uint8_t>(69),  static_cast<uint8_t>(69),   static_cast<uint8_t>(255)))),
         canvas_(canvas),
         tree_container_(shape * 2, SL::Vector2d(0, 0)),
         delete_button_(SL::Vector2d(50, 30), SL::Vector2d(shape.x_ - 70, 0.f),  SL::Texture(BUTTON_DARK_COLOR)),
@@ -117,7 +117,7 @@ namespace CUST_SL
         }
 
         auto add_button = new NodeButton(node_button_shape_, 
-                                                SL::Vector2d(current_node_button_->get_node()->getChildren().size(), size_t(current_node_button_->layer_ + 1)) * (node_button_shape_.x_ + 10) + 10);
+                                                SL::Vector2d(current_node_button_->get_node()->getChildren().size(), static_cast<size_t>(current_node_button_->layer_ + 1)) * (node_button_shape_.x_ + 10) + 10);
         add_button->layer_ = node_button->layer_ + 1;
         add_button->setText("add");
         add_button->setTextColor(TEXT_COLOR);
@@ -130,7 +130,7 @@ namespace CUST_SL
     void HistoryWindow::HistoryTree::addNode(NodeButton *node_button)
     {
         auto add_button = new NodeButton(node_button_shape_, 
-                                          SL::Vector2d(current_node_button_->get_node()->getChildren().size() + 1, size_t(node_button->layer_)) * (node_button_shape_.x_ + 10) + 10);
+                                          SL::Vector2d(current_node_button_->get_node()->getChildren().size() + 1, static_cast<size_t>(node_button->layer_)) * (node_button_shape_.x_ + 10) + 10);
         add_button->layer_ = node_button->layer_;
         add_button->setText("add");
         add_button->setTextColor(TEXT_COLOR);

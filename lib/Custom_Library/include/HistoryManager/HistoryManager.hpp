@@ -5,34 +5,25 @@
 #include <deque>
 #include "GraphLib.hpp"
 
-const int max_backup_ = 32;
-
 class HistoryManager;
 
 class Memento
 {
-  public:
+public:
     Memento(const SL::Image &image):
         state_()
     {
         state_ = image;
     }
-  private:
     friend class HistoryManager;
+
+private:
     SL::Image state_;
 };
 
 
 class HistoryManager
 {
-    HistoryManager()
-    {}
-
-    HistoryManager(const HistoryManager &that) = delete;
-    HistoryManager &operator=(const HistoryManager &that) = delete;
-
-    HistoryManager(const HistoryManager &&that) = delete;
-    HistoryManager &operator=(const HistoryManager &&that) = delete;
 public:
     
     class Node
@@ -50,14 +41,17 @@ public:
         
         friend class HistoryManager;
     private:
-        ~Node();
+        const int max_backup_ = 32;
 
         int numCommands = 0;
         int max_forward = 0;
 
         Node *parent = nullptr;
+
         std::vector<Node *> next_nodes_;
         std::deque<Memento *> mementos_;
+
+        ~Node();
     };
 
     static HistoryManager &getInstance();
@@ -78,4 +72,15 @@ public:
 private:
     Node *root_ = nullptr;
     Node *current_node_ = nullptr;
+
+    HistoryManager()
+    {}
+
+    HistoryManager(const HistoryManager &that) = delete;
+    HistoryManager &operator=(const HistoryManager &that) = delete;
+
+    HistoryManager(const HistoryManager &&that) = delete;
+    HistoryManager &operator=(const HistoryManager &&that) = delete;
+
+    ~HistoryManager();
 };

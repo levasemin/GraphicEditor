@@ -25,7 +25,7 @@ SL::ComboBox *create_file_combobox(CUST_SL::Canvas *canvas)
 
     CUST_SL::OpenWindow *open_window = create_open_window();
     open_window->set_canvas(canvas);
-    file_open_button->setLeftClick((SL::Command<> *) new SL::SimpleCommand<CUST_SL::OpenWindow>(open_window, &CUST_SL::OpenWindow::exec));
+    file_open_button->setLeftClick(dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<CUST_SL::OpenWindow>(open_window, &CUST_SL::OpenWindow::exec)));
 
     file_button->add(file_save_button);
     file_button->add(file_open_button);

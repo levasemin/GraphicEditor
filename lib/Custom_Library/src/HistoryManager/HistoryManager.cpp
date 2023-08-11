@@ -22,6 +22,11 @@ const std::vector<HistoryManager::Node *> &HistoryManager::Node::getChildren() c
     return next_nodes_;
 }
 
+HistoryManager::~HistoryManager()
+{
+    deleteBranch(root_);
+}
+
 HistoryManager &HistoryManager::getInstance()
 {
     static HistoryManager manager;

@@ -4,7 +4,7 @@ namespace TOOL_SL
 {
     ToolEditor::ToolEditor(SL::Vector2d shape, SL::Vector2d position) : SL::Editor(shape, position)    
     {
-        SL::Editor::setEditorCommand((SL::Command<std::string> *) new SL::SimpleCommand<ToolEditor, std::string>(this, &ToolEditor::textEvent));
+        SL::Editor::setEditorCommand(static_cast<SL::Command<std::string> *>(new SL::SimpleCommand<ToolEditor, std::string>(this, &ToolEditor::textEvent)));
     }
 
     ToolEditor::~ToolEditor()
@@ -19,7 +19,7 @@ namespace TOOL_SL
 
     void ToolEditor::setX(int x)
     {
-        SL::Editor::setPosition(SL::Vector2d(float(x), SL::Editor::getPosition().y_));
+        SL::Editor::setPosition(SL::Vector2d(static_cast<float>(x), SL::Editor::getPosition().y_));
     }
 
     int ToolEditor::getY()
@@ -29,7 +29,7 @@ namespace TOOL_SL
 
     void ToolEditor::setY(int y)
     {
-        SL::Editor::setPosition(SL::Vector2d(SL::Editor::getPosition().x_, float(y)));
+        SL::Editor::setPosition(SL::Vector2d(SL::Editor::getPosition().x_, static_cast<float>(y)));
     }
 
     int ToolEditor::getW()
@@ -39,7 +39,7 @@ namespace TOOL_SL
 
     void ToolEditor::setW(int w)
     {
-        SL::Editor::setShape(SL::Vector2d(float(w), SL::Editor::getShape().y_));
+        SL::Editor::setShape(SL::Vector2d(static_cast<float>(w), SL::Editor::getShape().y_));
     }
 
     int ToolEditor::getH()
@@ -49,7 +49,7 @@ namespace TOOL_SL
 
     void ToolEditor::setH(int h)
     {
-        SL::Editor::setShape(SL::Vector2d(SL::Editor::getShape().x_, float(h)));
+        SL::Editor::setShape(SL::Vector2d(SL::Editor::getShape().x_, static_cast<float>(h)));
     }
 
     void ToolEditor::setColor(booba::Color color)

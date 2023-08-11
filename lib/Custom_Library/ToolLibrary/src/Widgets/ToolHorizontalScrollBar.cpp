@@ -5,7 +5,7 @@ namespace TOOL_SL
     ToolHorizontalScrollBar::ToolHorizontalScrollBar(SL::Vector2d shape, SL::Vector2d position, float min_value, float max_value): 
         SL::HorizontalScrollBar(shape, position, min_value, max_value)
     {
-        SL::HorizontalScrollBar::setScrollCommand((SL::Command<float> *)new SL::SimpleCommand<ToolHorizontalScrollBar, float>(this, &ToolHorizontalScrollBar::ToolsetValue));    
+        SL::HorizontalScrollBar::setScrollCommand(static_cast<SL::Command<float> *> (new SL::SimpleCommand<ToolHorizontalScrollBar, float>(this, &ToolHorizontalScrollBar::ToolsetValue)));    
     }
 
     ToolHorizontalScrollBar::~ToolHorizontalScrollBar()
@@ -21,7 +21,7 @@ namespace TOOL_SL
 
     void ToolHorizontalScrollBar::setX(int x)
     {
-        SL::HorizontalScrollBar::setPosition(SL::Vector2d(float(x), SL::HorizontalScrollBar::getPosition().y_));
+        SL::HorizontalScrollBar::setPosition(SL::Vector2d(static_cast<float>(x), SL::HorizontalScrollBar::getPosition().y_));
     }
 
     int ToolHorizontalScrollBar::getY()
@@ -31,7 +31,7 @@ namespace TOOL_SL
 
     void ToolHorizontalScrollBar::setY(int y)
     {
-        SL::HorizontalScrollBar::setPosition(SL::Vector2d(SL::HorizontalScrollBar::getPosition().x_, float(y)));
+        SL::HorizontalScrollBar::setPosition(SL::Vector2d(SL::HorizontalScrollBar::getPosition().x_, static_cast<float>(y)));
     }
 
     int ToolHorizontalScrollBar::getW()
@@ -41,7 +41,7 @@ namespace TOOL_SL
 
     void ToolHorizontalScrollBar::setW(int w)
     {
-        SL::HorizontalScrollBar::setShape(SL::Vector2d(float(w), SL::HorizontalScrollBar::getShape().y_));
+        SL::HorizontalScrollBar::setShape(SL::Vector2d(static_cast<float>(w), SL::HorizontalScrollBar::getShape().y_));
     }
 
     int ToolHorizontalScrollBar::getH()
@@ -51,7 +51,7 @@ namespace TOOL_SL
 
     void ToolHorizontalScrollBar::setH(int h)
     {
-        SL::HorizontalScrollBar::setShape(SL::Vector2d(SL::HorizontalScrollBar::getShape().x_, float(h)));
+        SL::HorizontalScrollBar::setShape(SL::Vector2d(SL::HorizontalScrollBar::getShape().x_, static_cast<float>(h)));
     }
 
     double ToolHorizontalScrollBar::getValue()

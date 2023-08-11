@@ -19,10 +19,10 @@ namespace CUST_SL
         color_(),
         prev_color_()
         {
-            hsv_palette_->setCommand        ((SL::Command <const SL::Color&> *)  new SL::SimpleCommand<HSVwindow, const SL::Color&>  (this, &HSVwindow::change_color));
-            r_editor_->setEditorCommand     ((SL::Command <std::string> *) new SL::SimpleCommand<HSVwindow, std::string> (this, &HSVwindow::change_r));
-            g_editor_->setEditorCommand     ((SL::Command <std::string> *) new SL::SimpleCommand<HSVwindow, std::string> (this, &HSVwindow::change_g));
-            b_editor_->setEditorCommand     ((SL::Command <std::string> *) new SL::SimpleCommand<HSVwindow, std::string> (this, &HSVwindow::change_b));
+            hsv_palette_->setCommand        (static_cast<SL::Command <const SL::Color&> *>(new SL::SimpleCommand<HSVwindow, const SL::Color&>  (this, &HSVwindow::change_color)));
+            r_editor_->setEditorCommand     (static_cast<SL::Command <std::string> *>     (new SL::SimpleCommand<HSVwindow, std::string> (this, &HSVwindow::change_r)));
+            g_editor_->setEditorCommand     (static_cast<SL::Command <std::string> *>     (new SL::SimpleCommand<HSVwindow, std::string> (this, &HSVwindow::change_g)));
+            b_editor_->setEditorCommand     (static_cast<SL::Command <std::string> *>     (new SL::SimpleCommand<HSVwindow, std::string> (this, &HSVwindow::change_b)));
 
             add(hsv_palette_);
             add(r_editor_);
@@ -44,9 +44,9 @@ namespace CUST_SL
     {            
         color_ = color;
 
-        std::string r = std::to_string(int(color_.get_r()));
-        std::string g = std::to_string(int(color_.get_g()));
-        std::string b = std::to_string(int(color_.get_b()));
+        std::string r = std::to_string(static_cast<int>(color_.get_r()));
+        std::string g = std::to_string(static_cast<int>(color_.get_g()));
+        std::string b = std::to_string(static_cast<int>(color_.get_b()));
         
         r_editor_->setText(r);
         g_editor_->setText(g);
@@ -72,9 +72,9 @@ namespace CUST_SL
     {
         color_ = color;
         
-        r_editor_->setText(std::to_string(int(color.get_r())));
-        g_editor_->setText(std::to_string(int(color.get_g())));
-        b_editor_->setText(std::to_string(int(color.get_b())));
+        r_editor_->setText(std::to_string(static_cast<int>(color.get_r())));
+        g_editor_->setText(std::to_string(static_cast<int>(color.get_g())));
+        b_editor_->setText(std::to_string(static_cast<int>(color.get_b())));
 
         hsv_palette_->setColor(color_);
 
@@ -100,7 +100,7 @@ namespace CUST_SL
         int new_r = string.size() > 0 ? std::stoi(string) : 0;
         new_r = new_r < 255 ? new_r : 255;
 
-        color_.set_r(uint8_t(new_r));
+        color_.set_r(static_cast<uint8_t>(new_r));
         setColor(color_);
     }
 
@@ -120,7 +120,7 @@ namespace CUST_SL
         int new_g = string.size() > 0 ? std::stoi(string) : 0;
         new_g = new_g < 255 ? new_g : 255;
 
-        color_.set_g(uint8_t(new_g));
+        color_.set_g(static_cast<uint8_t>(new_g));
         setColor(color_);
     }
 
@@ -139,7 +139,7 @@ namespace CUST_SL
         int new_b = string.size() > 0 ? std::stoi(string) : 0;
         new_b = new_b < 255 ? new_b : 255;
 
-        color_.set_b(uint8_t(new_b));
+        color_.set_b(static_cast<uint8_t>(new_b));
         setColor(color_);
     }
 

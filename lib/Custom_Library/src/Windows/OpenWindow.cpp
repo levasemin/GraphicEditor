@@ -2,7 +2,7 @@
 
 namespace CUST_SL
 {
-    OpenWindow::OpenWindow(SL::Vector2d shape, SL::Button *open_button, SL::Button *cancel_button, SL::Editor *path_editor): MainWindow(shape, SL::Texture(SL::Color((uint8_t)69,  (uint8_t)69,  (uint8_t)69,   uint8_t(255)))),
+    OpenWindow::OpenWindow(SL::Vector2d shape, SL::Button *open_button, SL::Button *cancel_button, SL::Editor *path_editor): MainWindow(shape, SL::Texture(SL::Color(static_cast<uint8_t>(69),  static_cast<uint8_t>(69),  static_cast<uint8_t>(69),   uint8_t(255)))),
         path_(""),
         open_button_(open_button),
         cancel_button_(cancel_button),
@@ -10,9 +10,9 @@ namespace CUST_SL
     {
         app_ = new SL::Application(this);
 
-        open_button_  ->setLeftClick((SL::Command<> *)     new SL::SimpleCommand<OpenWindow>(this, &OpenWindow::open_image));
-        cancel_button_->setLeftClick((SL::Command<> *)     new SL::SimpleCommand<OpenWindow>(this, &OpenWindow::close));
-        path_editor_  ->setEditorCommand((SL::Command<std::string> *) new SL::SimpleCommand<OpenWindow, std::string>(this, &OpenWindow::setPath));
+        open_button_  ->setLeftClick    (static_cast<SL::Command<> *>            (new SL::SimpleCommand<OpenWindow>(this, &OpenWindow::open_image)));
+        cancel_button_->setLeftClick    (static_cast<SL::Command<> *>            (new SL::SimpleCommand<OpenWindow>(this, &OpenWindow::close)));
+        path_editor_  ->setEditorCommand(static_cast<SL::Command<std::string> *> (new SL::SimpleCommand<OpenWindow, std::string>(this, &OpenWindow::setPath)));
 
         add(path_editor_);
         add(open_button_);

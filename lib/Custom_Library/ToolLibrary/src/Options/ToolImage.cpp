@@ -8,17 +8,17 @@ namespace TOOL_SL
 
     size_t ToolImage::getH() 
     {
-        return size_t(image_->getSize().y_);
+        return static_cast<size_t>(image_->getSize().y_);
     }
 
     size_t ToolImage::getW() 
     {
-        return size_t(image_->getSize().x_);
+        return static_cast<size_t>(image_->getSize().x_);
     }
 
     booba::Color ToolImage::getPixel(size_t x, size_t y) 
     {
-        SL::Color color = image_->getPixel(SL::Vector2d(uint32_t(x), uint32_t(y)));
+        SL::Color color = image_->getPixel(SL::Vector2d(static_cast<uint32_t>(x), static_cast<uint32_t>(y)));
         return booba::Color(color.get_r(), color.get_b(), color.get_b(), color.get_a());
     }
 
@@ -41,7 +41,7 @@ namespace TOOL_SL
         image_changed_ = true;
 
         sf::Image image;
-        image.create(uint32_t(pic.getW()), uint32_t(pic.getH()), (sf::Uint8*)pic.getData());
+        image.create(static_cast<uint32_t>(pic.getW()), static_cast<uint32_t>(pic.getH()), reinterpret_cast<sf::Uint8*>(pic.getData()));
         image_->copy(SL::Image(image), SL::Vector2d(image_x, image_y), SL::Vector2d(pic_start_x, pic_start_y), SL::Vector2d(pic_end_x, pic_end_y), applyAlpha);
     }
 

@@ -42,7 +42,7 @@ namespace TOOL_SL
                 
                 PluginButton *tool_button_ = new PluginButton(SL::Vector2d(50, 50), SL::Vector2d(25, 25), new_tool);
                 tool_button_->setTexture(SL::Texture(new_tool->getTexture()));
-                tool_button_->setLeftClick((SL::Command<booba::Tool *> *) new SL::SimpleCommand<ToolManager, booba::Tool *>(this, &ToolManager::chooseTool));
+                tool_button_->setLeftClick(dynamic_cast<SL::Command<booba::Tool *> *>(new SL::SimpleCommand<ToolManager, booba::Tool *>(this, &ToolManager::chooseTool)));
                 plugin_buttons_.push_back(tool_button_);
             }
 
@@ -125,7 +125,7 @@ namespace TOOL_SL
         SL::Button(shape, position, texture),
         tool_(tool)
     {
-        Button::setLeftClick((SL::Command<> *) new SL::SimpleCommand<PluginButton>(this, &PluginButton::clickLeftEvent));
+        Button::setLeftClick(dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<PluginButton>(this, &PluginButton::clickLeftEvent)));
     }
 
     PluginButton::~PluginButton()

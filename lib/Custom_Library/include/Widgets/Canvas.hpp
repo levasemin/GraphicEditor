@@ -21,7 +21,6 @@ namespace CUST_SL
 
         Canvas(const Canvas &source);
         Canvas &operator=(const Canvas &source);
-        
         ~Canvas();
 
         SL::Image *getImage();
@@ -46,8 +45,8 @@ namespace CUST_SL
         void pressKeyEvent(const SL::Event &event) override;
 
     private:
-        Surface *main_layer_;
-        Surface *hidden_layer_;
+        Surface *main_layer_   = nullptr;
+        Surface *hidden_layer_ = nullptr;
 
         float zoom_;
         

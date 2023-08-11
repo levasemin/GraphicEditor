@@ -8,14 +8,6 @@ namespace CUST_SL
     class SaveWindow : public SL::MainWindow
     {
     public:
-        SL::Application *app_ = nullptr;
-        Canvas *canvas_ = nullptr;
-        std::string path_;
-
-        SL::Button *save_button_;
-        SL::Button *cancel_button_;
-        SL::Editor *path_editor_;
-
         SaveWindow(SL::Vector2d shape, SL::Button *save_button, SL::Button *cancel_button, SL::Editor *path_editor);
 
         SaveWindow (const SaveWindow &source);
@@ -36,5 +28,14 @@ namespace CUST_SL
         void close();
 
         ~SaveWindow();
+        
+    private:
+        SL::Application *app_ = nullptr;
+        Canvas *canvas_ = nullptr;
+        std::string path_;
+
+        SL::Button *save_button_;
+        SL::Button *cancel_button_;
+        SL::Editor *path_editor_;
     };
 }

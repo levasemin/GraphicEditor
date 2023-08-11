@@ -18,15 +18,7 @@ namespace TOOL_SL
 
     class ToolManager
     {
-        ToolManager();
-
-        ToolManager(const ToolManager &) = default;
-        ToolManager &operator =(const ToolManager &) = default;
-
-        ~ToolManager() = default;
-        
     public:
-
         static ToolManager &getInstance();
         
         void loadPlugins(std::string path);
@@ -51,6 +43,12 @@ namespace TOOL_SL
         SL::Container *settings_field_ = nullptr;
 
         booba::Tool *current_plugin_ = nullptr;
+
+        ToolManager();
+
+        ToolManager(const ToolManager &) = default;
+        ToolManager &operator =(const ToolManager &) = default;
+        ~ToolManager() = default;
     };
 
     class PluginButton : public SL::Button

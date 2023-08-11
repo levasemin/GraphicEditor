@@ -15,7 +15,7 @@ namespace TOOL_SL
 
     void ToolLabel::setX(int x)
     {
-        SL::Label::setPosition(SL::Vector2d(float(x), SL::Label::getPosition().y_));
+        SL::Label::setPosition(SL::Vector2d(static_cast<float>(x), SL::Label::getPosition().y_));
     }
 
     int ToolLabel::getY()
@@ -25,7 +25,7 @@ namespace TOOL_SL
 
     void ToolLabel::setY(int y)
     {
-        SL::Label::setPosition(SL::Vector2d(SL::Label::getPosition().x_, float(y)));
+        SL::Label::setPosition(SL::Vector2d(SL::Label::getPosition().x_, static_cast<float>(y)));
     }
 
     int ToolLabel::getW()
@@ -35,7 +35,7 @@ namespace TOOL_SL
 
     void ToolLabel::setW(int w)
     {
-        SL::Label::setShape(SL::Vector2d(float(w), SL::Label::getShape().y_));
+        SL::Label::setShape(SL::Vector2d(static_cast<float>(w), SL::Label::getShape().y_));
     }
 
     int ToolLabel::getH()
@@ -45,7 +45,7 @@ namespace TOOL_SL
 
     void ToolLabel::setH(int h)
     {
-        SL::Label::setShape(SL::Vector2d(SL::Label::getShape().x_, float(h)));
+        SL::Label::setShape(SL::Vector2d(SL::Label::getShape().x_, static_cast<float>(h)));
     }
 
     void ToolLabel::setColor(booba::Color color)

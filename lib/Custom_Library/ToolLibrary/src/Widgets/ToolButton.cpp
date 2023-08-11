@@ -6,10 +6,10 @@ namespace TOOL_SL
     ToolButton::ToolButton(SL::Vector2d shape, SL::Vector2d position) : 
         SL::Button(shape, position)
     {
-        SL::Button::setLeftClick        ((SL::Command<> *) new SL::SimpleCommand<ToolButton>(this, &ToolButton::clickLeftEvent));
-        SL::Button::setReleaseLeftClick ((SL::Command<> *) new SL::SimpleCommand<ToolButton>(this, &ToolButton::releaseLeftEvent));
-        SL::Button::setRightClick       ((SL::Command<> *) new SL::SimpleCommand<ToolButton>(this, &ToolButton::clickRightEvent));
-        SL::Button::setReleaseRightClick((SL::Command<> *) new SL::SimpleCommand<ToolButton>(this, &ToolButton::releaseRightEvent));
+        SL::Button::setLeftClick        (dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<ToolButton>(this, &ToolButton::clickLeftEvent)));
+        SL::Button::setReleaseLeftClick (dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<ToolButton>(this, &ToolButton::releaseLeftEvent)));
+        SL::Button::setRightClick       (dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<ToolButton>(this, &ToolButton::clickRightEvent)));
+        SL::Button::setReleaseRightClick(dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<ToolButton>(this, &ToolButton::releaseRightEvent)));
     }
 
 
@@ -28,7 +28,7 @@ namespace TOOL_SL
 
     void ToolButton::setX(int x)
     {
-        SL::Button::setPosition(SL::Vector2d(float(x), SL::Button::getPosition().y_));
+        SL::Button::setPosition(SL::Vector2d(static_cast<float>(x), SL::Button::getPosition().y_));
     }
 
     int ToolButton::getY()
@@ -38,7 +38,7 @@ namespace TOOL_SL
 
     void ToolButton::setY(int y)
     {
-        SL::Button::setPosition(SL::Vector2d(SL::Button::getPosition().x_, float(y)));
+        SL::Button::setPosition(SL::Vector2d(SL::Button::getPosition().x_, static_cast<float>(y)));
     }
 
     int ToolButton::getW()
@@ -48,7 +48,7 @@ namespace TOOL_SL
 
     void ToolButton::setW(int w)
     {
-        SL::Button::setShape(SL::Vector2d(float(w), SL::Button::getShape().y_));
+        SL::Button::setShape(SL::Vector2d(static_cast<float>(w), SL::Button::getShape().y_));
     }
 
     int ToolButton::getH()
@@ -58,7 +58,7 @@ namespace TOOL_SL
 
     void ToolButton::setH(int h)
     {
-        SL::Button::setShape(SL::Vector2d(SL::Button::getShape().x_, float(h)));
+        SL::Button::setShape(SL::Vector2d(SL::Button::getShape().x_, static_cast<float>(h)));
     }
 
     void ToolButton::setColor(booba::Color color)

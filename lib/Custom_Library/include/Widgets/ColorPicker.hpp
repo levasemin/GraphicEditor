@@ -48,6 +48,5 @@ namespace CUST_SL
         void swap_colors();
 
         void return_color();
-
     };
 }

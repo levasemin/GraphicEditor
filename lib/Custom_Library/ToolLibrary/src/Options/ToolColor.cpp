@@ -1,6 +1,6 @@
-#include "ToolColor.hpp"
+// #include "ToolColor.hpp"
 
-namespace TOOL_SL
-{
+// namespace TOOL_SL
+// {
 
-}
+// }

@@ -6,7 +6,7 @@ namespace CUST_SL
         palette_(SL::Vector2d(shape.x_ - 20.f, shape.y_), SL::Vector2d(0, 0)),
         scroll_bar_(SL::Vector2d(20.f, shape.y_), SL::Vector2d(shape.x_ - 20, 0.f), 0.f, 360.f)
     {
-        scroll_bar_.setScrollCommand((SL::Command<float> *) new SL::SimpleCommand<HSVfield, float>(&palette_, &HSVfield::change_H));
+        scroll_bar_.setScrollCommand(static_cast<SL::Command<float> *>(new SL::SimpleCommand<HSVfield, float>(&palette_, &HSVfield::change_H)));
         scroll_bar_.setScrollButtonShape(SL::Vector2d(20, 4));
         scroll_bar_.setSideButton(false);
         add(&scroll_bar_);
@@ -79,18 +79,18 @@ namespace CUST_SL
     {        
         for (int y = 0; y < int(image_.getSize().y_); y++)
         {
-            int x = int(old_color_.get_s() * image_.getSize().x_);
+            int x = static_cast<int>(old_color_.get_s() * image_.getSize().x_);
             SL::Color color(color_.get_h(), x / image_.getSize().x_, 1.f - y / image_.getSize().y_);
-            image_.setPixel(SL::Vector2d(int(old_color_.get_s() * image_.getSize().x_), y), color);
-            image_.setPixel(SL::Vector2d(int(color_.get_s() * image_.getSize().x_), y), SL::Color::White);
+            image_.setPixel(SL::Vector2d(static_cast<int>(old_color_.get_s() * image_.getSize().x_), y), color);
+            image_.setPixel(SL::Vector2d(static_cast<int>(color_.get_s() * image_.getSize().x_), y), SL::Color::White);
         }
 
         for (int x = 0; x < int(image_.getSize().x_ - 1); x++)
         {
             int y = int((1 - old_color_.get_v()) * image_.getSize().y_ - 1);
             SL::Color color(color_.get_h(), x / image_.getSize().x_, 1.f - y / image_.getSize().y_);
-            image_.setPixel(SL::Vector2d(x, int((1 - old_color_.get_v()) * image_.getSize().y_ - 1)), color);
-            image_.setPixel(SL::Vector2d(x, int((1 - color_.get_v()) * image_.getSize().y_ - 1)), SL::Color::White);
+            image_.setPixel(SL::Vector2d(x, static_cast<int>((1 - old_color_.get_v()) * image_.getSize().y_ - 1)), color);
+            image_.setPixel(SL::Vector2d(x, static_cast<int>((1 - color_.get_v()) * image_.getSize().y_ - 1)), SL::Color::White);
         }
 
         setTexture(image_.getTexture());

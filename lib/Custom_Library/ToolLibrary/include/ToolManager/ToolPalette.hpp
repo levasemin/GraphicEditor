@@ -9,7 +9,6 @@ namespace TOOL_SL
     {
 
     public:
-
         SL::Vector2d curr_pos_;
 
         ToolPalette(SL::Vector2d shape, SL::Vector2d position, const SL::Texture &texture) : SL::CompositeObject(shape, position, texture),

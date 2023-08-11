@@ -18,9 +18,9 @@ namespace CUST_SL
         add(&background_button_);
         add(&swap_button_);
 
-        foreground_button_.setLeftClick((SL::Command<> *) new SL::SimpleCommand<ColorPicker>(this, &ColorPicker::open_foreground_hsv_window));
-        background_button_.setLeftClick((SL::Command<> *) new SL::SimpleCommand<ColorPicker>(this, &ColorPicker::open_background_hsv_window));
-        swap_button_.setLeftClick((SL::Command<> *) new SL::SimpleCommand<ColorPicker>(this, &ColorPicker::swap_colors));
+        foreground_button_.setLeftClick(static_cast<SL::Command<> *>(new SL::SimpleCommand<ColorPicker>(this, &ColorPicker::open_foreground_hsv_window)));
+        background_button_.setLeftClick(static_cast<SL::Command<> *>(new SL::SimpleCommand<ColorPicker>(this, &ColorPicker::open_background_hsv_window)));
+        swap_button_.setLeftClick(static_cast<SL::Command<> *>(new SL::SimpleCommand<ColorPicker>(this, &ColorPicker::swap_colors)));
     }
 
     ColorPicker::~ColorPicker()
@@ -92,9 +92,9 @@ namespace CUST_SL
     void ColorPicker::setHSVwindow(HSVwindow *hsv_window)
     {
         hsv_window_ = hsv_window;
-        hsv_window_->setCommand((SL::Command<const SL::Color &> *) new SL::SimpleCommand<ColorPicker, const SL::Color&>(this, &ColorPicker::change_color));
-        hsv_window_->ok_button_->setLeftClick((SL::Command<> *) new SL::SimpleCommand<ColorPicker>(this, &ColorPicker::setColor));
-        hsv_window_->cancel_button_->setLeftClick((SL::Command<> *) new SL::SimpleCommand<ColorPicker> (this, &ColorPicker::return_color));
+        hsv_window_->setCommand(static_cast<SL::Command<const SL::Color &> *>(new SL::SimpleCommand<ColorPicker, const SL::Color&>(this, &ColorPicker::change_color)));
+        hsv_window_->ok_button_->setLeftClick(static_cast<SL::Command<> *>(new SL::SimpleCommand<ColorPicker>(this, &ColorPicker::setColor)));
+        hsv_window_->cancel_button_->setLeftClick(static_cast<SL::Command<> *>(new SL::SimpleCommand<ColorPicker> (this, &ColorPicker::return_color)));
     }
     
     void ColorPicker::return_color()
