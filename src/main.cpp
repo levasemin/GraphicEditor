@@ -2,6 +2,17 @@
 
 const std::string path_mountain = "../kot.jpg";
 
+CUST_SL::Canvas *canvas;
+
+void func_save()
+{
+    CUST_SL::HistoryManager::getInstance().save("saved_history");
+}
+
+void func_open()
+{
+    CUST_SL::HistoryManager::getInstance().load("saved_history", canvas);
+}
 
 int main()
 {
@@ -17,10 +28,10 @@ int main()
     TOOL_SL::ToolManager::getInstance().setToolPalette(&tool_palette);
     TOOL_SL::ToolManager::getInstance().setSettingsField(&setting_container);
     
-    CUST_SL::Canvas canvas(SL::Vector2d(0, 0), SL::Vector2d(0, 0), SL::Texture(back_ground_color));
-    canvas.setImage(image);
+    canvas = new CUST_SL::Canvas(SL::Vector2d(0, 0), SL::Vector2d(0, 0), SL::Texture(back_ground_color));
+    canvas->setImage(image);
     
-    SL::DecoratorScrollBar scroll_bar_canvas(&canvas, SL::Vector2d(1400, 970), SL::Vector2d(320, 20));
+    SL::DecoratorScrollBar scroll_bar_canvas(canvas, SL::Vector2d(1400, 970), SL::Vector2d(320, 20));
 
     CUST_SL::HSVwindow *hsv_window = create_hsv_window();
 
@@ -31,15 +42,25 @@ int main()
 
     SL::Application app(&main_window);
 
-    CUST_SL::HistoryWindow history_window(SL::Vector2d(1000, 1000), &canvas);
+    CUST_SL::HistoryWindow history_window(SL::Vector2d(1000, 1000), canvas);
     
     SL::Button open_history(SL::Vector2d(100, 100), SL::Vector2d(200, 200));
-    open_history.setLeftClick(new SL::SimpleCommand<CUST_SL::HistoryWindow>(&history_window, &CUST_SL::HistoryWindow::exec));
+    open_history.setLeftClick(dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<CUST_SL::HistoryWindow>(&history_window, &CUST_SL::HistoryWindow::exec)));
     
+    SL::Button save_button(SL::Vector2d(100, 40), SL::Vector2d(200, 320));
+    save_button.setLeftClick(dynamic_cast<SL::Command<> *>(new SL::FunctorCommand<>(&func_save)));
+    save_button.setText("save");
+
+    SL::Button open_button(SL::Vector2d(100, 40), SL::Vector2d(200, 370));
+    open_button.setLeftClick(dynamic_cast<SL::Command<> *>(new SL::FunctorCommand<>(&func_open)));
+    open_button.setText("open");
+
     main_window.add(&scroll_bar_canvas);
     main_window.add(&tool_palette);
     main_window.add(&setting_container);
     main_window.add(&open_history);
-
+    main_window.add(&open_button);
+    main_window.add(&save_button);
+    
     app.exec();
 }

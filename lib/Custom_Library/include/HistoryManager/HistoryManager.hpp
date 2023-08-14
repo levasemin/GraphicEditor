@@ -1,86 +1,66 @@
 #pragma once
 
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <deque>
+
+#include <boost/serialization/vector.hpp>
+#include <boost/serialization/deque.hpp>
+#include <boost/archive/binary_oarchive.hpp>
+#include <boost/archive/binary_iarchive.hpp>
+
+#include "Memento.hpp"
+
 #include "GraphLib.hpp"
 
-class HistoryManager;
-
-class Memento
+namespace CUST_SL
 {
-public:
-    Memento(const SL::Image &image):
-        state_()
-    {
-        state_ = image;
-    }
-    friend class HistoryManager;
+    class Canvas;
 
-private:
-    SL::Image state_;
-};
-
-
-class HistoryManager
-{
-public:
-    
-    class Node
+    class HistoryManager
     {
     public:
-        Node(const SL::Image &);
+        class Node;
 
-        const SL::Image &getState() const;
-        void addState(const SL::Image &image);
+        static HistoryManager &getInstance();
 
-        const SL::Image &redoState();
-        const SL::Image &undoState();
+        Node *createHistory(const SL::Image &image);
+        void deleteHistory();
 
-        const std::vector<Node *> &getChildren() const;
+        void setCurrentNode(Node *node);
+        Node *getCurrentNode();
+
+        void addState(Node *node, const SL::Image &image);
         
-        friend class HistoryManager;
+        Node *addNode(Node *parent);
+        void deleteNode(Node *node);
+        
+        void deleteBranch(Node *node);
+
+        void save(std::string filename, Node *node = nullptr) const;
+        void load(std::string filename, Canvas *canvas);
+
+        BOOST_SERIALIZATION_SPLIT_MEMBER()
+
+        friend class boost::serialization::access;
+
     private:
-        const int max_backup_ = 32;
+        Node *root_ = nullptr;
+        Node *current_node_ = nullptr;
 
-        int numCommands = 0;
-        int max_forward = 0;
+        HistoryManager()
+        {}
 
-        Node *parent = nullptr;
+        HistoryManager(const HistoryManager &that) = delete;
+        HistoryManager &operator=(const HistoryManager &that) = delete;
 
-        std::vector<Node *> next_nodes_;
-        std::deque<Memento *> mementos_;
+        HistoryManager(const HistoryManager &&that) = delete;
+        HistoryManager &operator=(const HistoryManager &&that) = delete;
 
-        ~Node();
+        ~HistoryManager();
+
+        void save(boost::archive::binary_oarchive &ar, const unsigned int version, Node *curr_node = nullptr) const;
+        void load(boost::archive::binary_iarchive &ar, const unsigned int version, Node *curr_node = nullptr);
     };
-
-    static HistoryManager &getInstance();
-
-    Node *createHistory(const SL::Image &image);
-    void deleteHistory();
-
-    void setCurrentNode(Node *node);
-    Node *getCurrentNode();
-
-    void addState(Node *node, const SL::Image &image);
-    
-    Node *addNode(Node *parent);
-    void deleteNode(Node *node);
-    
-    void deleteBranch(Node *node);
-
-private:
-    Node *root_ = nullptr;
-    Node *current_node_ = nullptr;
-
-    HistoryManager()
-    {}
-
-    HistoryManager(const HistoryManager &that) = delete;
-    HistoryManager &operator=(const HistoryManager &that) = delete;
-
-    HistoryManager(const HistoryManager &&that) = delete;
-    HistoryManager &operator=(const HistoryManager &&that) = delete;
-
-    ~HistoryManager();
-};
+}

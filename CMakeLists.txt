@@ -32,7 +32,7 @@ add_subdirectory(lib/Custom_Library)
 add_subdirectory(lib/Custom_Library/ToolLibrary)
 add_subdirectory(build/_deps/glib-src)
 
-add_compile_options(-ldl -export-dynamic)
+add_compile_options(-ldl -export-dynamic -lboost_system -lboost_date_time -lboost_thread -lboost_serialization -lsfml-graphics -lsfml-window -lsfml-system)
 add_executable(geditor src/GraphEditor/create_file_combobox.cpp
                        src/GraphEditor/create_windows.cpp
                        src/main.cpp)

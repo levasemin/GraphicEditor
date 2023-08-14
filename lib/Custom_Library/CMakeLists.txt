@@ -14,4 +14,5 @@ foreach(child ${children})
 endforeach()
 
 add_library(glib_cust ${glib_LIB} ${glib_SRC})
+target_link_libraries(glib_cust PUBLIC -lboost_system -lboost_date_time -lboost_thread -lboost_serialization -lsfml-graphics -lsfml-window -lsfml-system)
 target_include_directories(glib_cust PUBLIC ${dirlist} HistoryManager/)

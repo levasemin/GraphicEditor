@@ -8,7 +8,7 @@
 
 namespace TOOL_SL
 {
-    class WidgetCreator : booba::WidgetCreator
+    class WidgetCreator : public booba::WidgetCreator
     {
     public:
         WidgetCreator(booba::Tool *tool);

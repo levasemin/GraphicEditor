@@ -48,7 +48,7 @@ namespace TOOL_SL
     }   
 }
 
-extern "C" void* getWidgetCreator(booba::Tool *tool)
+extern "C" booba::WidgetCreator* getWidgetCreator(booba::Tool *tool)
 {
-    return new TOOL_SL::WidgetCreator(tool);
+    return dynamic_cast<booba::WidgetCreator *>(new TOOL_SL::WidgetCreator(tool));
 }

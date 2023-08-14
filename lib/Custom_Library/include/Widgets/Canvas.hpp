@@ -9,6 +9,7 @@
 #include <memory>
 
 #include "HistoryManager.hpp"
+#include "Node.hpp"
 #include "GraphLib.hpp"
 #include "Surface.hpp"
 

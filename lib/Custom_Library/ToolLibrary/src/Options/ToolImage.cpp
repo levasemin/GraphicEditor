@@ -41,7 +41,7 @@ namespace TOOL_SL
         image_changed_ = true;
 
         sf::Image image;
-        image.create(static_cast<uint32_t>(pic.getW()), static_cast<uint32_t>(pic.getH()), reinterpret_cast<sf::Uint8*>(pic.getData()));
+        image.create(static_cast<uint32_t>(pic.getW()), static_cast<uint32_t>(pic.getH()), reinterpret_cast<const sf::Uint8*>(pic.getData()));
         image_->copy(SL::Image(image), SL::Vector2d(image_x, image_y), SL::Vector2d(pic_start_x, pic_start_y), SL::Vector2d(pic_end_x, pic_end_y), applyAlpha);
     }
 
