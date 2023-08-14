@@ -11,13 +11,8 @@ namespace CUST_SL
 
         const SL::Image &redoState();
         const SL::Image &undoState();
-
         const std::vector<Node *> &getChildren() const;
-        
-        void save(boost::archive::binary_oarchive & ar, const unsigned int version) const;
 
-        void load(boost::archive::binary_iarchive & ar, const unsigned int version);
-    
         BOOST_SERIALIZATION_SPLIT_MEMBER()
 
         friend class HistoryManager;
@@ -41,5 +36,9 @@ namespace CUST_SL
         Node(const SL::Image &);
 
         ~Node();
+        
+        void save(boost::archive::binary_oarchive & ar, const unsigned int version) const;
+
+        void load(boost::archive::binary_iarchive & ar, const unsigned int version);
     };
 }

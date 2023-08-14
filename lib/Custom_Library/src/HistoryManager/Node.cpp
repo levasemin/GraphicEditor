@@ -40,16 +40,14 @@ namespace CUST_SL
         numCommands++;
 
         Memento *new_memento = new Memento(image);
-
-        if (mementos_.size() == numCommands)
+        
+        for (auto iter = mementos_.end() - 1; iter >= mementos_.begin() + numCommands; iter--)
         {
-            mementos_.push_back(new_memento);
+            delete *iter;
+            mementos_.pop_back();
         }
 
-        else
-        {
-            mementos_[numCommands] = new_memento;
-        }
+        mementos_.push_back(new_memento);
 
         max_forward = numCommands;
     }
