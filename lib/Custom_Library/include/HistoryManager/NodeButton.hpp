@@ -28,7 +28,7 @@ namespace CUST_SL
         HistoryManager::Node *node_ = nullptr;
         SL::Command<NodeButton *> *command_ = nullptr;
 
-        void clickLeftEvent();
+        void pressEvent();
         void moveMouseEvent    (const SL::Event &event) override;
         void scrollEvent       (const SL::Event &event) override;
     };

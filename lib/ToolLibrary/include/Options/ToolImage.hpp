@@ -17,17 +17,17 @@ namespace TOOL_SL
         ToolImage &operator=(const ToolImage &source) = default;
         ~ToolImage() {};
 
-        size_t getH() override;
+        booba::Vector2d getSize() const override;
 
-        size_t getW() override;
+        booba::Color getPixel(booba::Vector2d position) const override;
 
-        booba::Color getPixel(size_t x, size_t y) override;
+        void setPixel(booba::Vector2d position, booba::Color color) override;
 
-        void setPixel(size_t x, size_t y, booba::Color color) override;
+        virtual booba::Picture getPicture(booba::Vector2d position, booba::Vector2d shape) const override;
 
-        booba::Picture getPicture(size_t x, size_t y, size_t w, size_t h) override;
+        void setPicture(booba::Picture &pic, booba::Vector2d image_pos, booba::Vector2d pic_start, booba::Vector2d pic_end, bool applyAlpha) override;
 
-        void setPicture(booba::Picture &pic, size_t image_x, size_t image_y, size_t pic_start_x, size_t pic_start_y, size_t pic_end_x, size_t pic_end_y, bool applyAlpha) override;
+        void replaceWithPicture(booba::Picture &pic) override;
 
         void clean(const booba::Color &color = booba::Color::WHITE) override;
     

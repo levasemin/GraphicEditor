@@ -38,8 +38,8 @@ namespace CUST_SL
             
         protected:
             void moveMouseEvent(const SL::Event &event) override;
-            void clickLeftEvent(const SL::Event &event) override;
-            void releaseLeftEvent(const SL::Event &event) override;
+            void pressEvent(const SL::Event &event) override;
+            void releaseEvent(const SL::Event &event) override;
         
         private:
             SL::Command<const SL::Color&> *palette_command_ = nullptr;

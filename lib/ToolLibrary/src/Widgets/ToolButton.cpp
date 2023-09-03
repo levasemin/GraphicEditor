@@ -3,13 +3,13 @@
 
 namespace TOOL_SL
 {
-    ToolButton::ToolButton(SL::Vector2d shape, SL::Vector2d position) : 
-        SL::Button(shape, position)
+    ToolButton::ToolButton(SL::Button *button) : 
+        button_(button)
     {
-        SL::Button::setLeftClick        (dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<ToolButton>(this, &ToolButton::clickLeftEvent)));
-        SL::Button::setReleaseLeftClick (dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<ToolButton>(this, &ToolButton::releaseLeftEvent)));
-        SL::Button::setRightClick       (dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<ToolButton>(this, &ToolButton::clickRightEvent)));
-        SL::Button::setReleaseRightClick(dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<ToolButton>(this, &ToolButton::releaseRightEvent)));
+        button_->setLeftClick        (dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<ToolButton>(this, &ToolButton::clickLeftEvent)));
+        button_->setReleaseLeftClick (dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<ToolButton>(this, &ToolButton::releaseLeftEvent)));
+        button_->setRightClick       (dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<ToolButton>(this, &ToolButton::clickRightEvent)));
+        button_->setReleaseRightClick(dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<ToolButton>(this, &ToolButton::releaseRightEvent)));
     }
 
 
@@ -21,54 +21,35 @@ namespace TOOL_SL
         delete tool_right_release_command_;
     }
 
-    int ToolButton::getX()
+    booba::Vector2d ToolButton::getPosition() const
     {
-        return SL::Button::getPosition().x_;
+        return booba::Vector2d(button_->getPosition().x_, button_->getPosition().y_);
     }
 
-    void ToolButton::setX(int x)
+    void ToolButton::setPosition(booba::Vector2d position)
     {
-        SL::Button::setPosition(SL::Vector2d(static_cast<float>(x), SL::Button::getPosition().y_));
+        button_->setPosition(SL::Vector2d(position.x_, position.y_));
     }
 
-    int ToolButton::getY()
+    booba::Vector2d ToolButton::getShape() const
     {
-        return SL::Button::getPosition().y_;
+        return booba::Vector2d(button_->getShape().x_, button_->getShape().y_);
     }
 
-    void ToolButton::setY(int y)
+    void ToolButton::setShape(booba::Vector2d shape)
     {
-        SL::Button::setPosition(SL::Vector2d(SL::Button::getPosition().x_, static_cast<float>(y)));
+        button_->setShape(SL::Vector2d(shape.x_, shape.y_));
     }
 
-    int ToolButton::getW()
-    {
-        return SL::Button::getShape().x_;
-    }
-
-    void ToolButton::setW(int w)
-    {
-        SL::Button::setShape(SL::Vector2d(static_cast<float>(w), SL::Button::getShape().y_));
-    }
-
-    int ToolButton::getH()
-    {
-        return SL::Button::getShape().y_;
-    }
-
-    void ToolButton::setH(int h)
-    {
-        SL::Button::setShape(SL::Vector2d(SL::Button::getShape().x_, static_cast<float>(h)));
-    }
 
     void ToolButton::setColor(booba::Color color)
     {
-        SL::Button::setTexture(SL::Texture(SL::Color(color.r, color.g, color.b, color.a)));
+        button_->setTexture(SL::Texture(SL::Color(color.r, color.g, color.b, color.a)));
     }
 
     void ToolButton::setText(std::string text)
     {
-        SL::Button::setText(text);
+        button_->setText(text);
     }
 
     void ToolButton::setLeftClick (booba::Command<> *command)

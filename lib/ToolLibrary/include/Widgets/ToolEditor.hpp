@@ -7,27 +7,21 @@
 
 namespace TOOL_SL
 {
-    class ToolEditor : public SL::Editor, protected booba::Editor
+    class ToolEditor : public booba::Editor
     {
     public:
 
-        ToolEditor(SL::Vector2d shape, SL::Vector2d position);
+        ToolEditor(SL::Editor *editor);
 
         ToolEditor(const ToolEditor &source) = default;
         ToolEditor &operator=(const ToolEditor &source) = default;
         ~ToolEditor() override;
 
-        int getX() override;
-        void setX(int x) override;
+        booba::Vector2d getPosition() const override;
+        void setPosition(booba::Vector2d position) override;
         
-        int getY() override;
-        void setY(int y) override;
-
-        int getW() override;
-        void setW(int w) override;
-        
-        int getH() override;
-        void setH(int h) override;
+        booba::Vector2d getShape() const override;
+        void setShape(booba::Vector2d shape) override;
 
         void setColor(booba::Color color) override;
 
@@ -41,6 +35,7 @@ namespace TOOL_SL
         void textEvent(std::string text);
 
     private:
+        SL::Editor *editor_;
         booba::Command<std::string> *tool_editor_command_ = nullptr;
     };  
 }

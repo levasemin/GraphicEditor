@@ -125,7 +125,7 @@ namespace TOOL_SL
         SL::Button(shape, position, texture),
         tool_(tool)
     {
-        Button::setLeftClick(dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<PluginButton>(this, &PluginButton::clickLeftEvent)));
+        Button::setLeftClick(dynamic_cast<SL::Command<> *>(new SL::SimpleCommand<PluginButton>(this, &PluginButton::pressEvent)));
     }
 
     PluginButton::~PluginButton()
@@ -143,7 +143,7 @@ namespace TOOL_SL
         command_ = command;
     }
     
-    void PluginButton::clickLeftEvent()
+    void PluginButton::pressEvent()
     {
         if (command_)
         {

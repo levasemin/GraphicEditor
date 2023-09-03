@@ -5,26 +5,20 @@
 
 namespace TOOL_SL
 {
-    class ToolHorizontalScrollBar : public SL::HorizontalScrollBar, protected booba::ScrollBar 
+    class ToolHorizontalScrollBar : public booba::ScrollBar 
     {
     public:
-        ToolHorizontalScrollBar(SL::Vector2d shape, SL::Vector2d position, float min_value, float max_value);
+        ToolHorizontalScrollBar(SL::HorizontalScrollBar *scroll_bar);
 
         ToolHorizontalScrollBar(const ToolHorizontalScrollBar& source) = default;
         ToolHorizontalScrollBar &operator=(const ToolHorizontalScrollBar& source) = default;
         ~ToolHorizontalScrollBar();
 
-        int getX() override;
-        void setX(int x) override;
-            
-        int getY() override;
-        void setY(int y) override;
-
-        int getW() override;
-        void setW(int w) override;
-            
-        int getH() override;
-        void setH(int h) override;
+        booba::Vector2d getPosition() const override;
+        void setPosition(booba::Vector2d position) override;
+        
+        booba::Vector2d getShape() const override;
+        void setShape(booba::Vector2d shape) override;
 
         void setColor(booba::Color color) override;
         
@@ -41,6 +35,7 @@ namespace TOOL_SL
         booba::Command<float> *getCommand() override;
         
     private:
+        SL::HorizontalScrollBar *scroll_bar_;
         booba::Command<float> *tool_command_ = nullptr; 
 
         void ToolsetValue(float value);

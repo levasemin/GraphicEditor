@@ -17,8 +17,6 @@ FetchContent_Declare(
 FetchContent_GetProperties(PluginStandart)
 FetchContent_Populate(PluginStandart)
 
-include_directories(build/_deps/pluginstandart-src)
-
 FetchContent_Declare(
   glib
   GIT_REPOSITORY https://github.com/levasemin/Graphic-Library.git
@@ -29,8 +27,9 @@ FetchContent_GetProperties(glib)
 FetchContent_Populate(glib)
 
 add_subdirectory(lib/Custom_Library)
-add_subdirectory(lib/Custom_Library/ToolLibrary)
+add_subdirectory(lib/ToolLibrary)
 add_subdirectory(build/_deps/glib-src)
+add_subdirectory(build/_deps/pluginstandart-src)
 
 add_compile_options(-ldl -export-dynamic -lboost_system -lboost_date_time -lboost_thread -lboost_serialization -lsfml-graphics -lsfml-window -lsfml-system)
 add_executable(geditor src/GraphEditor/create_file_combobox.cpp
@@ -44,6 +43,6 @@ if(SFML_FOUND)
   target_link_libraries(geditor PUBLIC sfml-network sfml-audio sfml-graphics sfml-window sfml-system -ldl)
 endif()
 
-target_link_libraries(tool_lib PUBLIC glib)
+target_link_libraries(tool_lib PUBLIC glib standart_lib)
 target_link_libraries(glib_cust PUBLIC tool_lib)
 target_link_libraries(geditor PUBLIC glib_cust -ldl)

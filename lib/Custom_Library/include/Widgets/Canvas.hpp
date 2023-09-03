@@ -37,11 +37,8 @@ namespace CUST_SL
     protected:
         void moveMouseEvent(const SL::Event &event) override;
 
-        void clickLeftEvent(const SL::Event &event) override;
-        void releaseLeftEvent(const SL::Event &event) override;
-
-        void clickRightEvent(const SL::Event &event) override;
-        void releaseRightEvent(const SL::Event &event) override;
+        void pressEvent(const SL::Event &event) override;
+        void releaseEvent(const SL::Event &event) override;
 
         void pressKeyEvent(const SL::Event &event) override;
 

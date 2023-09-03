@@ -2,7 +2,6 @@
 
 #include "ToolEvent.hpp"
 
-#include "ToolColor.hpp"
 #include "ToolImage.hpp"
 
 #include "ToolManager.hpp"

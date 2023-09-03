@@ -19,7 +19,6 @@ int main()
     SL::MainWindow main_window(SL::Vector2d(SL::WIDTH, SL::HEIGHT), SL::Texture(back_ground_color));
 
     SL::TextureManager &texture_manager = SL::TextureManager::getInstance();
-    texture_manager.load_textures("../src/Textures");
     TOOL_SL::ToolManager::getInstance().loadPlugins("../Plugins_so/");
 
     SL::Image image(path_mountain);

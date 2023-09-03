@@ -6,7 +6,7 @@ namespace CUST_SL
 
     NodeButton::NodeButton(SL::Vector2d shape, SL::Vector2d position, SL::Texture texture) : SL::Button(shape, position, texture)
     {
-        SL::Button::setLeftClick((SL::Command<> *)new SL::SimpleCommand<NodeButton>(this, &NodeButton::clickLeftEvent));
+        SL::Button::setLeftClick((SL::Command<> *)new SL::SimpleCommand<NodeButton>(this, &NodeButton::pressEvent));
     }
 
     void NodeButton::set_node(HistoryManager::Node *node)
@@ -30,7 +30,7 @@ namespace CUST_SL
         return command_;
     }
 
-    void NodeButton::clickLeftEvent()
+    void NodeButton::pressEvent()
     {
         if (node_)
         {

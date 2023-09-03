@@ -13,7 +13,7 @@ namespace TOOL_SL
     public:
         WidgetCreator(booba::Tool *tool);
 
-        booba::Widget *createWidget(booba::WidgetCreator::Type type, int w, int h, int x, int y);
+        booba::Widget *createWidget(booba::WidgetCreator::Type type, booba::Vector2d shape, booba::Vector2d position);
     
     private:
         booba::Tool * tool_;

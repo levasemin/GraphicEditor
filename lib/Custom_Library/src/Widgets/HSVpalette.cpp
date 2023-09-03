@@ -144,29 +144,35 @@ namespace CUST_SL
         }
     }    
 
-    void HSVpalette::HSVfield::clickLeftEvent(const SL::Event &event)
+    void HSVpalette::HSVfield::pressEvent(const SL::Event &event)
     {
-        if (pointBelong(event.Oleg_.mpedata.pos))
+        if (event.Oleg_.mpedata.button == SL::Event::MouseButton::Left)
         {
-            clicked_ = true;
+            if (pointBelong(event.Oleg_.mpedata.pos))
+            {
+                clicked_ = true;
 
-            old_color_ = color_;
+                old_color_ = color_;
 
-            color_.set_s((event.Oleg_.mpedata.pos.x_ - getField().first.x_) / getShape().x_);
-            color_.set_v(1.f - (event.Oleg_.mpedata.pos.y_ - getField().first.y_) / getShape().y_);
-            
-            setColor(color_);
-        }
+                color_.set_s((event.Oleg_.mpedata.pos.x_ - getField().first.x_) / getShape().x_);
+                color_.set_v(1.f - (event.Oleg_.mpedata.pos.y_ - getField().first.y_) / getShape().y_);
+                
+                setColor(color_);
+            }
 
-        else
-        {
-            clicked_ = false;
+            else
+            {
+                clicked_ = false;
+            }
         }
     }
 
-    void HSVpalette::HSVfield::releaseLeftEvent(const SL::Event &event)
+    void HSVpalette::HSVfield::releaseEvent(const SL::Event &event)
     {
-        clicked_ = false;
+        if (event.Oleg_.mpedata.button == SL::Event::MouseButton::Left)
+        {
+            clicked_ = false;
+        }
     }
 
     void HSVpalette::HSVfield::setCommand(SL::Command<const SL::Color &> *command)

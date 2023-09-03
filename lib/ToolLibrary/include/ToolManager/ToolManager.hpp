@@ -67,6 +67,6 @@ namespace TOOL_SL
         booba::Tool *tool_;
         SL::Command<booba::Tool *> *command_;
 
-        void clickLeftEvent();
+        void pressEvent();
     };
 }

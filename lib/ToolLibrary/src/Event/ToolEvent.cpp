@@ -12,8 +12,8 @@ namespace TOOL_SL
             case SL::Event::MouseMoved:
             {
                 booba_event.type = booba::Event::MouseMoved;
-                booba_event.Oleg.motion.x = static_cast<int>(event.Oleg_.metion.pos.x_);
-                booba_event.Oleg.motion.y = static_cast<int>(event.Oleg_.metion.pos.y_);
+                booba_event.Oleg.motion.position.x_ = static_cast<int>(event.Oleg_.metion.pos.x_);
+                booba_event.Oleg.motion.position.y_ = static_cast<int>(event.Oleg_.metion.pos.y_);
 
                 break;
             }
@@ -21,8 +21,8 @@ namespace TOOL_SL
             case SL::Event::MousePressed:
             {
                 booba_event.type = booba::Event::MousePressed;
-                booba_event.Oleg.mpedata.x = static_cast<int>(event.Oleg_.mpedata.pos.x_);
-                booba_event.Oleg.mpedata.y = static_cast<int>(event.Oleg_.mpedata.pos.y_);
+                booba_event.Oleg.mpedata.position.x_ = static_cast<int>(event.Oleg_.mpedata.pos.x_);
+                booba_event.Oleg.mpedata.position.y_ = static_cast<int>(event.Oleg_.mpedata.pos.y_);
                 
                 booba_event.Oleg.mpedata.button = event.Oleg_.mpedata.button == SL::Event::MouseButton::Left ? booba::Event::MouseButton::Left : booba::Event::MouseButton::Right;
                 booba_event.Oleg.mpedata.alt    = event.Oleg_.mpedata.alt;
@@ -35,8 +35,8 @@ namespace TOOL_SL
             case SL::Event::MouseReleased:
             {
                 booba_event.type = booba::Event::MouseReleased;
-                booba_event.Oleg.mpedata.x = static_cast<int>(event.Oleg_.mredata.pos.x_);
-                booba_event.Oleg.mpedata.y = static_cast<int>(event.Oleg_.mredata.pos.y_);
+                booba_event.Oleg.mpedata.position.x_ = static_cast<int>(event.Oleg_.mredata.pos.x_);
+                booba_event.Oleg.mpedata.position.y_ = static_cast<int>(event.Oleg_.mredata.pos.y_);
                 
                 booba_event.Oleg.mpedata.button = static_cast<booba::Event::MouseButton>(event.Oleg_.mredata.button);
 

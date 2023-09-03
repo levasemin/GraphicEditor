@@ -6,26 +6,20 @@
 
 namespace TOOL_SL
 {
-    class ToolButton : public SL::Button, protected booba::Button
+    class ToolButton : public booba::Button
     {
     public:
-        ToolButton(SL::Vector2d shape, SL::Vector2d position);
+        ToolButton(SL::Button *button);
 
         ToolButton(const ToolButton &source) = default;
         ToolButton &operator= (const ToolButton &source) = default;
         ~ToolButton();
 
-        int getX() override;
-        void setX(int x) override;
+        booba::Vector2d getPosition() const override;
+        void setPosition(booba::Vector2d position) override;
         
-        int getY() override;
-        void setY(int y) override;
-
-        int getW() override;
-        void setW(int w) override;
-        
-        int getH() override;
-        void setH(int h) override;
+        booba::Vector2d getShape() const override;
+        void setShape(booba::Vector2d shape) override;
         
         void setColor(booba::Color color) override;
             
@@ -51,6 +45,8 @@ namespace TOOL_SL
         void releaseRightEvent ();
 
     private:
+        SL::Button *button_ = nullptr;
+
         booba::Command<> *tool_left_click_command_    = nullptr;
         booba::Command<> *tool_left_release_command_  = nullptr;
 

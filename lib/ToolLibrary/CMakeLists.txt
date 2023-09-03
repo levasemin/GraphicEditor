@@ -8,10 +8,8 @@ set(dirlist "")
 foreach(child ${children})
   if(IS_DIRECTORY ${curdir}/${child})
     list(APPEND dirlist ${child})
-    message(${child})
     endif()
 endforeach()
-
 
 
 add_library(tool_lib SHARED ${tool_lib_src} ${tool_lib_include})
